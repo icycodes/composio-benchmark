@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776356642.4130218,
+            "stop": 1776356642.842213
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_toolkits_log_exists",
+                "status": "passed",
+                "duration": 0.0001930129947140813,
+                "start": 1776356642.4172363,
+                "stop": 1776356642.4175324,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_toolkits_log_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.4192319260109798,
+                "start": 1776356642.4176226,
+                "stop": 1776356642.8421123,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_toolkits_log_content():\n        # Priority 1: Use CLI to verify\n        result = subprocess.run(\n            [\"composio\", \"toolkits\", \"list\", \"--connected\"],\n            capture_output=True, text=True\n        )\n>       assert result.returncode == 0, f\"composio toolkits list failed: {result.stderr}\"\nE       AssertionError: composio toolkits list failed: Invalid subcommand for composio - use one of 'version', 'upgrade', 'whoami', 'login', 'logout', 'run', 'proxy', 'artifacts', 'install', 'tools', 'triggers', 'search', 'link', 'execute', 'connections', 'generate', 'orgs', 'config', 'dev'\nE         \nE         Invalid subcommand for composio - use one of 'version', 'upgrade', 'whoami', 'login', 'logout', 'run', 'proxy', 'artifacts', 'install', 'tools', 'triggers', 'search', 'link', 'execute', 'connections', 'generate', 'orgs', 'config', 'dev'\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['composio', 'toolkits', 'list', '--connected'], returncode=1, stdout='', stderr=\"Invalid subcom...s', 'install', 'tools', 'triggers', 'search', 'link', 'execute', 'connections', 'generate', 'orgs', 'config', 'dev'\\n\").returncode\n\ntests/test_final_state.py:16: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

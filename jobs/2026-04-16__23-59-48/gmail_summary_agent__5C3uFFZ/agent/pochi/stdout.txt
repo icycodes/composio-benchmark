@@ -1,0 +1,307 @@
+- Initializing MCP connections...
+You
+# Summarize Slack Messages with AI Agent ## Background Composio allows agents to read and process data from Slack. In this task, you will use an AI agent to fetch recent messages from a Slack channel and summarize them. ## Requirements * Use the user `zealt-user01`. * Use OpenAI with Composio tools. * The agent should: 1. Find a Slack channel named `general` (or similar available). 2. Fetch the last 5 messages from that channel. 3. Summarize the messages into a single paragraph. 4. Post the summary back to the same channel. * Save the summary to `/home/user/summary.txt`. ## Implementation Guide 1. Initialize Composio and OpenAI. 2. Create a session for `zealt-user01`. 3. Get tools and pass them to the agent. 4. The agent should use `SLACK_CONVERSATIONS_HISTORY` and `SLACK_CHAT_POST_MESSAGE` (or similar tools found via `SEARCH_TOOLS`). ## Constraints * Project path: /home/user * Summary file: /home/user/summary.txt * User ID: `zealt-user01` ## Integrations * Composio * Slack * OpenAI   
+
+Pochi
+💭 Thinking for 90 characters   
+📂 Listing files in /home/user ✔ 
+💫 Executing pip show composio-openai composio-core openai 2>/dev/null | grep -E "^(Name|Version)" ; python3 -c "import composio; print(composio.__version__)" 2>/dev/null ✔ 
+💫 Executing composio whoami 2>/dev/null ; composio apps list 2>/dev/null | head -30 ✔ 
+💫 Executing python3 -c "
+from composio_openai import ComposioToolSet
+ts = ComposioToolSet(entity_id='zealt-user01')
+print('ToolSet created')
+tools = ts.get_tools(actions=['SLACK_CONVERSATIONS_HISTORY', 'SLACK_CHAT_POST_MESSAGE'])
+print('Tools:', [t.function.name for t in tools])
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "from composio.client import Composio; help(Composio)" 2>&1 | head -50 ✔ 
+💫 Executing python3 -c "import composio; print(dir(composio))" 2>&1
+python3 -c "import composio_openai; print(dir(composio_openai))" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+print(type(c))
+print(dir(c))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Check tools API
+print(type(c.tools))
+print(dir(c.tools))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+c = Composio()
+p = OpenAIProvider()
+print(type(p))
+print(dir(p))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# try to get tools for slack
+tools = c.tools.get(entity_id='zealt-user01', toolkits=['SLACK'])
+print(type(tools))
+print(tools[:3] if tools else 'empty')
+" 2>&1 | head -50 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+import inspect
+c = Composio()
+print(inspect.signature(c.tools.get))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+tools = c.tools.get('zealt-user01', toolkits=['SLACK'])
+print(type(tools))
+print(dir(tools))
+" 2>&1 | head -30 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+tools = c.tools.get('zealt-user01', toolkits=['SLACK'])
+print('Number of tools:', len(tools))
+for t in tools[:10]:
+    print(type(t), t)
+" 2>&1 | head -40 ✔ 
+Now I understand the API. Let me check what specific tools are needed and how the `OpenAIProvider` works:   
+💫 Executing python3 -c "
+from composio_openai import OpenAIProvider
+import inspect
+print(inspect.signature(OpenAIProvider.__init__))
+p = OpenAIProvider()
+print(inspect.signature(p.wrap_tools))
+print(inspect.signature(p.handle_tool_calls))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Check available tools with actions filter
+tools = c.tools.get('zealt-user01', tools=['SLACK_CONVERSATIONS_HISTORY', 'SLACK_CHAT_POST_MESSAGE', 'SLACK_LIST_ALL_CHANNELS'])
+print('Number of filtered tools:', len(tools))
+for t in tools:
+    print(t['function']['name'])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Search for history-related tools
+tools = c.tools.get('zealt-user01', search='conversations history')
+print('Number of search results:', len(tools))
+for t in tools:
+    print(t['function']['name'])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Get all slack tools and find history-related ones
+tools = c.tools.get('zealt-user01', toolkits=['SLACK'])
+for t in tools:
+    name = t['function']['name']
+    if 'HIST' in name or 'MESSAGE' in name or 'CHANNEL' in name or 'LIST' in name or 'CONVERS' in name:
+        print(name)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Get all slack tools - check total count and names
+tools = c.tools.get('zealt-user01', toolkits=['SLACK'], limit=100)
+print('Total:', len(tools))
+for t in tools:
+    print(t['function']['name'])
+" 2>&1 ✔ 
+I can see the relevant tools: `SLACK_FETCH_CONVERSATION_HISTORY`, `SLACK_FIND_CHANNELS`, and `SLACK_LIST_ALL_CHANNELS`. Now let me check the OpenAI setup and write the script:   
+💫 Executing python3 -c "
+from composio_openai import OpenAIProvider
+import inspect
+p = OpenAIProvider()
+# Check wrap_tools return
+from composio import Composio
+c = Composio()
+tools = c.tools.get('zealt-user01', tools=['SLACK_FIND_CHANNELS', 'SLACK_FETCH_CONVERSATION_HISTORY', 'SLACK_CHAT_POST_MESSAGE'])
+wrapped = p.wrap_tools(tools)
+print(type(wrapped))
+print(dir(wrapped))
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+from composio import Composio
+import inspect
+c = Composio()
+print(inspect.signature(c.tools.get))
+# Check get_raw_composio_tools
+print(inspect.signature(c.tools.get_raw_composio_tools))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+raw = c.tools.get_raw_composio_tools(tools=['SLACK_FIND_CHANNELS'])
+print(type(raw[0]))
+print(dir(raw[0]))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+c = Composio()
+p = OpenAIProvider()
+raw_tools = c.tools.get_raw_composio_tools(tools=['SLACK_FIND_CHANNELS'])
+wrapped = p.wrap_tools(raw_tools)
+print(type(wrapped))
+print(len(wrapped))
+print(type(wrapped[0]))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import inspect
+c = Composio()
+p = OpenAIProvider()
+# Check execute method
+print(inspect.signature(c.tools.execute))
+print(inspect.signature(p.handle_tool_calls))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio_openai import OpenAIProvider
+import inspect
+# Check set_execute_tool_fn
+p = OpenAIProvider()
+print(inspect.signature(p.set_execute_tool_fn))
+# Also check if there's a way to construct it with a tool executor
+src = inspect.getsource(p.handle_tool_calls)
+print(src)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio_openai import OpenAIProvider
+import inspect
+src = inspect.getsource(OpenAIProvider.execute_tool_call)
+print(src)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio_openai import OpenAIProvider
+import inspect
+src = inspect.getsource(OpenAIProvider)
+print(src[:3000])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio_openai import OpenAIProvider
+import inspect
+src = inspect.getsource(OpenAIProvider.__init__)
+print(src)
+" 2>&1 ; python3 -c "
+from composio.core.provider._openai import NonAgenticProvider
+import inspect
+src = inspect.getsource(NonAgenticProvider)
+print(src[:3000])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio.core.provider._openai import NonAgenticProvider
+import inspect
+# Find out execute_tool 
+src = inspect.getsource(NonAgenticProvider.__bases__[0])
+print(src[:4000])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import inspect
+# Check how Composio.use works with OpenAI provider
+src = inspect.getsource(Composio.use)
+print(src)
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+from composio import Composio
+import inspect
+c = Composio()
+src = inspect.getsource(c.use)
+print(src)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import inspect
+# Check the Composio SDK init - how provider gets injected 
+c = Composio()
+src = inspect.getsource(c.__class__.__init__)
+print(src)
+" 2>&1 ✔ 
+Now I have a complete understanding. Let me look at how to properly use the provider with Composio and write the complete agent:   
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import inspect
+
+# Correct way: pass provider to Composio and use tools.get with user_id
+p = OpenAIProvider()
+c = Composio(provider=p)
+
+# c.tools.get returns raw dicts (openai format), c.tools.get_raw_composio_tools returns Tool objects
+raw_tools = c.tools.get_raw_composio_tools(tools=['SLACK_FIND_CHANNELS', 'SLACK_FETCH_CONVERSATION_HISTORY', 'SLACK_CHAT_POST_MESSAGE'])
+openai_tools = p.wrap_tools(raw_tools)
+print('Got openai_tools:', len(openai_tools))
+print('Names:', [t['function']['name'] for t in openai_tools])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import inspect
+
+p = OpenAIProvider()
+c = Composio(provider=p)
+
+# Check execute
+print(inspect.signature(c.tools.execute))
+
+# How does execute_tool get set on provider?
+src = inspect.getsource(c.tools.__class__)
+print(src[:3000])
+" 2>&1 ✔ 
+Now I have a full understanding of the API. Let me also check how `c.tools.get` returns tools vs `get_raw_composio_tools`:   
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+
+p = OpenAIProvider()
+c = Composio(provider=p)
+
+# c.tools.get with user_id returns openai format tools directly
+tools = c.tools.get('zealt-user01', tools=['SLACK_FIND_CHANNELS', 'SLACK_FETCH_CONVERSATION_HISTORY', 'SLACK_CHAT_POST_MESSAGE'])
+print('Tools type:', type(tools))
+print('First tool type:', type(tools[0]))
+print('Names:', [t['function']['name'] for t in tools])
+" 2>&1 ✔ 
+Now I have everything I need. Let me write the complete agent script:   
+📋 Updating todo list (2 items) ✔ 
+✏️  Writing /home/user/slack_summarizer.py ✔ 
+📋 Updating todo list (2 items) ✔ 
+💫 Executing cd /home/user && python3 slack_summarizer.py 2>&1 ✔ 
+The script ran successfully. Let me verify the saved file:   
+💫 Executing cat /home/user/summary.txt ✔ 
+📋 Updating todo list (2 items) ✔ 
+🎉 Task Completed
+The Slack summarizer agent is complete and has run successfully.
+
+**Script:** `/home/user/slack_summarizer.py`
+**Summary file:** `/home/user/summary.txt`
+
+### What the script does
+1. Initialises `OpenAI` and `Composio` with `OpenAIProvider`, binding the entity `zealt-user01`.
+2. Loads three Composio tools in OpenAI function-calling format:
+   - `SLACK_FIND_CHANNELS` – discovers the `#general` channel ID
+   - `SLACK_FETCH_CONVERSATION_HISTORY` – retrieves the last 5 messages
+   - `SLACK_CHAT_POST_MESSAGE` – posts the summary back to the channel
+3. Runs an **agentic loop** — the GPT-4o model decides which tools to call; the loop executes them via `composio.provider.handle_tool_calls()` and feeds results back until the model produces a final text response.
+4. Saves the summary paragraph to `/home/user/summary.txt`.
+
+### Run output
+The agent:
+- Found the `#general` channel (`C0ASKR76NRK`)
+- Fetched 5 messages (join events + a greeting)
+- Posted the summary to the channel
+- Wrote the summary to disk:
+
+```
+Here is a quick summary of the latest activities in this channel: A user with ID U0ASWJJCB4L has recently joined the channel. Prior to that, a warm greeting was shared with a wave emoji by user U0ATHFHPBJ4. It seems to be a welcoming environment with users joining and engaging promptly in friendly greetings.
+```   
+  

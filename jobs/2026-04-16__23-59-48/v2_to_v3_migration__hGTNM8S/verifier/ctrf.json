@@ -1,0 +1,50 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776355607.7568576,
+            "stop": 1776355607.7673454
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_new_script_exists",
+                "status": "passed",
+                "duration": 0.0001891450010589324,
+                "start": 1776355607.7612865,
+                "stop": 1776355607.7615728,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_new_script_v3_syntax",
+                "status": "passed",
+                "duration": 0.00016062999929999933,
+                "start": 1776355607.7616637,
+                "stop": 1776355607.7618847,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00027263299853075296,
+                "start": 1776355607.7619815,
+                "stop": 1776355607.7672665,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_exists():\n>       assert os.path.isfile(LOG_FILE), \"Log file tools_v3.log not found.\"\nE       AssertionError: Log file tools_v3.log not found.\nE       assert False\nE        +  where False = <function isfile at 0x7fe00eef0220>('/home/user/tools_v3.log')\nE        +    where <function isfile at 0x7fe00eef0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:18: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

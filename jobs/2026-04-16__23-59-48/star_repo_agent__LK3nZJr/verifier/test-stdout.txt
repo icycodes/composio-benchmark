@@ -1,0 +1,101 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 14ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_repo_exists_and_starred _________________________
+
+    def test_repo_exists_and_starred():
+        trial_id = get_trial_id()
+        repo_name = f"zealt-user01/star-test-{trial_id}"
+    
+        # Check if repo exists
+        result = subprocess.run(
+            ["gh", "repo", "view", repo_name, "--json", "isStargazer"],
+            capture_output=True, text=True
+        )
+>       assert result.returncode == 0, f"gh repo view failed: {result.stderr}"
+E       AssertionError: gh repo view failed: Unknown JSON field: "isStargazer"
+E         Available fields:
+E           archivedAt
+E           assignableUsers
+E           codeOfConduct
+E           contactLinks
+E           createdAt
+E           defaultBranchRef
+E           deleteBranchOnMerge
+E           description
+E           diskUsage
+E           forkCount
+E           fundingLinks
+E           hasDiscussionsEnabled
+E           hasIssuesEnabled
+E           hasProjectsEnabled
+E           hasWikiEnabled
+E           homepageUrl
+E           id
+E           isArchived
+E           isBlankIssuesEnabled
+E           isEmpty
+E           isFork
+E           isInOrganization
+E           isMirror
+E           isPrivate
+E           isSecurityPolicyEnabled
+E           isTemplate
+E           isUserConfigurationRepository
+E           issueTemplates
+E           issues
+E           labels
+E           languages
+E           latestRelease
+E           licenseInfo
+E           mentionableUsers
+E           mergeCommitAllowed
+E           milestones
+E           mirrorUrl
+E           name
+E           nameWithOwner
+E           openGraphImageUrl
+E           owner
+E           parent
+E           primaryLanguage
+E           projects
+E           projectsV2
+E           pullRequestTemplates
+E           pullRequests
+E           pushedAt
+E           rebaseMergeAllowed
+E           repositoryTopics
+E           securityPolicyUrl
+E           squashMergeAllowed
+E           sshUrl
+E           stargazerCount
+E           templateRepository
+E           updatedAt
+E           url
+E           usesCustomOpenGraphImage
+E           viewerCanAdminister
+E           viewerDefaultCommitEmail
+E           viewerDefaultMergeMethod
+E           viewerHasStarred
+E           viewerPermission
+E           viewerPossibleCommitEmails
+E           viewerSubscription
+E           visibility
+E           watchers
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['gh', 'repo', 'view', 'zealt-user01/star-test-star_repo_agent__LK3nZJr', '--json', 'isStargazer... viewerHasStarred\n  viewerPermission\n  viewerPossibleCommitEmails\n  viewerSubscription\n  visibility\n  watchers\n').returncode
+
+tests/test_final_state.py:19: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_repo_exists_and_starred - AssertionErr...
+============================== 1 failed in 0.02s ===============================

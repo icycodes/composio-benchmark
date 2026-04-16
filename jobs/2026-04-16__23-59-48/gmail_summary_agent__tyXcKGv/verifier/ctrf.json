@@ -1,0 +1,42 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 1,
+            "pending": 0,
+            "other": 0,
+            "start": 1776356639.4231527,
+            "stop": 1776356639.8799782
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_summary_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002891939948312938,
+                "start": 1776356639.4280324,
+                "stop": 1776356639.4334137,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_file_exists():\n>       assert os.path.isfile(\"/home/user/summary.txt\"), \"Summary file not found.\"\nE       AssertionError: Summary file not found.\nE       assert False\nE        +  where False = <function isfile at 0x7f9499e4c220>('/home/user/summary.txt')\nE        +    where <function isfile at 0x7f9499e4c220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:7: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_slack_message_posted",
+                "status": "skipped",
+                "duration": 0.4460266000023694,
+                "start": 1776356639.4335144,
+                "stop": 1776356639.879815,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "('/tests/test_final_state.py', 27, 'Skipped: General channel not found, skipping message verification.')"
+            }
+        ]
+    }
+}

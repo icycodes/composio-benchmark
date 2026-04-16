@@ -1,0 +1,53 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 1,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776355793.4966812,
+            "stop": 1776355793.5083644
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_new_script_exists",
+                "status": "passed",
+                "duration": 0.0002056239900412038,
+                "start": 1776355793.5012472,
+                "stop": 1776355793.501558,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_new_script_v3_syntax",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003477159916656092,
+                "start": 1776355793.501653,
+                "stop": 1776355793.5071244,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_new_script_v3_syntax():\n        with open(NEW_SCRIPT, \"r\") as f:\n            content = f.read()\n>       assert \"actions()\" not in content, \"The new script still contains 'actions()'.\"\nE       AssertionError: The new script still contains 'actions()'.\nE       assert 'actions()' not in 'from compos...ols_v3.log\")'\nE         \nE         'actions()' is contained here:\nE           f session.actions()\nE           tools = session.tools()\nE           print(f\"Tools: {len(tools)}\")\nE           \nE           # v3: Sessions are immutable, so create a new session instead of updating...\nE         \nE         ...Full output truncated (16 lines hidden), use '-vv' to show\n\ntests/test_final_state.py:13: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00026685000193538144,
+                "start": 1776355793.5072784,
+                "stop": 1776355793.508281,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_log_file_exists():\n>       assert os.path.isfile(LOG_FILE), \"Log file tools_v3.log not found.\"\nE       AssertionError: Log file tools_v3.log not found.\nE       assert False\nE        +  where False = <function isfile at 0x7f67e6114220>('/home/user/tools_v3.log')\nE        +    where <function isfile at 0x7f67e6114220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:18: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

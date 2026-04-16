@@ -1,0 +1,38 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776357764.7661877,
+            "stop": 1776357764.7702458
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_auth_url_log_exists",
+                "status": "passed",
+                "duration": 0.00019005398644367233,
+                "start": 1776357764.7695842,
+                "stop": 1776357764.7698731,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_auth_url_content",
+                "status": "passed",
+                "duration": 0.00015977199655026197,
+                "start": 1776357764.7699654,
+                "stop": 1776357764.7701812,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

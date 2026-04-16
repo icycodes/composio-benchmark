@@ -1,0 +1,48 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 13ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py .FF                                            [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_new_script_v3_syntax ___________________________
+
+    def test_new_script_v3_syntax():
+        with open(NEW_SCRIPT, "r") as f:
+            content = f.read()
+>       assert "actions()" not in content, "The new script still contains 'actions()'."
+E       AssertionError: The new script still contains 'actions()'.
+E       assert 'actions()' not in 'from compos...ols_v3.log")'
+E         
+E         'actions()' is contained here:
+E           f session.actions()
+E           tools = session.tools()
+E           print(f"Tools: {len(tools)}")
+E           
+E           # v3: Sessions are immutable, so create a new session instead of updating...
+E         
+E         ...Full output truncated (16 lines hidden), use '-vv' to show
+
+tests/test_final_state.py:13: AssertionError
+_____________________________ test_log_file_exists _____________________________
+
+    def test_log_file_exists():
+>       assert os.path.isfile(LOG_FILE), "Log file tools_v3.log not found."
+E       AssertionError: Log file tools_v3.log not found.
+E       assert False
+E        +  where False = <function isfile at 0x7f67e6114220>('/home/user/tools_v3.log')
+E        +    where <function isfile at 0x7f67e6114220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:18: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_new_script_exists
+FAILED tests/test_final_state.py::test_new_script_v3_syntax - AssertionError:...
+FAILED tests/test_final_state.py::test_log_file_exists - AssertionError: Log ...
+========================= 2 failed, 1 passed in 0.01s ==========================

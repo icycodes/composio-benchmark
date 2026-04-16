@@ -1,0 +1,39 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 0,
+            "skipped": 1,
+            "pending": 0,
+            "other": 0,
+            "start": 1776356603.1063817,
+            "stop": 1776356603.5235748
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_summary_file_exists",
+                "status": "passed",
+                "duration": 0.0002279069958603941,
+                "start": 1776356603.1113696,
+                "stop": 1776356603.111707,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_slack_message_posted",
+                "status": "skipped",
+                "duration": 0.4107332019993919,
+                "start": 1776356603.1118047,
+                "stop": 1776356603.5231602,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "('/tests/test_final_state.py', 27, 'Skipped: General channel not found, skipping message verification.')"
+            }
+        ]
+    }
+}

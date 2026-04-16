@@ -1,0 +1,558 @@
+- Initializing MCP connections...
+You
+# Process CSV with Composio Workbench ## Background Composio's Workbench is a persistent Python sandbox for bulk data processing. In this task, you will use the Workbench to process a CSV file and upload the result. ## Requirements * Create a CSV file `/home/user/data.csv` with columns `name` and `age`. Add 5 rows of data. * Use the user `zealt-user01`. * Use the `COMPOSIO_REMOTE_WORKBENCH` meta tool (or the `Workbench` class) to: 1. Upload `data.csv` to the remote sandbox. 2. Execute Python code in the sandbox to calculate the average age. 3. Save the result to a new file `result.txt` in the sandbox. 4. Download `result.txt` from the sandbox to `/home/user/result.txt`. * Save the average age to `/home/user/avg_age.log`. ## Implementation Guide 1. Initialize Composio and create a session for `zealt-user01`. 2. Use the `session.workbench` methods or the `COMPOSIO_REMOTE_WORKBENCH` tool. 3. Ensure you follow the correct sequence of operations: upload, execute, download. ## Constraints * Project path: /home/user * Input: /home/user/data.csv * Output: /home/user/result.txt * User ID: `zealt-user01` ## Integrations * Composio   
+
+Pochi
+💭 Thinking for 161 characters   
+📋 Updating todo list (3 items) ✔ 
+📂 Listing files in /home ✔ 
+📂 Listing files in /home/user ✔ 
+💭 Thinking for 0 characters   
+✏️  Writing /home/user/data.csv ✔ 
+💭 Thinking for 173 characters   
+💫 Executing python - <<'PY'
+from composio import Composio
+from composio.tools import Workbench
+
+composio = Composio()
+session = composio.sessions.create(user_id="zealt-user01")
+wb = session.workbench
+
+# upload
+wb.upload_file("/home/user/data.csv", remote_path="data.csv")
+
+code = """
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+avg_age = df['age'].mean()
+with open('result.txt', 'w') as f:
+    f.write(str(avg_age))
+"""
+wb.exec(code)
+
+# download
+wb.download_file("result.txt", local_path="/home/user/result.txt")
+PY ✖ "Command exited with code 127"
+💭 Thinking for 0 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+from composio.tools import Workbench
+
+composio = Composio()
+session = composio.sessions.create(user_id="zealt-user01")
+wb = session.workbench
+
+wb.upload_file("/home/user/data.csv", remote_path="data.csv")
+
+code = """
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+avg_age = df['age'].mean()
+with open('result.txt', 'w') as f:
+    f.write(str(avg_age))
+"""
+wb.exec(code)
+
+wb.download_file("result.txt", local_path="/home/user/result.txt")
+PY ✖ "Command exited with code 1"
+💭 Thinking for 0 characters   
+💫 Executing python3 - <<'PY'
+import composio
+print(composio.__version__)
+print(dir(composio))
+PY ✔ 
+💭 Thinking for 135 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import inspect
+
+composio = Composio()
+print([name for name in dir(composio) if 'workbench' in name.lower()])
+print([name for name in dir(composio) if 'session' in name.lower()])
+print(composio.sessions)
+print(dir(composio.sessions))
+PY ✖ "Command exited with code 1"
+💭 Thinking for 200 characters   
+💫 Executing python3 - <<'PY'
+import composio
+from composio import Composio
+import inspect
+
+print(Composio)
+print([name for name in dir(Composio) if 'session' in name.lower()])
+print([name for name in dir(Composio) if 'workbench' in name.lower()])
+
+composio_client = Composio()
+print([name for name in dir(composio_client) if 'tool' in name.lower()])
+print([name for name in dir(composio_client) if 'execute' in name.lower()])
+PY ✔ 
+💭 Thinking for 253 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+
+composio = Composio()
+print(composio.toolkits)
+print([t for t in composio.toolkits.list()][:20])
+PY ✔ 
+💭 Thinking for 0 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+
+composio = Composio()
+all_tools = composio.tools.list()
+print(type(all_tools))
+# find workbench tools
+matches = [tool for tool in all_tools if 'workbench' in tool.slug.lower() or 'workbench' in tool.name.lower()]
+print('matches', len(matches))
+for tool in matches[:20]:
+    print(tool.slug, tool.name)
+PY ✖ "Command exited with code 1"
+💭 Thinking for 0 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+
+composio = Composio()
+print(composio.tools)
+print(dir(composio.tools))
+PY ✔ 
+💭 Thinking for 0 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+
+composio = Composio()
+meta_tools = composio.tools.get_raw_tool_router_meta_tools()
+print('meta_tools', len(meta_tools))
+for tool in meta_tools:
+    if 'workbench' in tool['name'].lower() or 'workbench' in tool.get('slug','').lower():
+        print(tool)
+PY ✖ "Command exited with code 1"
+💭 Thinking for 256 characters   
+💫 Executing python3 - <<'PY'
+from composio import SessionContext
+import inspect
+print(SessionContext)
+print(inspect.signature(SessionContext))
+PY ✔ 
+💭 Thinking for 0 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+
+composio = Composio()
+print(composio.tool_router)
+print(dir(composio.tool_router))
+PY ✔ 
+💭 Thinking for 142 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import inspect
+
+composio = Composio()
+print(inspect.signature(composio.tool_router.create))
+print(inspect.getdoc(composio.tool_router.create))
+PY ✔ 
+💭 Thinking for 0 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+
+composio = Composio()
+session = composio.tool_router.create(user_id="zealt-user01")
+
+tools = session.tools()
+# tools is dict? print keys
+print(type(tools))
+print(list(tools.keys())[:20])
+
+# find workbench tool name
+for key in tools.keys():
+    if 'WORKBENCH' in key or 'workbench' in key.lower():
+        print('tool', key)
+PY ✖ "Command exited with code 1"
+💭 Thinking for 0 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+
+composio = Composio()
+session = composio.tool_router.create(user_id="zealt-user01")
+
+tools = session.tools()
+print(len(tools))
+print(tools[:20])
+
+for tool in tools:
+    if 'WORKBENCH' in tool['name'] or 'workbench' in tool['name'].lower():
+        print('workbench', tool)
+PY ✖ "Command exited with code 1"
+💭 Thinking for 196 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import inspect
+
+composio = Composio()
+session = composio.tool_router.create(user_id="zealt-user01")
+print(session)
+print(dir(session))
+print([name for name in dir(session) if 'execute' in name.lower()])
+print(inspect.signature(session.execute))
+PY ✔ 
+💭 Thinking for 373 characters   
+💭 Thinking for 265 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import inspect
+
+composio = Composio()
+print(composio.tools._file_helper)
+print(dir(composio.tools._file_helper))
+print(inspect.signature(composio.tools._file_helper.upload_file))
+print(inspect.getdoc(composio.tools._file_helper.upload_file))
+PY ✖ "Command exited with code 1"
+💭 Thinking for 359 characters   
+💭 Thinking for 340 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import inspect
+
+composio = Composio()
+session = composio.tool_router.create(user_id="zealt-user01")
+
+print(inspect.getdoc(session.execute))
+PY ✔ 
+💭 Thinking for 303 characters   
+💭 Thinking for 302 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+
+# Read local CSV content
+with open('/home/user/data.csv', 'r') as f:
+    csv_content = f.read()
+
+composio = Composio()
+session = composio.tool_router.create(user_id="zealt-user01")
+
+# Upload CSV content to remote sandbox
+upload_code = f"""
+from pathlib import Path
+csv_content = {csv_content!r}
+Path('/home/user/data.csv').write_text(csv_content)
+"""
+resp = session.execute("COMPOSIO_REMOTE_WORKBENCH", arguments={
+    "code_to_execute": upload_code,
+    "thought": "Upload CSV content to the workbench sandbox so it can be processed."
+})
+if resp.error:
+    raise SystemExit(f"Upload error: {resp.error}")
+
+# Process CSV in remote sandbox and write result.txt
+process_code = """
+import pandas as pd
+
+df = pd.read_csv('/home/user/data.csv')
+avg_age = df['age'].mean()
+with open('/home/user/result.txt', 'w') as f:
+    f.write(str(avg_age))
+"""
+resp = session.execute("COMPOSIO_REMOTE_WORKBENCH", arguments={
+    "code_to_execute": process_code,
+    "thought": "Compute average age from CSV and write result.txt in sandbox."
+})
+if resp.error:
+    raise SystemExit(f"Process error: {resp.error}")
+
+# Read result.txt from sandbox
+resp = session.execute("COMPOSIO_REMOTE_BASH_TOOL", arguments={
+    "command": "cat /home/user/result.txt"
+})
+if resp.error:
+    raise SystemExit(f"Download error: {resp.error}")
+
+print(resp.data)
+PY ✖ "Command exited with code 1"
+💭 Thinking for 268 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import inspect
+
+composio = Composio()
+session = composio.tool_router.create(user_id="zealt-user01")
+print(session.mcp)
+print(dir(session.mcp))
+PY ✔ 
+💭 Thinking for 311 characters   
+💫 Executing python3 - <<'PY'
+import pkgutil
+import composio
+
+mods = [m.name for m in pkgutil.walk_packages(composio.__path__, composio.__name__ + ".")]
+workbench_mods = [m for m in mods if 'workbench' in m.lower()]
+print(workbench_mods[:50])
+PY ✔ 
+💭 Thinking for 290 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import inspect
+
+composio = Composio()
+print(inspect.signature(composio.tools.execute))
+print(inspect.getdoc(composio.tools.execute))
+PY ✔ 
+💭 Thinking for 264 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import json
+
+composio = Composio()
+search_resp = composio.tools.execute(
+    "COMPOSIO_SEARCH_TOOLS",
+    arguments={
+        "queries": [{"use_case": "use remote workbench to process a csv file"}],
+        "session": {"generate_id": True},
+    },
+    user_id="zealt-user01",
+)
+
+print("search keys", search_resp.keys())
+print("search_resp", json.dumps(search_resp, indent=2)[:1000])
+PY ✖ "Command exited with code 1"
+💭 Thinking for 183 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import json
+
+composio = Composio()
+search_resp = composio.tools.execute(
+    "COMPOSIO_SEARCH_TOOLS",
+    arguments={
+        "queries": [{"use_case": "use remote workbench to process a csv file"}],
+        "session": {"generate_id": True},
+    },
+    user_id="zealt-user01",
+    dangerously_skip_version_check=True,
+)
+
+print(type(search_resp))
+print(search_resp.keys())
+print(json.dumps(search_resp, indent=2)[:1000])
+PY ✔ 
+💭 Thinking for 272 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import json
+
+composio = Composio()
+search_resp = composio.tools.execute(
+    "COMPOSIO_SEARCH_TOOLS",
+    arguments={
+        "queries": [{"use_case": "use composio remote workbench tool"}],
+        "session": {"generate_id": True},
+    },
+    user_id="zealt-user01",
+    dangerously_skip_version_check=True,
+)
+
+print(json.dumps(search_resp, indent=2)[:2000])
+PY ✔ 
+💭 Thinking for 295 characters   
+💭 Thinking for 265 characters   
+💫 Executing python3 - <<'PY'
+from composio import RemoteFile
+import inspect
+
+print(RemoteFile)
+print(inspect.signature(RemoteFile))
+print(inspect.getdoc(RemoteFile))
+PY ✔ 
+💭 Thinking for 159 characters   
+💫 Executing python3 - <<'PY'
+import composio.core.models.tool_router_session_files as tr_files
+import inspect
+print(dir(tr_files))
+PY ✔ 
+💭 Thinking for 0 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import inspect
+
+composio = Composio()
+session = composio.tool_router.create(user_id="zealt-user01")
+
+print([name for name in dir(session) if 'file' in name.lower()])
+PY ✔ 
+💭 Thinking for 300 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import json
+
+composio = Composio()
+search_resp = composio.tools.execute(
+    "COMPOSIO_SEARCH_TOOLS",
+    arguments={
+        "queries": [{"use_case": "create a remote workbench session"}],
+        "session": {"generate_id": True},
+    },
+    user_id="zealt-user01",
+    dangerously_skip_version_check=True,
+)
+
+print(json.dumps(search_resp, indent=2)[:1500])
+PY ✔ 
+💭 Thinking for 174 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+
+composio = Composio()
+search_resp = composio.tools.execute(
+    "COMPOSIO_SEARCH_TOOLS",
+    arguments={
+        "queries": [{"use_case": "use remote workbench tool"}],
+        "session": {"generate_id": True},
+    },
+    user_id="zealt-user01",
+    dangerously_skip_version_check=True,
+)
+
+print('session_id', search_resp.get('data', {}).get('session_id'))
+print(search_resp.get('data', {}).keys())
+PY ✔ 
+💭 Thinking for 113 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+import json
+
+composio = Composio()
+search_resp = composio.tools.execute(
+    "COMPOSIO_SEARCH_TOOLS",
+    arguments={
+        "queries": [{"use_case": "use remote workbench tool"}],
+        "session": {"generate_id": True},
+    },
+    user_id="zealt-user01",
+    dangerously_skip_version_check=True,
+)
+
+print(json.dumps(search_resp.get('data', {}).get('session'), indent=2))
+PY ✔ 
+💭 Thinking for 0 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+
+composio = Composio()
+search_resp = composio.tools.execute(
+    "COMPOSIO_SEARCH_TOOLS",
+    arguments={
+        "queries": [{"use_case": "process a csv in remote workbench"}],
+        "session": {"generate_id": True},
+    },
+    user_id="zealt-user01",
+    dangerously_skip_version_check=True,
+)
+
+session_id = search_resp.get('data', {}).get('session', {}).get('id')
+print('session_id', session_id)
+
+code = """
+from pathlib import Path
+Path('/home/user/hello.txt').write_text('hi')
+"""
+resp = composio.tools.execute(
+    "COMPOSIO_REMOTE_WORKBENCH",
+    arguments={
+        "code_to_execute": code,
+        "session_id": session_id,
+        "thought": "write a test file in the sandbox"
+    },
+    user_id="zealt-user01",
+    dangerously_skip_version_check=True,
+)
+
+print(resp)
+PY ✔ 
+💭 Thinking for 262 characters   
+💫 Executing python3 - <<'PY'
+from composio import Composio
+
+# Read local CSV content
+with open('/home/user/data.csv', 'r') as f:
+    csv_content = f.read()
+
+composio = Composio()
+search_resp = composio.tools.execute(
+    "COMPOSIO_SEARCH_TOOLS",
+    arguments={
+        "queries": [{"use_case": "process a csv in composio remote workbench"}],
+        "session": {"generate_id": True},
+    },
+    user_id="zealt-user01",
+    dangerously_skip_version_check=True,
+)
+
+session_id = search_resp.get('data', {}).get('session', {}).get('id')
+if not session_id:
+    raise SystemExit("Missing session_id from COMPOSIO_SEARCH_TOOLS")
+
+# Upload CSV content to remote sandbox
+upload_code = f"""
+from pathlib import Path
+csv_content = {csv_content!r}
+Path('/home/user/data.csv').write_text(csv_content)
+"""
+resp = composio.tools.execute(
+    "COMPOSIO_REMOTE_WORKBENCH",
+    arguments={
+        "code_to_execute": upload_code,
+        "session_id": session_id,
+        "thought": "Upload CSV content to the workbench sandbox so it can be processed."
+    },
+    user_id="zealt-user01",
+    dangerously_skip_version_check=True,
+)
+if resp.get('error'):
+    raise SystemExit(f"Upload error: {resp['error']}")
+
+# Process CSV in remote sandbox and write result.txt
+process_code = """
+import pandas as pd
+
+df = pd.read_csv('/home/user/data.csv')
+avg_age = df['age'].mean()
+with open('/home/user/result.txt', 'w') as f:
+    f.write(str(avg_age))
+"""
+resp = composio.tools.execute(
+    "COMPOSIO_REMOTE_WORKBENCH",
+    arguments={
+        "code_to_execute": process_code,
+        "session_id": session_id,
+        "thought": "Compute average age from CSV and write result.txt in sandbox."
+    },
+    user_id="zealt-user01",
+    dangerously_skip_version_check=True,
+)
+if resp.get('error'):
+    raise SystemExit(f"Process error: {resp['error']}")
+
+# Read result.txt from sandbox
+resp = composio.tools.execute(
+    "COMPOSIO_REMOTE_BASH_TOOL",
+    arguments={
+        "command": "cat /home/user/result.txt",
+        "session_id": session_id,
+    },
+    user_id="zealt-user01",
+    dangerously_skip_version_check=True,
+)
+if resp.get('error'):
+    raise SystemExit(f"Download error: {resp['error']}")
+
+print(resp.get('data'))
+PY ✔ 
+💭 Thinking for 184 characters   
+✏️  Writing /home/user/result.txt ✔ 
+✏️  Writing /home/user/avg_age.log ✔ 
+💭 Thinking for 0 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 0 characters   
+🎉 Task Completed
+Created /home/user/data.csv, processed it in Composio Remote Workbench for user zealt-user01, and saved the average age. Output files: /home/user/result.txt and /home/user/avg_age.log (average age = 32.0).   
+  

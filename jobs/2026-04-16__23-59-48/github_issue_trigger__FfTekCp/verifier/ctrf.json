@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776358387.5819662,
+            "stop": 1776358387.591599
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_triggers_log_exists",
+                "status": "passed",
+                "duration": 0.00019725500169442967,
+                "start": 1776358387.5858002,
+                "stop": 1776358387.586101,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_trigger_is_active",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00027184299688087776,
+                "start": 1776358387.5861955,
+                "stop": 1776358387.5915155,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_trigger_is_active():\n        trial_id = get_trial_id()\n        repo_name = f\"star-test-{trial_id}\"\n    \n        with open(\"/home/user/triggers.log\", \"r\") as f:\n            content = f.read()\n    \n        # Check if the log contains the repo name and 'active' status\n>       assert repo_name in content, f\"Trigger for repository {repo_name} not found in log.\"\nE       AssertionError: Trigger for repository star-test-github_issue_trigger__FfTekCp not found in log.\nE       assert 'star-test-github_issue_trigger__FfTekCp' in '[\\n  {\\n    \"trigger_name\": \"GITHUB_ISSUE_ADDED_EVENT\",\\n    \"id\": \"ti_2YQNP6sjxGR8\",\\n    \"connected_account_id\": \"1...ED_TRIGGER\",\\n    \"id\": \"ti_tfoxAL0EyGhz\",\\n    \"connected_account_id\": \"d108e52d-d67f-45e1-b41f-3acfc4b9562a\"\\n  }\\n]'\n\ntests/test_final_state.py:21: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

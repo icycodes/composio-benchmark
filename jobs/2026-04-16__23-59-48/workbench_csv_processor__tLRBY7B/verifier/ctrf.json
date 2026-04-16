@@ -1,0 +1,50 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776358780.847444,
+            "stop": 1776358780.8575125
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_data_file_exists",
+                "status": "passed",
+                "duration": 0.0001987710056710057,
+                "start": 1776358780.8516834,
+                "stop": 1776358780.8519835,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_exists",
+                "status": "passed",
+                "duration": 0.00014284699864219874,
+                "start": 1776358780.8520765,
+                "stop": 1776358780.8522787,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_correct",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00023941900144563988,
+                "start": 1776358780.8523586,
+                "stop": 1776358780.8574338,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_is_correct():\n        # Read data and calculate expected avg age\n>       import pandas as pd\nE       ModuleNotFoundError: No module named 'pandas'\n\ntests/test_final_state.py:15: ModuleNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

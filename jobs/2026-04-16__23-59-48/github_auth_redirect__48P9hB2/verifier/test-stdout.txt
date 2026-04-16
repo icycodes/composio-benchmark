@@ -1,0 +1,27 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 13ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_auth_url_content _____________________________
+
+    def test_auth_url_content():
+        with open(LOG_FILE, "r") as f:
+            content = f.read()
+>       assert "https://" in content, "The log file does not contain a valid redirect URL."
+E       AssertionError: The log file does not contain a valid redirect URL.
+E       assert 'https://' in 'Error: BadRequestError: 400 {"error":{"message":"Auth config not found","code":302,"slug":"Auth_Config_NotFound","sta...87d1-6422a8669f84\',\n      suggested_fix: \'\'\n    }\n  },\n  errorId: \'9e9f8244-f454-496e-a882-28ad1f852c18\'\n}\n'
+
+tests/test_final_state.py:13: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_auth_url_log_exists
+FAILED tests/test_final_state.py::test_auth_url_content - AssertionError: The...
+========================= 1 failed, 1 passed in 0.01s ==========================

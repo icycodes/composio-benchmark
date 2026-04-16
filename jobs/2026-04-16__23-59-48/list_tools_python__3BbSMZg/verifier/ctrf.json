@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776356408.79248,
+            "stop": 1776356408.8044329
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00028658699011430144,
+                "start": 1776356408.7970936,
+                "stop": 1776356408.8024144,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_exists():\n>       assert os.path.isfile(SCRIPT_FILE), f\"Script file {SCRIPT_FILE} not found.\"\nE       AssertionError: Script file /home/user/list_tools.py not found.\nE       assert False\nE        +  where False = <function isfile at 0x7f4615914220>('/home/user/list_tools.py')\nE        +    where <function isfile at 0x7f4615914220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:9: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_log_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00022590000298805535,
+                "start": 1776356408.8025193,
+                "stop": 1776356408.8034253,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_log_exists():\n>       assert os.path.isfile(LOG_FILE), f\"Log file {LOG_FILE} not found.\"\nE       AssertionError: Log file /home/user/output.log not found.\nE       assert False\nE        +  where False = <function isfile at 0x7f4615914220>('/home/user/output.log')\nE        +    where <function isfile at 0x7f4615914220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:12: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_contains_tools",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0001665070085437037,
+                "start": 1776356408.803514,
+                "stop": 1776356408.8043325,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_contains_tools():\n>       with open(LOG_FILE, \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/output.log'\n\ntests/test_final_state.py:15: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

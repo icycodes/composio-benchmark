@@ -1,0 +1,32 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 3ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_trigger_is_active ____________________________
+
+    def test_trigger_is_active():
+        trial_id = get_trial_id()
+        repo_name = f"star-test-{trial_id}"
+    
+        with open("/home/user/triggers.log", "r") as f:
+            content = f.read()
+    
+        # Check if the log contains the repo name and 'active' status
+>       assert repo_name in content, f"Trigger for repository {repo_name} not found in log."
+E       AssertionError: Trigger for repository star-test-github_issue_trigger__FfTekCp not found in log.
+E       assert 'star-test-github_issue_trigger__FfTekCp' in '[\n  {\n    "trigger_name": "GITHUB_ISSUE_ADDED_EVENT",\n    "id": "ti_2YQNP6sjxGR8",\n    "connected_account_id": "1...ED_TRIGGER",\n    "id": "ti_tfoxAL0EyGhz",\n    "connected_account_id": "d108e52d-d67f-45e1-b41f-3acfc4b9562a"\n  }\n]'
+
+tests/test_final_state.py:21: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_triggers_log_exists
+FAILED tests/test_final_state.py::test_trigger_is_active - AssertionError: Tr...
+========================= 1 failed, 1 passed in 0.01s ==========================

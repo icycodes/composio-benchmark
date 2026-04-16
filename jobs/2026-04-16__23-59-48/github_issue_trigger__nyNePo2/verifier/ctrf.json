@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776358500.4523494,
+            "stop": 1776358500.4628792
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_triggers_log_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002954760057036765,
+                "start": 1776358500.4563162,
+                "stop": 1776358500.4616163,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_triggers_log_exists():\n>       assert os.path.isfile(\"/home/user/triggers.log\"), \"Triggers log file not found.\"\nE       AssertionError: Triggers log file not found.\nE       assert False\nE        +  where False = <function isfile at 0x7f822f2e4220>('/home/user/triggers.log')\nE        +    where <function isfile at 0x7f822f2e4220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:11: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_trigger_is_active",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00025183201069012284,
+                "start": 1776358500.4617307,
+                "stop": 1776358500.462776,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_trigger_is_active():\n        trial_id = get_trial_id()\n        repo_name = f\"star-test-{trial_id}\"\n    \n>       with open(\"/home/user/triggers.log\", \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/triggers.log'\n\ntests/test_final_state.py:17: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}
