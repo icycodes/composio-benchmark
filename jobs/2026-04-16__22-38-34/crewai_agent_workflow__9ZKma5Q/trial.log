@@ -1,0 +1,94 @@
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo crewai_agent_workflow__9ZKma5Q > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Multi-Agent Workflow with CrewAI and Composio
+
+## Background
+Composio integrates seamlessly with agentic frameworks like CrewAI. In this task, you will build a multi-agent system where one agent researches a GitHub repository and another agent posts a summary to Slack.
+
+## Requirements
+1. Create a Python script `crew_workflow.py` in `/home/user/crewai-task`.
+2. Use the Composio Python SDK, the CrewAI SDK, and the OpenAI SDK.
+3. Create a Composio session for the user `zealt-user01`.
+4. Define two CrewAI agents:
+   - **GitHub Researcher**: Tasked with fetching the last 3 commit messages from the repository `ComposioHQ/composio`.
+   - **Slack Reporter**: Tasked with posting the research findings (the commit messages) to the Slack channel `#general`.
+5. Both agents must use the appropriate tools from the Composio session.
+6. Execute the crew and ensure the final report is posted to Slack.
+
+## Implementation Guide
+1. Initialize `Composio` with `CrewAIProvider`.
+2. Create a session for `zealt-user01`.
+3. Get tools from the session.
+4. Define the **GitHub Researcher** agent with its role, goal, and the GitHub-related tools.
+5. Define the **Slack Reporter** agent with its role, goal, and the Slack-related tools.
+6. Define two tasks: one for research and one for reporting, linking them to the respective agents.
+7. Create a `Crew` with these agents and tasks.
+8. Kick off the crew and print the result.
+
+## Constraints
+- Project path: /home/user/crewai-task
+- Use the test user `zealt-user01`.
+- Repository: `ComposioHQ/composio`.
+- Channel: `#general`.
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+- OpenAI
+- CrewAI
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

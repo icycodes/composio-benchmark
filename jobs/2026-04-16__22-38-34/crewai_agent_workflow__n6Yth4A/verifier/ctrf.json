@@ -1,0 +1,62 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 2,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776352429.5760133,
+            "stop": 1776352429.9005167
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.00019579999934649095,
+                "start": 1776352429.581067,
+                "stop": 1776352429.581363,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_crewai_provider",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00025686399749247357,
+                "start": 1776352429.5814574,
+                "stop": 1776352429.5870216,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_uses_crewai_provider():\n        \"\"\"Priority 3 fallback: verify use of CrewAIProvider in the script.\"\"\"\n        with open(SCRIPT_FILE, 'r') as f:\n            content = f.read()\n>       assert \"CrewAIProvider\" in content, f\"Expected use of CrewAIProvider in {SCRIPT_FILE}.\"\nE       AssertionError: Expected use of CrewAIProvider in /home/user/crewai-task/crew_workflow.py.\nE       assert 'CrewAIProvider' in 'import os\\nfrom crewai import Agent, Task, Crew, Process\\nfrom composio_crewai import ComposioToolSet, App, Action\\n\\...rew\\nif __name__ == \"__main__\":\\n    result = crew.kickoff()\\n    print(\"Crew execution result:\")\\n    print(result)\\n'\n\ntests/test_final_state.py:16: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_script_defines_agents_and_tasks",
+                "status": "passed",
+                "duration": 0.00019241600239183754,
+                "start": 1776352429.5871248,
+                "stop": 1776352429.5873907,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_slack_message_posted",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.30963020399940433,
+                "start": 1776352429.5874755,
+                "stop": 1776352429.9002728,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_slack_message_posted():\n        \"\"\"Priority 1: Use Slack API to verify the research report was posted.\"\"\"\n        slack_token = os.environ[\"SLACK_TOKEN\"]\n    \n        # 1. Get channel ID for #general\n        result = subprocess.run([\n            \"curl\", \"-sS\", \"-H\", f\"Authorization: Bearer {slack_token}\",\n            \"https://slack.com/api/conversations.list?types=public_channel\"\n        ], capture_output=True, text=True)\n        data = json.loads(result.stdout)\n        channel_id = next((c[\"id\"] for c in data.get(\"channels\", []) if c[\"name\"] == \"general\"), None)\n>       assert channel_id, \"Channel #general not found.\"\nE       AssertionError: Channel #general not found.\nE       assert None\n\ntests/test_final_state.py:37: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,150 @@
+{
+    "id": "204c2d48-2d30-4633-a466-b16b7dc0296c",
+    "started_at": "2026-04-16T22:38:36.546340",
+    "finished_at": "2026-04-16T23:17:22.330853",
+    "n_total_trials": 35,
+    "stats": {
+        "n_trials": 35,
+        "n_errors": 10,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 7,
+                "n_errors": 6,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "trigger_github_notion__cm9Kx55",
+                            "multi_account_management__B4yhCfx",
+                            "meta_tool_multi_execute__r5aadVt",
+                            "custom_auth_flow__sfv8vJJ",
+                            "python_github_star__JrFriCF",
+                            "python_workbench_redact__K929F5w",
+                            "crewai_agent_workflow__n6Yth4A"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "trigger_github_notion__cm9Kx55",
+                        "meta_tool_multi_execute__r5aadVt",
+                        "custom_auth_flow__sfv8vJJ",
+                        "python_github_star__JrFriCF",
+                        "python_workbench_redact__K929F5w",
+                        "crewai_agent_workflow__n6Yth4A"
+                    ]
+                }
+            },
+            "pochi__gemini-3-flash__tasks": {
+                "n_trials": 7,
+                "n_errors": 3,
+                "metrics": [
+                    {
+                        "mean": 0.2857142857142857
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "trigger_github_notion__oAAiw4Y",
+                            "multi_account_management__aV2iEW5",
+                            "custom_auth_flow__uayZBnm",
+                            "python_workbench_redact__nxepy7C",
+                            "crewai_agent_workflow__wAwRGQA"
+                        ],
+                        "1.0": [
+                            "meta_tool_multi_execute__2gvBtP6",
+                            "python_github_star__D5RFMTv"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "trigger_github_notion__oAAiw4Y",
+                        "python_workbench_redact__nxepy7C",
+                        "crewai_agent_workflow__wAwRGQA"
+                    ]
+                }
+            },
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 7,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "trigger_github_notion__4G6dwFe",
+                            "multi_account_management__eouFWUd",
+                            "meta_tool_multi_execute__U32Brfh",
+                            "custom_auth_flow__g2KiXGB",
+                            "python_github_star__STCT9bF",
+                            "python_workbench_redact__xT4kXpx",
+                            "crewai_agent_workflow__GSpLvy6"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            },
+            "pochi__claude-4-6-sonnet__tasks": {
+                "n_trials": 7,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.2857142857142857
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "trigger_github_notion__ky4kb8k",
+                            "multi_account_management__QPDVBju",
+                            "custom_auth_flow__xcVz99H",
+                            "python_workbench_redact__dSfsJzB",
+                            "crewai_agent_workflow__BcKdqyM"
+                        ],
+                        "1.0": [
+                            "meta_tool_multi_execute__Z4mdxoo",
+                            "python_github_star__KLDdVHa"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "trigger_github_notion__ky4kb8k"
+                    ]
+                }
+            },
+            "pochi__glm-4.7__tasks": {
+                "n_trials": 7,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "trigger_github_notion__AJVz8TR",
+                            "multi_account_management__84XiWdv",
+                            "meta_tool_multi_execute__JxGiGtR",
+                            "custom_auth_flow__skdkCDv",
+                            "python_github_star__4F5ANar",
+                            "python_workbench_redact__KgDduxy",
+                            "crewai_agent_workflow__9ZKma5Q"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

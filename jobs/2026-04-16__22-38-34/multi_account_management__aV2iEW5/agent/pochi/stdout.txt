@@ -1,0 +1,95 @@
+- Initializing MCP connections...
+You
+# Managing Multiple Slack Accounts with Composio ## Background Composio allows users to connect multiple accounts for the same toolkit (e.g., personal and work Slack). You can use aliases to distinguish between these accounts and programmatically select which one to use for a specific action. ## Requirements 1. Create a Python script `multi_slack.py` in `/home/user/multi-account-task`. 2. Use the Composio Python SDK and the OpenAI SDK. 3. Create a Composio session for the user `zealt-user01` with `multi_account` mode enabled. 4. The script must connect two Slack accounts for this user, assigning them the aliases `work-slack` and `personal-slack`. 5. For the purpose of this task, you can assume the accounts are already connected or simulate the connection flow by generating the auth links. 6. The script must then send a message "Hello from Work!" to the `#general` channel using the `work-slack` account. 7. The script must send a message "Hello from Personal!" to the `#general` channel using the `personal-slack` account. 8. Both messages must be sent via an AI agent that is instructed to use the correct account based on the alias. ## Implementation Guide 1. Initialize `Composio` with `OpenAIProvider`. 2. Create a session for `zealt-user01` with `multi_account={'enable': True}`. 3. Use `session.authorize('slack', alias='work-slack')` and `session.authorize('slack', alias='personal-slack')` to ensure both connections exist. 4. Initialize an OpenAI agent with the session tools. 5. Prompt the agent to: "Send 'Hello from Work!' to #general using the 'work-slack' account, and 'Hello from Personal!' to #general using the 'personal-slack' account." ## Constraints * Project path: /home/user/multi-account-task * Use the test user `zealt-user01`. * Use the aliases `work-slack` and `personal-slack`. ## Integrations * Composio * Slack * OpenAI   
+
+Pochi
+💭 Thinking for 1265 characters   
+💫 Executing mkdir -p /home/user/multi-account-task ✔ 
+💭 Thinking for 214 characters   
+📋 Updating todo list (2 items) ✔ 
+💭 Thinking for 386 characters   
+✏️  Writing /home/user/multi-account-task/multi_slack.py ✔ 
+💭 Thinking for 691 characters   
+🔧 Applying diff to /home/user/multi-account-task/multi_slack.py ✔ 
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 815 characters   
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 1587 characters   
+✏️  Writing /home/user/multi-account-task/multi_slack.py ✔ 
+💭 Thinking for 706 characters   
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 1287 characters   
+✏️  Writing /home/user/multi-account-task/multi_slack.py ✔ 
+💭 Thinking for 239 characters   
+📋 Updating todo list (2 items) ✔ 
+💭 Thinking for 920 characters   
+📋 Updating todo list (2 items) ✔ 
+💭 Thinking for 111 characters   
+🎉 Task Completed
+I have created the `multi_slack.py` script in `/home/user/multi-account-task` as requested. 
+
+The script implements the following logic:
+1. **Initializes Composio** with the `OpenAIProvider`.
+2. **Creates a session** for the user `zealt-user01` with `multi_account` mode enabled.
+3. **Authorizes two Slack accounts** with the aliases `work-slack` and `personal-slack`.
+4. **Fetches Slack tools** scoped to the session.
+5. **Initializes an OpenAI agent** and prompts it to send messages to the `#general` channel using the respective accounts by their aliases.
+6. **Handles tool calls** automatically through the Composio session.
+
+You can find the script at `/home/user/multi-account-task/multi_slack.py`.
+
+```python
+import os
+from openai import OpenAI
+from composio import Composio
+from composio_openai import OpenAIProvider
+
+# Initialize OpenAI SDK
+openai_client = OpenAI()
+
+# 1. Initialize Composio with OpenAIProvider
+composio = Composio(provider=OpenAIProvider())
+
+# 2. Create a session for the user 'zealt-user01' with multi_account mode enabled
+session = composio.create(user_id="zealt-user01", multi_account={"enable": True})
+
+# 3. Ensure both Slack connections exist with their respective aliases
+print("Ensuring Slack accounts are authorized with aliases...")
+session.authorize("slack", alias="work-slack")
+session.authorize("slack", alias="personal-slack")
+
+# 4. Initialize an OpenAI agent with the session tools
+tools = session.tools.get(toolkits=["slack"])
+
+# 5. Prompt the agent to send messages using the specific accounts
+prompt = (
+    "Send 'Hello from Work!' to #general using the 'work-slack' account, "
+    "and 'Hello from Personal!' to #general using the 'personal-slack' account."
+)
+
+print(f"Agent Prompt: {prompt}")
+
+# Execute the AI agent
+response = openai_client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {
+            "role": "system", 
+            "content": "You are a helpful assistant that can manage multiple Slack accounts. "
+                       "Use the provided tools to send messages, and always use the correct "
+                       "account alias as specified in the request."
+        },
+        {"role": "user", "content": prompt}
+    ],
+    tools=tools,
+    tool_choice="auto"
+)
+
+# 6. Handle the tool calls generated by the AI agent
+print("Processing agent response and executing tool calls...")
+result = session.handle_tool_calls(response)
+
+print("Task completed.")
+print(f"Execution Result: {result}")
+```   
+  

@@ -1,0 +1,57 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 12ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py F.F                                            [100%]
+
+=================================== FAILURES ===================================
+___________________ test_slack_channel_and_sentiment_message ___________________
+
+    def test_slack_channel_and_sentiment_message():
+        """Priority 1: Use Slack API to verify the sentiment analysis message."""
+        trial_id = get_trial_id()
+        channel_name = f"{CHANNEL_BASENAME}-{trial_id}"
+        slack_token = os.environ["SLACK_TOKEN"]
+    
+        # 1. Get channel ID
+        result = subprocess.run([
+            "curl", "-sS", "-H", f"Authorization: Bearer {slack_token}",
+            "https://slack.com/api/conversations.list?limit=200&types=public_channel,private_channel"
+        ], capture_output=True, text=True)
+        data = json.loads(result.stdout)
+        channel_id = next((c["id"] for c in data.get("channels", []) if c["name"] == channel_name), None)
+>       assert channel_id, f"Channel ID for '{channel_name}' not found."
+E       AssertionError: Channel ID for 'sentiment-trigger_github_notion__4G6dwFe' not found.
+E       assert None
+
+tests/test_final_state.py:26: AssertionError
+_____________________________ test_repo_is_created _____________________________
+
+    def test_repo_is_created():
+        """Priority 1: Use GitHub CLI to verify the repository exists."""
+        trial_id = get_trial_id()
+        repo_name = f"harbor-trigger-{trial_id}"
+        username = "zealt-user01"
+    
+        result = subprocess.run(
+            ["gh", "repo", "view", f"{username}/{repo_name}", "--json", "name"],
+            capture_output=True, text=True
+        )
+>       assert result.returncode == 0, f"gh repo view failed: {result.stderr}"
+E       AssertionError: gh repo view failed: GraphQL: Could not resolve to a Repository with the name 'zealt-user01/harbor-trigger-trigger_github_notion__4G6dwFe'. (repository)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['gh', 'repo', 'view', 'zealt-user01/harbor-trigger-trigger_github_notion__4G6dwFe', '--json', '...ot resolve to a Repository with the name 'zealt-user01/harbor-trigger-trigger_github_notion__4G6dwFe'. (repository)\n").returncode
+
+tests/test_final_state.py:63: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_uses_trigger
+FAILED tests/test_final_state.py::test_slack_channel_and_sentiment_message - ...
+FAILED tests/test_final_state.py::test_repo_is_created - AssertionError: gh r...
+========================= 2 failed, 1 passed in 0.95s ==========================

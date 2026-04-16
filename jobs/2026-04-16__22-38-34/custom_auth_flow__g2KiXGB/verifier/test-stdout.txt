@@ -1,0 +1,43 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 3ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 5 items
+
+tests/test_final_state.py ....F                                          [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_script_execution_output _________________________
+
+    def test_script_execution_output():
+        """Priority 1: Run the script and verify it prints a redirect URL."""
+        # We'll run the script. It might timeout waiting for connection, but it should at least print the URL.
+        # We'll use a short timeout for the subprocess to avoid waiting too long if it doesn't handle timeout well.
+        try:
+            result = subprocess.run(
+                ["python3", SCRIPT_FILE],
+                capture_output=True, text=True, cwd="/home/user/auth-task", timeout=10
+            )
+            output = result.stdout
+        except subprocess.TimeoutExpired as e:
+            output = e.stdout.decode() if e.stdout else ""
+    
+>       assert "https://connect.composio.dev/link/" in output or "redirect" in output.lower(), \
+            f"Expected redirect URL in output, but got: {output}"
+E       AssertionError: Expected redirect URL in output, but got: 
+E       assert ('https://connect.composio.dev/link/' in '' or 'redirect' in '')
+E        +  where '' = <built-in method lower of str object at 0xb3b3f0>()
+E        +    where <built-in method lower of str object at 0xb3b3f0> = ''.lower
+
+tests/test_final_state.py:45: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_exists
+PASSED tests/test_final_state.py::test_script_uses_authorize
+PASSED tests/test_final_state.py::test_script_uses_wait_for_connection
+PASSED tests/test_final_state.py::test_script_uses_toolkits_status
+FAILED tests/test_final_state.py::test_script_execution_output - AssertionErr...
+========================= 1 failed, 4 passed in 0.02s ==========================

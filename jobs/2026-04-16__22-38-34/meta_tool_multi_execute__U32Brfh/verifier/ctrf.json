@@ -1,0 +1,68 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 0,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776351067.386094,
+            "stop": 1776351067.8437002
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_result_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003194189921487123,
+                "start": 1776351067.3909838,
+                "stop": 1776351067.3964853,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_exists():\n        \"\"\"Priority 3 fallback: basic file existence check.\"\"\"\n>       assert os.path.isfile(RESULT_FILE), f\"Result file not found at {RESULT_FILE}\"\nE       AssertionError: Result file not found at /home/user/multi-execute-task/result.json\nE       assert False\nE        +  where False = <function isfile at 0x7fe1537f8220>('/home/user/multi-execute-task/result.json')\nE        +    where <function isfile at 0x7fe1537f8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:10: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0001807389999157749,
+                "start": 1776351067.3965847,
+                "stop": 1776351067.3974807,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_content():\n        \"\"\"Priority 3 fallback: check for correct data in the JSON output.\"\"\"\n>       with open(RESULT_FILE, 'r') as f:\n             ^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/multi-execute-task/result.json'\n\ntests/test_final_state.py:14: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_repo_is_starred",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.4344373230051133,
+                "start": 1776351067.3975716,
+                "stop": 1776351067.8365407,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_repo_is_starred():\n        \"\"\"Priority 1: Use GitHub CLI to verify the repository is starred.\"\"\"\n        username = \"zealt-user01\"\n        repo = \"ComposioHQ/composio\"\n    \n        result = subprocess.run(\n            [\"gh\", \"api\", f\"user/starred/{repo}\", \"--silent\"],\n            capture_output=True, text=True\n        )\n>       assert result.returncode == 0, \\\n            f\"Expected repository '{repo}' to be starred by user, but it's not. Error: {result.stderr}\"\nE       AssertionError: Expected repository 'ComposioHQ/composio' to be starred by user, but it's not. Error: gh: Not Found (HTTP 404)\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['gh', 'api', 'user/starred/ComposioHQ/composio', '--silent'], returncode=1, stdout='', stderr='gh: Not Found (HTTP 404)\\n').returncode\n\ntests/test_final_state.py:32: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_multi_execute",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0013667700040969066,
+                "start": 1776351067.8370183,
+                "stop": 1776351067.8433018,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_uses_multi_execute():\n        \"\"\"Priority 3 fallback: verify use of MULTI_EXECUTE_TOOL in the script.\"\"\"\n        script_file = \"/home/user/multi-execute-task/multi_execute.py\"\n        assert os.path.isfile(script_file), f\"Script not found at {script_file}\"\n        with open(script_file, 'r') as f:\n            content = f.read()\n>       assert \"MULTI_EXECUTE_TOOL\" in content or \"multi_execute\" in content.lower(), \\\n            f\"Expected use of MULTI_EXECUTE_TOOL in {script_file}, but it's not found.\"\nE       AssertionError: Expected use of MULTI_EXECUTE_TOOL in /home/user/multi-execute-task/multi_execute.py, but it's not found.\nE       assert ('MULTI_EXECUTE_TOOL' in 'import json\\nimport os\\nfrom pathlib import Path\\n\\nfrom composio import Composio\\nfrom composio_openai import OpenAI...ut_path.write_text(json.dumps({\"tool_outputs\": tool_outputs}, indent=2))\\n\\n\\nif __name__ == \"__main__\":\\n    main()\\n' or 'multi_execute' in 'import json\\nimport os\\nfrom pathlib import path\\n\\nfrom composio import composio\\nfrom composio_openai import openai...ut_path.write_text(json.dumps({\"tool_outputs\": tool_outputs}, indent=2))\\n\\n\\nif __name__ == \"__main__\":\\n    main()\\n')\nE        +  where 'import json\\nimport os\\nfrom pathlib import path\\n\\nfrom composio import composio\\nfrom composio_openai import openai...ut_path.write_text(json.dumps({\"tool_outputs\": tool_outputs}, indent=2))\\n\\n\\nif __name__ == \"__main__\":\\n    main()\\n' = <built-in method lower of str object at 0x4f3afc0>()\nE        +    where <built-in method lower of str object at 0x4f3afc0> = 'import json\\nimport os\\nfrom pathlib import Path\\n\\nfrom composio import Composio\\nfrom composio_openai import OpenAI...ut_path.write_text(json.dumps({\"tool_outputs\": tool_outputs}, indent=2))\\n\\n\\nif __name__ == \"__main__\":\\n    main()\\n'.lower\n\ntests/test_final_state.py:41: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

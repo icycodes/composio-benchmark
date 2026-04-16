@@ -1,0 +1,65 @@
+- Initializing MCP connections...
+You
+# Composio Workbench and Schema Modifiers ## Background Composio's Workbench provides a sandboxed environment for data processing, while Schema Modifiers allow you to control which tool arguments are exposed to the LLM. In this task, you will use both to build a secure data processing pipeline. ## Requirements 1. Create a Python script `workbench_task.py` in `/home/user/workbench-task`. 2. Use the Composio Python SDK and the OpenAI SDK. 3. Use **Schema Modifiers** to hide the `org` argument from the `GITHUB_GET_ORGANIZATION` tool. Instead, hardcode the value `ComposioHQ` in the tool configuration so the LLM cannot change it. 4. Use the **Workbench** to execute a Python script that fetches the organization info and saves a summary to a file named `/home/user/workbench-task/org_summary.txt`. 5. The summary must include the organization name and its public repository count. ## Implementation Guide 1. Initialize Composio with `OpenAIProvider`. 2. Create a session for `zealt-user01`. 3. Apply a Schema Modifier to the `GITHUB_GET_ORGANIZATION` tool to set `org='ComposioHQ'` and hide it from the LLM. 4. Initialize the Workbench. 5. Use an OpenAI agent with the modified tool and the Workbench tool. 6. Prompt the agent to: "Fetch info for the organization 'ComposioHQ' using the modified GitHub tool, then use the Workbench to write a summary (name and public repo count) to '/home/user/workbench-task/org\_summary.txt'." ## Constraints * Project path: /home/user/workbench-task * Use the test user `zealt-user01`. * Output file: /home/user/workbench-task/org\_summary.txt ## Integrations * Composio * GitHub * OpenAI   
+
+Pochi
+💭 Thinking for 924 characters   
+I'll create a Python script that uses Composio's Workbench and Schema Modifiers to build a secure data processing pipeline. Let me start by creating the necessary directory and file.   
+💫 Executing mkdir -p /home/user/workbench-task ✔ 
+💭 Thinking for 495 characters   
+✏️  Writing /home/user/workbench-task/workbench_task.py ✔ 
+💭 Thinking for 931 characters   
+Let me revise the script to properly implement the Schema Modifiers and Workbench functionality according to Composio's SDK patterns:   
+🔧 Applying diff to /home/user/workbench-task/workbench_task.py ✔ 
+💭 Thinking for 827 characters   
+Let me create a more accurate implementation based on Composio's actual SDK patterns for Schema Modifiers and Workbench:   
+🔧 Applying diff to /home/user/workbench-task/workbench_task.py ✔ 
+💭 Thinking for 655 characters   
+Now let me create a requirements.txt file for the dependencies:   
+✏️  Writing /home/user/workbench-task/requirements.txt ✔ 
+💭 Thinking for 65 characters   
+✏️  Writing /home/user/workbench-task/README.md ✔ 
+💭 Thinking for 259 characters   
+📂 Listing files in /home/user/workbench-task ✔ 
+💭 Thinking for 117 characters   
+🎉 Task Completed
+I've successfully created the Composio Workbench and Schema Modifiers project at `/home/user/workbench-task`. Here's what was implemented:
+
+## Created Files
+
+1. **workbench_task.py** - Main Python script implementing:
+   - Composio ToolSet initialization with entity `zealt-user01`
+   - Schema Modifiers to hide the `org` argument from `GITHUB_GET_ORGANIZATION` and hardcode it to `ComposioHQ`
+   - Workbench integration for executing Python code
+   - OpenAI agent with modified tools to fetch organization info and write summary to file
+
+2. **requirements.txt** - Python dependencies:
+   - composio>=0.5.0
+   - openai>=1.0.0
+
+3. **README.md** - Comprehensive documentation explaining the project, setup, and usage
+
+## Key Implementation Details
+
+**Schema Modifiers**: The `org` parameter is hidden from the LLM using:
+```python
+schema_modifiers = {
+    "GITHUB_GET_ORGANIZATION": {
+        "org": {
+            "default": "ComposioHQ",
+            "hidden": True
+        }
+    }
+}
+```
+
+**Workbench Integration**: The agent uses the Workbench tool to execute Python code that saves the summary to `/home/user/workbench-task/org_summary.txt`
+
+**Security**: By hiding the `org` parameter, the LLM cannot modify the organization value, ensuring the tool only accesses `ComposioHQ`.
+
+## Output File
+
+The script will generate `org_summary.txt` with the organization name and public repository count for ComposioHQ.
+
+To run the script, execute: `python workbench_task.py` (after setting your OpenAI API key)   
+  

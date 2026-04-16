@@ -1,0 +1,53 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 1,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776350379.93577,
+            "stop": 1776350380.8806014
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_slack_channel_and_sentiment_message",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.46189954999135807,
+                "start": 1776350379.9409878,
+                "stop": 1776350380.415493,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_slack_channel_and_sentiment_message():\n        \"\"\"Priority 1: Use Slack API to verify the sentiment analysis message.\"\"\"\n        trial_id = get_trial_id()\n        channel_name = f\"{CHANNEL_BASENAME}-{trial_id}\"\n        slack_token = os.environ[\"SLACK_TOKEN\"]\n    \n        # 1. Get channel ID\n        result = subprocess.run([\n            \"curl\", \"-sS\", \"-H\", f\"Authorization: Bearer {slack_token}\",\n            \"https://slack.com/api/conversations.list?limit=200&types=public_channel,private_channel\"\n        ], capture_output=True, text=True)\n        data = json.loads(result.stdout)\n        channel_id = next((c[\"id\"] for c in data.get(\"channels\", []) if c[\"name\"] == channel_name), None)\n>       assert channel_id, f\"Channel ID for '{channel_name}' not found.\"\nE       AssertionError: Channel ID for 'sentiment-trigger_github_notion__4G6dwFe' not found.\nE       assert None\n\ntests/test_final_state.py:26: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_trigger",
+                "status": "passed",
+                "duration": 0.0007849339963286184,
+                "start": 1776350380.415929,
+                "stop": 1776350380.4170084,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repo_is_created",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.45719629699306097,
+                "start": 1776350380.4173539,
+                "stop": 1776350380.8801873,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_repo_is_created():\n        \"\"\"Priority 1: Use GitHub CLI to verify the repository exists.\"\"\"\n        trial_id = get_trial_id()\n        repo_name = f\"harbor-trigger-{trial_id}\"\n        username = \"zealt-user01\"\n    \n        result = subprocess.run(\n            [\"gh\", \"repo\", \"view\", f\"{username}/{repo_name}\", \"--json\", \"name\"],\n            capture_output=True, text=True\n        )\n>       assert result.returncode == 0, f\"gh repo view failed: {result.stderr}\"\nE       AssertionError: gh repo view failed: GraphQL: Could not resolve to a Repository with the name 'zealt-user01/harbor-trigger-trigger_github_notion__4G6dwFe'. (repository)\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['gh', 'repo', 'view', 'zealt-user01/harbor-trigger-trigger_github_notion__4G6dwFe', '--json', '...ot resolve to a Repository with the name 'zealt-user01/harbor-trigger-trigger_github_notion__4G6dwFe'. (repository)\\n\").returncode\n\ntests/test_final_state.py:63: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

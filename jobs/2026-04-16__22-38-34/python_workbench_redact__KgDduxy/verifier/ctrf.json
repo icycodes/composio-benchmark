@@ -1,0 +1,62 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 2,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776352015.7231553,
+            "stop": 1776352015.735479
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_summary_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002780479990178719,
+                "start": 1776352015.7283614,
+                "stop": 1776352015.7338262,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_file_exists():\n        \"\"\"Priority 3 fallback: basic file existence check.\"\"\"\n>       assert os.path.isfile(SUMMARY_FILE), f\"Summary file not found at {SUMMARY_FILE}\"\nE       AssertionError: Summary file not found at /home/user/workbench-task/org_summary.txt\nE       assert False\nE        +  where False = <function isfile at 0x7f89ad5b0220>('/home/user/workbench-task/org_summary.txt')\nE        +    where <function isfile at 0x7f89ad5b0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:10: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_summary_file_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00018313100008526817,
+                "start": 1776352015.7339318,
+                "stop": 1776352015.7348125,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_file_content():\n        \"\"\"Priority 3 fallback: check for correct organization name and repo count.\"\"\"\n>       with open(SUMMARY_FILE, 'r') as f:\n             ^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/workbench-task/org_summary.txt'\n\ntests/test_final_state.py:14: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_schema_modifier",
+                "status": "passed",
+                "duration": 0.0001721760054351762,
+                "start": 1776352015.7349029,
+                "stop": 1776352015.7351334,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_workbench",
+                "status": "passed",
+                "duration": 0.00014281200128607452,
+                "start": 1776352015.7352197,
+                "stop": 1776352015.735414,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

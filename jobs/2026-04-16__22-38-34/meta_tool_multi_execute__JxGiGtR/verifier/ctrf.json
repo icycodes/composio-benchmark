@@ -1,0 +1,65 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 1,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776351066.0015645,
+            "stop": 1776351066.4783583
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_result_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00029116999940015376,
+                "start": 1776351066.006541,
+                "stop": 1776351066.0121422,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_exists():\n        \"\"\"Priority 3 fallback: basic file existence check.\"\"\"\n>       assert os.path.isfile(RESULT_FILE), f\"Result file not found at {RESULT_FILE}\"\nE       AssertionError: Result file not found at /home/user/multi-execute-task/result.json\nE       assert False\nE        +  where False = <function isfile at 0x7f84cd494220>('/home/user/multi-execute-task/result.json')\nE        +    where <function isfile at 0x7f84cd494220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:10: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00019159800285706297,
+                "start": 1776351066.0122461,
+                "stop": 1776351066.0131395,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_content():\n        \"\"\"Priority 3 fallback: check for correct data in the JSON output.\"\"\"\n>       with open(RESULT_FILE, 'r') as f:\n             ^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/multi-execute-task/result.json'\n\ntests/test_final_state.py:14: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_repo_is_starred",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.4618802870027139,
+                "start": 1776351066.0132287,
+                "stop": 1776351066.47745,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_repo_is_starred():\n        \"\"\"Priority 1: Use GitHub CLI to verify the repository is starred.\"\"\"\n        username = \"zealt-user01\"\n        repo = \"ComposioHQ/composio\"\n    \n        result = subprocess.run(\n            [\"gh\", \"api\", f\"user/starred/{repo}\", \"--silent\"],\n            capture_output=True, text=True\n        )\n>       assert result.returncode == 0, \\\n            f\"Expected repository '{repo}' to be starred by user, but it's not. Error: {result.stderr}\"\nE       AssertionError: Expected repository 'ComposioHQ/composio' to be starred by user, but it's not. Error: gh: Not Found (HTTP 404)\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['gh', 'api', 'user/starred/ComposioHQ/composio', '--silent'], returncode=1, stdout='', stderr='gh: Not Found (HTTP 404)\\n').returncode\n\ntests/test_final_state.py:32: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_multi_execute",
+                "status": "passed",
+                "duration": 0.0003945740027120337,
+                "start": 1776351066.477675,
+                "stop": 1776351066.478203,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

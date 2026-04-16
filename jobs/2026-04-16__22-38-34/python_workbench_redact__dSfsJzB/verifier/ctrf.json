@@ -1,0 +1,59 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 3,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776352297.6228306,
+            "stop": 1776352297.6347399
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_summary_file_exists",
+                "status": "passed",
+                "duration": 0.00019939599587814882,
+                "start": 1776352297.6281257,
+                "stop": 1776352297.628425,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_summary_file_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00026193300436716527,
+                "start": 1776352297.6285174,
+                "stop": 1776352297.6340363,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_file_content():\n        \"\"\"Priority 3 fallback: check for correct organization name and repo count.\"\"\"\n        with open(SUMMARY_FILE, 'r') as f:\n            content = f.read()\n>       assert \"ComposioHQ\" in content, f\"Expected 'ComposioHQ' in summary, got: {content}\"\nE       AssertionError: Expected 'ComposioHQ' in summary, got: Organization Name: Composio\nE         Public Repositories Count: 70\nE         \nE       assert 'ComposioHQ' in 'Organization Name: Composio\\nPublic Repositories Count: 70\\n'\n\ntests/test_final_state.py:16: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_schema_modifier",
+                "status": "passed",
+                "duration": 0.00019216699729440734,
+                "start": 1776352297.6341383,
+                "stop": 1776352297.6343942,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_workbench",
+                "status": "passed",
+                "duration": 0.00014356699830386788,
+                "start": 1776352297.6344755,
+                "stop": 1776352297.6346707,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

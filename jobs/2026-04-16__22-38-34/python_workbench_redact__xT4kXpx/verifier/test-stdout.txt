@@ -1,0 +1,40 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 9ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 4 items
+
+tests/test_final_state.py FF..                                           [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_summary_file_exists ___________________________
+
+    def test_summary_file_exists():
+        """Priority 3 fallback: basic file existence check."""
+>       assert os.path.isfile(SUMMARY_FILE), f"Summary file not found at {SUMMARY_FILE}"
+E       AssertionError: Summary file not found at /home/user/workbench-task/org_summary.txt
+E       assert False
+E        +  where False = <function isfile at 0x7f0fac7c4220>('/home/user/workbench-task/org_summary.txt')
+E        +    where <function isfile at 0x7f0fac7c4220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:10: AssertionError
+__________________________ test_summary_file_content ___________________________
+
+    def test_summary_file_content():
+        """Priority 3 fallback: check for correct organization name and repo count."""
+>       with open(SUMMARY_FILE, 'r') as f:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/workbench-task/org_summary.txt'
+
+tests/test_final_state.py:14: FileNotFoundError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_uses_schema_modifier
+PASSED tests/test_final_state.py::test_script_uses_workbench
+FAILED tests/test_final_state.py::test_summary_file_exists - AssertionError: ...
+FAILED tests/test_final_state.py::test_summary_file_content - FileNotFoundErr...
+========================= 2 failed, 2 passed in 0.01s ==========================

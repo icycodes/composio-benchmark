@@ -1,0 +1,36 @@
+- Initializing MCP connections...
+You
+# GitHub Trigger and Sentiment Analysis with Composio ## Background Composio Triggers allow agents to react to external events in real-time. In this task, you will set up a workflow that listens for new GitHub issues and posts a sentiment analysis to Slack. ## Requirements 1. Create a Python script `trigger_agent.py` in `/home/user/trigger-task`. 2. The script must use the Composio Python SDK and the OpenAI SDK. 3. The script must create a new public repository named `harbor-trigger-${trial_id}` under `zealt-user01`. 4. The script must set up a **Composio Trigger** to listen for `github_issue_created` events on this repository. 5. When a new issue is created, the script must use an AI agent to analyze the issue's sentiment (Positive, Neutral, or Negative). 6. The agent must post the sentiment analysis to a Slack channel named `sentiment-${trial_id}`. 7. To test the workflow, the script must programmatically create a new issue in the repository with the title "Great work on the new feature!" and body "I really love how this works.". ## Implementation Guide 1. Read the `trial_id` from `/logs/trial_id`. 2. Create the GitHub repository and Slack channel. 3. Initialize Composio and create a session for `zealt-user01`. 4. Subscribe to the `github_issue_created` trigger for the new repository. 5. Implement a listener that receives the trigger payload. 6. Pass the issue content to an OpenAI agent for sentiment analysis. 7. Use the agent to post the result to the Slack channel. 8. Create the test issue to fire the trigger. ## Constraints * Project path: /home/user/trigger-task * Use the test user `zealt-user01`. * Read `trial_id` from `/logs/trial_id` for repo and channel names. ## Integrations * Composio * GitHub * Slack * OpenAI   
+
+Pochi
+💭 Thinking for 722 characters   
+💫 Executing cat /logs/trial_id ✔ 
+💫 Executing mkdir -p /home/user/trigger-task ✔ 
+💫 Executing python -c "import composio; print(dir(composio))" ✖ "Command exited with code 127"
+💫 Executing python3 -c "import composio; print(dir(composio))" ✔ 
+💫 Executing python3 -c "import composio; print(dir(composio.Composio))" ✔ 
+💫 Executing python3 -c "from composio import ComposioToolSet; print(dir(ComposioToolSet))" ✖ "Command exited with code 1"
+💫 Executing pip3 show composio-core ✖ "Command exited with code 1"
+💫 Executing pip3 list | grep composio ✔ 
+💭 Thinking for 294 characters   
+💫 Executing python3 -c "import composio_openai; print(dir(composio_openai))" ✔ 
+💫 Executing python3 -c "import composio; print(dir(composio))" ✔ 
+💫 Executing python3 -c "import composio; print(dir(composio.client))" ✔ 
+💫 Executing python3 -c "import composio; print(dir(composio.Composio))" ✔ 
+💭 Thinking for 221 characters   
+💫 Executing python3 -c "import composio; print(dir(composio.Composio()))" ✔ 
+💫 Executing python3 -c "import composio; print(dir(composio.Composio().triggers))" ✔ 
+💫 Executing python3 -c "import composio; import inspect; print(inspect.signature(composio.Composio().triggers.subscribe))" ✔ 
+💭 Thinking for 277 characters   
+💫 Executing python3 -c "import composio; print(dir(composio.Composio().triggers.subscribe()))" ✔ 
+💭 Thinking for 354 characters   
+💫 Executing python3 -c "import composio; import inspect; print(inspect.signature(composio.Composio().triggers.subscribe().handle))" ✔ 
+💫 Executing python3 -c "import composio; import inspect; print(composio.Composio().triggers.subscribe().handle.__doc__)" ✔ 
+💫 Executing python3 -c "import composio; print(composio.__file__)" ✔ 
+💫 Executing cat /usr/local/lib/python3.12/dist-packages/composio/client/types.py | grep -A 10 TriggerEventFilters ✖ "Command exited with code 1"
+💫 Executing grep -rn "TriggerEventFilters" /usr/local/lib/python3.12/dist-packages/composio/ ✔ 
+💫 Executing cat -n /usr/local/lib/python3.12/dist-packages/composio/core/models/triggers.py | grep -A 10 "class TriggerEventFilters" ✔ 
+💫 Executing python3 -c "import composio; import inspect; print(inspect.signature(composio.Composio().triggers.enable))" ✔ 
+💭 Thinking for 419 characters   
+💫 Executing python3 -c "import composio; import inspect; print(inspect.signature(composio.Composio().triggers.create))" ✔ 
+💫 Executing python3 -c "import composio; print(composio.Composio().triggers.get_type('github_issue_created'))" ✖ "Command exited with code 1"

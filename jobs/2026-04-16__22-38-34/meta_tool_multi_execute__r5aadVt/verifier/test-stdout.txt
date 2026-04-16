@@ -1,0 +1,53 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 9ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 4 items
+
+tests/test_final_state.py FF.F                                           [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_result_file_exists ____________________________
+
+    def test_result_file_exists():
+        """Priority 3 fallback: basic file existence check."""
+>       assert os.path.isfile(RESULT_FILE), f"Result file not found at {RESULT_FILE}"
+E       AssertionError: Result file not found at /home/user/multi-execute-task/result.json
+E       assert False
+E        +  where False = <function isfile at 0x7f7fa4a80220>('/home/user/multi-execute-task/result.json')
+E        +    where <function isfile at 0x7f7fa4a80220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:10: AssertionError
+___________________________ test_result_file_content ___________________________
+
+    def test_result_file_content():
+        """Priority 3 fallback: check for correct data in the JSON output."""
+>       with open(RESULT_FILE, 'r') as f:
+             ^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/multi-execute-task/result.json'
+
+tests/test_final_state.py:14: FileNotFoundError
+________________________ test_script_uses_multi_execute ________________________
+
+    def test_script_uses_multi_execute():
+        """Priority 3 fallback: verify use of MULTI_EXECUTE_TOOL in the script."""
+        script_file = "/home/user/multi-execute-task/multi_execute.py"
+>       assert os.path.isfile(script_file), f"Script not found at {script_file}"
+E       AssertionError: Script not found at /home/user/multi-execute-task/multi_execute.py
+E       assert False
+E        +  where False = <function isfile at 0x7f7fa4a80220>('/home/user/multi-execute-task/multi_execute.py')
+E        +    where <function isfile at 0x7f7fa4a80220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:38: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_repo_is_starred
+FAILED tests/test_final_state.py::test_result_file_exists - AssertionError: R...
+FAILED tests/test_final_state.py::test_result_file_content - FileNotFoundErro...
+FAILED tests/test_final_state.py::test_script_uses_multi_execute - AssertionE...
+========================= 3 failed, 1 passed in 0.46s ==========================

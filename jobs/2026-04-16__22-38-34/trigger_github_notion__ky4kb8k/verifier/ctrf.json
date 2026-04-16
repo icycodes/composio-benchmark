@@ -1,0 +1,50 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776350922.9718876,
+            "stop": 1776350924.0428455
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_slack_channel_and_sentiment_message",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.626829638997151,
+                "start": 1776350922.9771738,
+                "stop": 1776350923.60993,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_slack_channel_and_sentiment_message():\n        \"\"\"Priority 1: Use Slack API to verify the sentiment analysis message.\"\"\"\n        trial_id = get_trial_id()\n        channel_name = f\"{CHANNEL_BASENAME}-{trial_id}\"\n        slack_token = os.environ[\"SLACK_TOKEN\"]\n    \n        # 1. Get channel ID\n        result = subprocess.run([\n            \"curl\", \"-sS\", \"-H\", f\"Authorization: Bearer {slack_token}\",\n            \"https://slack.com/api/conversations.list?limit=200&types=public_channel,private_channel\"\n        ], capture_output=True, text=True)\n        data = json.loads(result.stdout)\n        channel_id = next((c[\"id\"] for c in data.get(\"channels\", []) if c[\"name\"] == channel_name), None)\n        assert channel_id, f\"Channel ID for '{channel_name}' not found.\"\n    \n        # 2. Get history\n        result = subprocess.run([\n            \"curl\", \"-sS\", \"-H\", f\"Authorization: Bearer {slack_token}\",\n            f\"https://slack.com/api/conversations.history?channel={channel_id}&limit=10\"\n        ], capture_output=True, text=True)\n        history = json.loads(result.stdout)\n>       assert history.get(\"ok\"), f\"Slack API error: {history}\"\nE       AssertionError: Slack API error: {'ok': False, 'error': 'not_in_channel'}\nE       assert False\nE        +  where False = <built-in method get of dict object at 0x7f742a367800>('ok')\nE        +    where <built-in method get of dict object at 0x7f742a367800> = {'error': 'not_in_channel', 'ok': False}.get\n\ntests/test_final_state.py:34: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_trigger",
+                "status": "passed",
+                "duration": 0.00020760899496963248,
+                "start": 1776350923.6100562,
+                "stop": 1776350923.6103365,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_repo_is_created",
+                "status": "passed",
+                "duration": 0.43171016500127735,
+                "start": 1776350923.6104207,
+                "stop": 1776350924.0424373,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

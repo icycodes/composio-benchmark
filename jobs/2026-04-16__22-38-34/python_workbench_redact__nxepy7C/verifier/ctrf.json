@@ -1,0 +1,68 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 0,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776352236.3178117,
+            "stop": 1776352236.331798
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_summary_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003039319926756434,
+                "start": 1776352236.3230402,
+                "stop": 1776352236.32864,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_file_exists():\n        \"\"\"Priority 3 fallback: basic file existence check.\"\"\"\n>       assert os.path.isfile(SUMMARY_FILE), f\"Summary file not found at {SUMMARY_FILE}\"\nE       AssertionError: Summary file not found at /home/user/workbench-task/org_summary.txt\nE       assert False\nE        +  where False = <function isfile at 0x7fd423d5c220>('/home/user/workbench-task/org_summary.txt')\nE        +    where <function isfile at 0x7fd423d5c220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:10: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_summary_file_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00019486800010781735,
+                "start": 1776352236.3287497,
+                "stop": 1776352236.3296723,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_summary_file_content():\n        \"\"\"Priority 3 fallback: check for correct organization name and repo count.\"\"\"\n>       with open(SUMMARY_FILE, 'r') as f:\n             ^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/workbench-task/org_summary.txt'\n\ntests/test_final_state.py:14: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_schema_modifier",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00021037000260548666,
+                "start": 1776352236.3297668,
+                "stop": 1776352236.330679,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_uses_schema_modifier():\n        \"\"\"Priority 3 fallback: verify use of SchemaModifier in the agent script.\"\"\"\n>       assert os.path.isfile(SCRIPT_FILE), f\"Script not found at {SCRIPT_FILE}\"\nE       AssertionError: Script not found at /home/user/workbench-task/workbench_task.py\nE       assert False\nE        +  where False = <function isfile at 0x7fd423d5c220>('/home/user/workbench-task/workbench_task.py')\nE        +    where <function isfile at 0x7fd423d5c220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:22: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_workbench",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00017117999959737062,
+                "start": 1776352236.33077,
+                "stop": 1776352236.331717,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_uses_workbench():\n        \"\"\"Priority 3 fallback: verify use of Workbench in the agent script.\"\"\"\n>       with open(SCRIPT_FILE, 'r') as f:\n             ^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/workbench-task/workbench_task.py'\n\ntests/test_final_state.py:34: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 5,
+            "passed": 4,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776351287.5676868,
+            "stop": 1776351287.5857973
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.00018850999913411215,
+                "start": 1776351287.5727715,
+                "stop": 1776351287.5730572,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_authorize",
+                "status": "passed",
+                "duration": 0.00016336500266334042,
+                "start": 1776351287.5731473,
+                "stop": 1776351287.5733721,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_wait_for_connection",
+                "status": "passed",
+                "duration": 0.00013773499813396484,
+                "start": 1776351287.5734491,
+                "stop": 1776351287.5736396,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_toolkits_status",
+                "status": "passed",
+                "duration": 0.00013752700033364818,
+                "start": 1776351287.5737166,
+                "stop": 1776351287.5739062,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_execution_output",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0063455859999521635,
+                "start": 1776351287.5739803,
+                "stop": 1776351287.5857177,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_execution_output():\n        \"\"\"Priority 1: Run the script and verify it prints a redirect URL.\"\"\"\n        # We'll run the script. It might timeout waiting for connection, but it should at least print the URL.\n        # We'll use a short timeout for the subprocess to avoid waiting too long if it doesn't handle timeout well.\n        try:\n            result = subprocess.run(\n                [\"python3\", SCRIPT_FILE],\n                capture_output=True, text=True, cwd=\"/home/user/auth-task\", timeout=10\n            )\n            output = result.stdout\n        except subprocess.TimeoutExpired as e:\n            output = e.stdout.decode() if e.stdout else \"\"\n    \n>       assert \"https://connect.composio.dev/link/\" in output or \"redirect\" in output.lower(), \\\n            f\"Expected redirect URL in output, but got: {output}\"\nE       AssertionError: Expected redirect URL in output, but got: \nE       assert ('https://connect.composio.dev/link/' in '' or 'redirect' in '')\nE        +  where '' = <built-in method lower of str object at 0xb3b3f0>()\nE        +    where <built-in method lower of str object at 0xb3b3f0> = ''.lower\n\ntests/test_final_state.py:45: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

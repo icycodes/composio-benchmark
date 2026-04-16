@@ -1,0 +1,65 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 1,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776351462.883309,
+            "stop": 1776351463.3383806
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_result_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002847819996532053,
+                "start": 1776351462.8881848,
+                "stop": 1776351462.8937385,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_exists():\n        \"\"\"Priority 3 fallback: basic file existence check.\"\"\"\n>       assert os.path.isfile(RESULT_FILE), f\"Result file not found at {RESULT_FILE}\"\nE       AssertionError: Result file not found at /home/user/multi-execute-task/result.json\nE       assert False\nE        +  where False = <function isfile at 0x7f7fa4a80220>('/home/user/multi-execute-task/result.json')\nE        +    where <function isfile at 0x7f7fa4a80220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:10: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0001926019976963289,
+                "start": 1776351462.8938465,
+                "stop": 1776351462.8947656,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_content():\n        \"\"\"Priority 3 fallback: check for correct data in the JSON output.\"\"\"\n>       with open(RESULT_FILE, 'r') as f:\n             ^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/multi-execute-task/result.json'\n\ntests/test_final_state.py:14: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_repo_is_starred",
+                "status": "passed",
+                "duration": 0.43411829500837484,
+                "start": 1776351462.8948627,
+                "stop": 1776351463.329465,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_multi_execute",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.002116056995873805,
+                "start": 1776351463.3303049,
+                "stop": 1776351463.3380308,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_uses_multi_execute():\n        \"\"\"Priority 3 fallback: verify use of MULTI_EXECUTE_TOOL in the script.\"\"\"\n        script_file = \"/home/user/multi-execute-task/multi_execute.py\"\n>       assert os.path.isfile(script_file), f\"Script not found at {script_file}\"\nE       AssertionError: Script not found at /home/user/multi-execute-task/multi_execute.py\nE       assert False\nE        +  where False = <function isfile at 0x7f7fa4a80220>('/home/user/multi-execute-task/multi_execute.py')\nE        +    where <function isfile at 0x7f7fa4a80220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:38: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,59 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 3,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776352426.0373747,
+            "stop": 1776352426.5703657
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.0001922329975059256,
+                "start": 1776352426.0425706,
+                "stop": 1776352426.0428605,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_crewai_provider",
+                "status": "passed",
+                "duration": 0.000165435005328618,
+                "start": 1776352426.0429525,
+                "stop": 1776352426.0431745,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_defines_agents_and_tasks",
+                "status": "passed",
+                "duration": 0.00015036199329188094,
+                "start": 1776352426.043262,
+                "stop": 1776352426.0434713,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_slack_message_posted",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.5066552690041135,
+                "start": 1776352426.0435476,
+                "stop": 1776352426.5702076,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_slack_message_posted():\n        \"\"\"Priority 1: Use Slack API to verify the research report was posted.\"\"\"\n        slack_token = os.environ[\"SLACK_TOKEN\"]\n    \n        # 1. Get channel ID for #general\n        result = subprocess.run([\n            \"curl\", \"-sS\", \"-H\", f\"Authorization: Bearer {slack_token}\",\n            \"https://slack.com/api/conversations.list?types=public_channel\"\n        ], capture_output=True, text=True)\n        data = json.loads(result.stdout)\n        channel_id = next((c[\"id\"] for c in data.get(\"channels\", []) if c[\"name\"] == \"general\"), None)\n>       assert channel_id, \"Channel #general not found.\"\nE       AssertionError: Channel #general not found.\nE       assert None\n\ntests/test_final_state.py:37: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,90 @@
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo trigger_github_notion__oAAiw4Y > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# GitHub Trigger and Sentiment Analysis with Composio
+
+## Background
+Composio Triggers allow agents to react to external events in real-time. In this task, you will set up a workflow that listens for new GitHub issues and posts a sentiment analysis to Slack.
+
+## Requirements
+1. Create a Python script `trigger_agent.py` in `/home/user/trigger-task`.
+2. The script must use the Composio Python SDK and the OpenAI SDK.
+3. The script must create a new public repository named `harbor-trigger-${trial_id}` under `zealt-user01`.
+4. The script must set up a **Composio Trigger** to listen for `github_issue_created` events on this repository.
+5. When a new issue is created, the script must use an AI agent to analyze the issue's sentiment (Positive, Neutral, or Negative).
+6. The agent must post the sentiment analysis to a Slack channel named `sentiment-${trial_id}`.
+7. To test the workflow, the script must programmatically create a new issue in the repository with the title "Great work on the new feature!" and body "I really love how this works.".
+
+## Implementation Guide
+1. Read the `trial_id` from `/logs/trial_id`.
+2. Create the GitHub repository and Slack channel.
+3. Initialize Composio and create a session for `zealt-user01`.
+4. Subscribe to the `github_issue_created` trigger for the new repository.
+5. Implement a listener that receives the trigger payload.
+6. Pass the issue content to an OpenAI agent for sentiment analysis.
+7. Use the agent to post the result to the Slack channel.
+8. Create the test issue to fire the trigger.
+
+## Constraints
+- Project path: /home/user/trigger-task
+- Use the test user `zealt-user01`.
+- Read `trial_id` from `/logs/trial_id` for repo and channel names.
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+- OpenAI
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

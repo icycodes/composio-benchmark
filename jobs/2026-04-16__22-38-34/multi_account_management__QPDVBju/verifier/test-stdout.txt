@@ -1,0 +1,37 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 13ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 4 items
+
+tests/test_final_state.py ...F                                           [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_slack_messages_sent ___________________________
+
+    def test_slack_messages_sent():
+        """Priority 1: Use Slack API to verify both messages were sent."""
+        slack_token = os.environ["SLACK_TOKEN"]
+    
+        # 1. Get channel ID for #general
+        result = subprocess.run([
+            "curl", "-sS", "-H", f"Authorization: Bearer {slack_token}",
+            "https://slack.com/api/conversations.list?types=public_channel"
+        ], capture_output=True, text=True)
+        data = json.loads(result.stdout)
+        channel_id = next((c["id"] for c in data.get("channels", []) if c["name"] == "general"), None)
+>       assert channel_id, "Channel #general not found."
+E       AssertionError: Channel #general not found.
+E       assert None
+
+tests/test_final_state.py:37: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_exists
+PASSED tests/test_final_state.py::test_script_enables_multi_account
+PASSED tests/test_final_state.py::test_script_uses_aliases
+FAILED tests/test_final_state.py::test_slack_messages_sent - AssertionError: ...
+========================= 1 failed, 3 passed in 0.42s ==========================

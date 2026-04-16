@@ -1,0 +1,60 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 3ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 4 items
+
+tests/test_final_state.py FFFF                                           [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_summary_file_exists ___________________________
+
+    def test_summary_file_exists():
+        """Priority 3 fallback: basic file existence check."""
+>       assert os.path.isfile(SUMMARY_FILE), f"Summary file not found at {SUMMARY_FILE}"
+E       AssertionError: Summary file not found at /home/user/workbench-task/org_summary.txt
+E       assert False
+E        +  where False = <function isfile at 0x7fd423d5c220>('/home/user/workbench-task/org_summary.txt')
+E        +    where <function isfile at 0x7fd423d5c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:10: AssertionError
+__________________________ test_summary_file_content ___________________________
+
+    def test_summary_file_content():
+        """Priority 3 fallback: check for correct organization name and repo count."""
+>       with open(SUMMARY_FILE, 'r') as f:
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/workbench-task/org_summary.txt'
+
+tests/test_final_state.py:14: FileNotFoundError
+_______________________ test_script_uses_schema_modifier _______________________
+
+    def test_script_uses_schema_modifier():
+        """Priority 3 fallback: verify use of SchemaModifier in the agent script."""
+>       assert os.path.isfile(SCRIPT_FILE), f"Script not found at {SCRIPT_FILE}"
+E       AssertionError: Script not found at /home/user/workbench-task/workbench_task.py
+E       assert False
+E        +  where False = <function isfile at 0x7fd423d5c220>('/home/user/workbench-task/workbench_task.py')
+E        +    where <function isfile at 0x7fd423d5c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+__________________________ test_script_uses_workbench __________________________
+
+    def test_script_uses_workbench():
+        """Priority 3 fallback: verify use of Workbench in the agent script."""
+>       with open(SCRIPT_FILE, 'r') as f:
+             ^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/workbench-task/workbench_task.py'
+
+tests/test_final_state.py:34: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_summary_file_exists - AssertionError: ...
+FAILED tests/test_final_state.py::test_summary_file_content - FileNotFoundErr...
+FAILED tests/test_final_state.py::test_script_uses_schema_modifier - Assertio...
+FAILED tests/test_final_state.py::test_script_uses_workbench - FileNotFoundEr...
+============================== 4 failed in 0.01s ===============================

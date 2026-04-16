@@ -1,0 +1,33 @@
+- Initializing MCP connections...
+You
+# Composio Workbench and Schema Modifiers ## Background Composio's Workbench provides a sandboxed environment for data processing, while Schema Modifiers allow you to control which tool arguments are exposed to the LLM. In this task, you will use both to build a secure data processing pipeline. ## Requirements 1. Create a Python script `workbench_task.py` in `/home/user/workbench-task`. 2. Use the Composio Python SDK and the OpenAI SDK. 3. Use **Schema Modifiers** to hide the `org` argument from the `GITHUB_GET_ORGANIZATION` tool. Instead, hardcode the value `ComposioHQ` in the tool configuration so the LLM cannot change it. 4. Use the **Workbench** to execute a Python script that fetches the organization info and saves a summary to a file named `/home/user/workbench-task/org_summary.txt`. 5. The summary must include the organization name and its public repository count. ## Implementation Guide 1. Initialize Composio with `OpenAIProvider`. 2. Create a session for `zealt-user01`. 3. Apply a Schema Modifier to the `GITHUB_GET_ORGANIZATION` tool to set `org='ComposioHQ'` and hide it from the LLM. 4. Initialize the Workbench. 5. Use an OpenAI agent with the modified tool and the Workbench tool. 6. Prompt the agent to: "Fetch info for the organization 'ComposioHQ' using the modified GitHub tool, then use the Workbench to write a summary (name and public repo count) to '/home/user/workbench-task/org\_summary.txt'." ## Constraints * Project path: /home/user/workbench-task * Use the test user `zealt-user01`. * Output file: /home/user/workbench-task/org\_summary.txt ## Integrations * Composio * GitHub * OpenAI   
+
+Pochi
+💫 Executing mkdir -p /home/user/workbench-task ✔ 
+💫 Executing pip show composio-core composio-openai ✔ 
+💫 Executing pip show composio ✔ 
+💫 Executing python -c "import composio; print(dir(composio))" ✖ "Command exited with code 127"
+💫 Executing python3 -c "import composio; print(dir(composio))" ✔ 
+💫 Executing python3 -c "import composio; print(dir(composio.schema_modifier))" ✔ 
+💫 Executing python3 -c "import composio; help(composio.schema_modifier)" ✔ 
+💭 Thinking for 302 characters   
+💫 Executing python3 -c "from composio.core.models._modifiers import SchemaModifier; help(SchemaModifier)" ✔ 
+💫 Executing curl -s https://docs.composio.dev/framework/openai | grep -i modifier ✖ "Command exited with code 1"
+💫 Executing find / -name "*composio*.py" -type f 2>/dev/null | head -n 20 ✔ 
+💫 Executing find /usr/local/lib/python3.12/dist-packages/ -name "*workspace*" -o -name "*workbench*" 2>/dev/null ✔ 
+💫 Executing grep -R -i "workbench" /usr/local/lib/python3.12/dist-packages/composio* 2>/dev/null | head -n 20 ✔ 
+💫 Executing grep -R -i "workbench" /usr/local/lib/python3.12/dist-packages/composio_openai/ 2>/dev/null | head -n 20 ✔ 
+💫 Executing python3 -c "import inspect; from composio.core.models._modifiers import schema_modifier; print(inspect.getsource(schema_modifier))" ✔ 
+💫 Executing python3 -c "from composio import Action; print(Action.GITHUB_GET_ORGANIZATION)" ✖ "Command exited with code 1"
+💫 Executing python3 -c "from composio_openai import Action; print(Action.GITHUB_GET_ORGANIZATION)" ✖ "Command exited with code 1"
+💫 Executing python3 -c "import composio; print(dir(composio))" ✔ 
+💫 Executing python3 -c "import composio_openai; print(dir(composio_openai))" ✔ 
+💫 Executing python3 -c "import composio_openai; print(dir(composio_openai.OpenAIProvider))" ✔ 
+💫 Executing grep -R "class ComposioToolSet" /usr/local/lib/python3.12/dist-packages/ 2>/dev/null ✖ "Command exited with code 1"
+💫 Executing python3 -c "import composio; print(dir(composio.Composio))" ✔ 
+💫 Executing python3 -c "import composio; print(dir(composio.Composio()))" ✔ 
+💫 Executing python3 -c "import composio; print(help(composio.Composio.use))" ✖ "Command exited with code 1"
+💫 Executing python3 -c "import composio; print(help(composio.Composio().use))" ✔ 
+💫 Executing python3 -c "import composio_openai; help(composio_openai.OpenAIProvider)" ✔ 
+💫 Executing python3 -c "import composio; help(composio.Composio().tool_router.create)" ✔ 
+💫 Executing python3 -c "import composio; help(composio.Composio)" ✔ 

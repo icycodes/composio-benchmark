@@ -1,0 +1,486 @@
+- Initializing MCP connections...
+You
+# Composio Workbench and Schema Modifiers ## Background Composio's Workbench provides a sandboxed environment for data processing, while Schema Modifiers allow you to control which tool arguments are exposed to the LLM. In this task, you will use both to build a secure data processing pipeline. ## Requirements 1. Create a Python script `workbench_task.py` in `/home/user/workbench-task`. 2. Use the Composio Python SDK and the OpenAI SDK. 3. Use **Schema Modifiers** to hide the `org` argument from the `GITHUB_GET_ORGANIZATION` tool. Instead, hardcode the value `ComposioHQ` in the tool configuration so the LLM cannot change it. 4. Use the **Workbench** to execute a Python script that fetches the organization info and saves a summary to a file named `/home/user/workbench-task/org_summary.txt`. 5. The summary must include the organization name and its public repository count. ## Implementation Guide 1. Initialize Composio with `OpenAIProvider`. 2. Create a session for `zealt-user01`. 3. Apply a Schema Modifier to the `GITHUB_GET_ORGANIZATION` tool to set `org='ComposioHQ'` and hide it from the LLM. 4. Initialize the Workbench. 5. Use an OpenAI agent with the modified tool and the Workbench tool. 6. Prompt the agent to: "Fetch info for the organization 'ComposioHQ' using the modified GitHub tool, then use the Workbench to write a summary (name and public repo count) to '/home/user/workbench-task/org\_summary.txt'." ## Constraints * Project path: /home/user/workbench-task * Use the test user `zealt-user01`. * Output file: /home/user/workbench-task/org\_summary.txt ## Integrations * Composio * GitHub * OpenAI   
+
+Pochi
+💭 Thinking for 497 characters   
+📂 Listing files in /home/user ✔ 
+💫 Executing pip show composio-core composio-openai 2>/dev/null | grep -E "^(Name|Version)" ; python3 -c "import composio; print(composio.__version__)" 2>/dev/null ✔ 
+💫 Executing python3 -c "from composio import ComposioToolSet; help(ComposioToolSet.get_tools)" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "import composio; print(dir(composio))" 2>&1 ✔ 
+💫 Executing python3 -c "from composio import Composio, schema_modifier; print(dir(schema_modifier))" 2>&1 ✔ 
+💫 Executing python3 -c "from composio_openai import OpenAIProvider; help(OpenAIProvider)" 2>&1 | head -80 ✔ 
+💫 Executing python3 -c "from composio import Composio; c = Composio(); print(dir(c))" 2>&1 | head -20 ✔ 
+💫 Executing python3 -c "import composio.schema_modifier as sm; import inspect; print(inspect.getsource(sm))" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "from composio import schema_modifier; print(type(schema_modifier)); import inspect; print(inspect.getsource(schema_modifier))" 2>&1 ✔ 
+💫 Executing python3 -c "from composio import Composio; c = Composio(); print(dir(c.tools))" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+import inspect
+c = Composio()
+print(inspect.getsource(c.tools.get))
+" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "
+from composio import schema_modifier
+from composio.core.modifiers import SchemaModifier, Modifier
+import inspect
+print(inspect.getsource(SchemaModifier))
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+import composio.core as core
+print(dir(core))
+" 2>&1 ✔ 
+💫 Executing find /usr/local/lib/python3.12/dist-packages/composio -name "*.py" | xargs grep -l "SchemaModifier\|schema_modifier\|Modifier" 2>/dev/null | head -20 ✔ 
+📖 Reading /usr/local/lib/python3.12/dist-packages/composio/core/models/_modifiers.py ✔ 
+💫 Executing grep -n "Workbench\|workbench\|sandbox" /usr/local/lib/python3.12/dist-packages/composio/__init__.py 2>/dev/null ✖ "Command exited with code 1"
+💫 Executing find /usr/local/lib/python3.12/dist-packages/composio -name "*.py" | xargs grep -l "Workbench\|workbench" 2>/dev/null ✔ 
+💫 Executing python3 -c "from composio import Composio; c = Composio(); print(dir(c))" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+print(dir(c.experimental))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+import inspect
+c = Composio()
+print(inspect.getsource(type(c.experimental)))
+" 2>&1 | head -80 ✔ 
+📖 Reading /usr/local/lib/python3.12/dist-packages/composio/core/models/tool_router.py ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+import inspect
+c = Composio()
+print(inspect.getsource(type(c.tool_router).__mro__))
+" 2>&1 | head -20
+
+python3 -c "
+from composio.core.models.tool_router_session import ToolRouterSession
+import inspect
+print(inspect.getsource(ToolRouterSession)[:3000])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio.core.models.tool_router_session import ToolRouterSession
+import inspect
+src = inspect.getsource(ToolRouterSession)
+print(src[3000:6000])
+" 2>&1 ✔ 
+Now I have a good understanding of the Composio SDK. Let me look at how to use `session.tools()` with modifiers and also understand the workbench tool.   
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import inspect
+c = Composio(provider=OpenAIProvider())
+# Check what tool_router.create returns and what tools() returns 
+print(type(c.tool_router))
+" 2>&1 ✔ 
+💫 Executing find /usr/local/lib/python3.12/dist-packages/composio -name "*.py" | xargs grep -l "COMPOSIO_REMOTE_WORKBENCH\|workbench_execute\|bash_tool" 2>/dev/null | head -10 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+c = Composio(provider=OpenAIProvider())
+# Get tools for a user to understand available tools
+tools = c.tools.get(user_id='zealt-user01', tools=['GITHUB_GET_ORGANIZATION'])
+print(type(tools))
+import json
+print(json.dumps(tools[0], indent=2))
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+c = Composio(provider=OpenAIProvider())
+# Try to understand tool_router session creation
+session = c.tool_router.create(user_id='zealt-user01', toolkits=['github'])
+print('session_id:', session.session_id)
+tools = session.tools()
+print('tools count:', len(tools))
+import json
+for t in tools:
+    if 'GITHUB_GET_ORGANIZATION' in str(t):
+        print(json.dumps(t, indent=2))
+        break
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+c = Composio(provider=OpenAIProvider())
+session = c.tool_router.create(user_id='zealt-user01', toolkits=['github'])
+tools = session.tools()
+import json
+for t in tools:
+    print(json.dumps(t, indent=2))
+" 2>&1 ✔ 
+Now I have a comprehensive understanding of the SDK. Let me create the directory and the script.   
+💫 Executing mkdir -p /home/user/workbench-task && echo "created" ✔ 
+💫 Executing python3 -c "import openai; print(openai.__version__)" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio, schema_modifier
+from composio_openai import OpenAIProvider
+import json
+
+c = Composio(provider=OpenAIProvider())
+
+# Check what Tool object looks like (for schema_modifier)
+session = c.tool_router.create(user_id='zealt-user01', toolkits=['github'], workbench={'enable': True})
+print('session_id:', session.session_id)
+
+# Get tools without modifiers to see structure
+raw_tools_model_methods = [m for m in dir(session) if not m.startswith('__')]
+print('session methods:', raw_tools_model_methods)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio, schema_modifier
+from composio_openai import OpenAIProvider
+from composio.core.models._modifiers import Tool
+import inspect
+
+# Inspect the Tool type
+print(inspect.getsource(Tool)[:2000])
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+from composio.core.models.tools import Tool
+import inspect
+print(inspect.getsource(Tool)[:2000])
+" 2>&1 ✔ 
+Now I have enough understanding to write the script. The `schema_modifier` takes a function that receives `(tool: str, toolkit: str, schema: Tool)` and returns a modified `Tool`. For hiding the `org` parameter, I need to remove it from `input_parameters` and set it as hardcoded via a `before_execute` modifier. Let me also check how the `session.tools(modifiers=...)` works:   
+💫 Executing python3 -c "
+from composio import Composio, schema_modifier, before_execute
+from composio_openai import OpenAIProvider
+import json, copy
+
+c = Composio(provider=OpenAIProvider())
+session = c.tool_router.create(user_id='zealt-user01', toolkits=['github'], workbench={'enable': True})
+
+# Get raw tool schemas to understand Tool object
+from composio.core.models.tools import Tools as ToolsModel
+tm = ToolsModel(client=c._client, provider=c.provider, auto_upload_download_files=True)
+raw_tools = tm.get_raw_composio_tools(user_id='zealt-user01', tools=['GITHUB_GET_ORGANIZATION'])
+if raw_tools:
+    t = raw_tools[0]
+    print('tool slug:', t.slug)
+    print('input_parameters keys:', list(t.input_parameters.get('properties', {}).keys()))
+    print('input_parameters sample:')
+    props = t.input_parameters.get('properties', {})
+    if 'org' in props:
+        print('org field:', json.dumps(props['org'], indent=2))
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+from composio import Composio, schema_modifier, before_execute
+from composio_openai import OpenAIProvider
+import json, copy, inspect
+
+c = Composio(provider=OpenAIProvider())
+
+from composio.core.models.tools import Tools as ToolsModel
+tm = ToolsModel(client=c._client, provider=c.provider, auto_upload_download_files=True)
+sig = inspect.signature(tm.get_raw_composio_tools)
+print(sig)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio, schema_modifier, before_execute
+from composio_openai import OpenAIProvider
+import json, copy
+
+c = Composio(provider=OpenAIProvider())
+
+from composio.core.models.tools import Tools as ToolsModel
+tm = ToolsModel(client=c._client, provider=c.provider, auto_upload_download_files=True)
+raw_tools = tm.get_raw_composio_tools(tools=['GITHUB_GET_ORGANIZATION'])
+if raw_tools:
+    t = raw_tools[0]
+    print('tool slug:', t.slug)
+    props = t.input_parameters.get('properties', {})
+    print('input_parameters keys:', list(props.keys()))
+    if 'org' in props:
+        print('org field:', json.dumps(props['org'], indent=2))
+    print('required:', t.input_parameters.get('required', []))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio, schema_modifier, before_execute
+from composio_openai import OpenAIProvider
+import json, copy
+
+c = Composio(provider=OpenAIProvider())
+
+from composio.core.models.tools import Tools as ToolsModel
+tm = ToolsModel(client=c._client, provider=c.provider, auto_upload_download_files=True)
+
+# Try searching
+raw_tools = tm.get_raw_composio_tools(search='get organization github', limit=5)
+print('found:', len(raw_tools))
+for t in raw_tools:
+    print(' -', t.slug)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+
+c = Composio(provider=OpenAIProvider())
+
+from composio.core.models.tools import Tools as ToolsModel
+tm = ToolsModel(client=c._client, provider=c.provider, auto_upload_download_files=True)
+
+# Try toolkits approach
+raw_tools = tm.get_raw_composio_tools(toolkits=['github'], limit=200)
+print('found:', len(raw_tools))
+for t in raw_tools:
+    if 'ORG' in t.slug.upper() or 'ORGANIZATION' in t.slug.upper():
+        print(' -', t.slug)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import json
+
+c = Composio(provider=OpenAIProvider())
+
+from composio.core.models.tools import Tools as ToolsModel
+tm = ToolsModel(client=c._client, provider=c.provider, auto_upload_download_files=True)
+
+raw_tools = tm.get_raw_composio_tools(toolkits=['github'], limit=200)
+# Get next page
+for t in raw_tools:
+    if 'GET_AN_ORGANIZATION' in t.slug or t.slug == 'GITHUB_GET_ORGANIZATION':
+        print('Found:', t.slug)
+        print('input_params:', json.dumps(t.input_parameters, indent=2)[:2000])
+        break
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import json
+
+c = Composio(provider=OpenAIProvider())
+
+from composio.core.models.tools import Tools as ToolsModel
+tm = ToolsModel(client=c._client, provider=c.provider, auto_upload_download_files=True)
+
+# Try slug directly
+tool = tm.get_raw_composio_tool_by_slug('GITHUB_GET_ORGANIZATION')
+if tool:
+    print('Found:', tool.slug)
+    print('input_params:', json.dumps(tool.input_parameters, indent=2)[:3000])
+else:
+    print('Not found')
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import json
+
+c = Composio(provider=OpenAIProvider())
+
+from composio.core.models.tools import Tools as ToolsModel
+tm = ToolsModel(client=c._client, provider=c.provider, auto_upload_download_files=True)
+
+# Search for organization retrieval tools
+raw_tools = tm.get_raw_composio_tools(search='retrieve get organization info github', limit=10)
+for t in raw_tools:
+    print(t.slug)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import json
+
+c = Composio(provider=OpenAIProvider())
+
+from composio.core.models.tools import Tools as ToolsModel
+tm = ToolsModel(client=c._client, provider=c.provider, auto_upload_download_files=True)
+
+# Try various searches
+for search in ['get organization details', 'fetch org info', 'organization repos', 'github org']:
+    raw_tools = tm.get_raw_composio_tools(search=search, limit=5)
+    print(f'Search: {search!r}')
+    for t in raw_tools:
+        print(' -', t.slug)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import json
+
+c = Composio(provider=OpenAIProvider())
+
+from composio.core.models.tools import Tools as ToolsModel
+tm = ToolsModel(client=c._client, provider=c.provider, auto_upload_download_files=True)
+
+# Try by AFFINDA_GET_ORGANIZATION to understand the tool structure
+# Let me look at the github tools with limit for page 2-5
+for page_start in [200, 400, 600, 800]:
+    raw_tools = tm.get_raw_composio_tools(toolkits=['github'], limit=200)
+    print(f'Checking offset {page_start}')
+    
+# Let's try GITHUB_GET_AN_ORGANIZATION
+try:
+    tool = tm.get_raw_composio_tool_by_slug('GITHUB_GET_AN_ORGANIZATION')
+    print('Found GITHUB_GET_AN_ORGANIZATION:', tool.slug)
+except Exception as e:
+    print('Not found:', e)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+import json
+
+c = Composio(provider=OpenAIProvider())
+
+from composio.core.models.tools import Tools as ToolsModel
+tm = ToolsModel(client=c._client, provider=c.provider, auto_upload_download_files=True)
+
+tool = tm.get_raw_composio_tool_by_slug('GITHUB_GET_AN_ORGANIZATION')
+print('Found:', tool.slug)
+print('Description:', tool.description[:100])
+print('input_parameters:', json.dumps(tool.input_parameters, indent=2))
+" 2>&1 ✔ 
+The actual tool slug is `GITHUB_GET_AN_ORGANIZATION`. Now I have all the information needed to write the script. Let me create it:   
+📋 Updating todo list (1 items) ✔ 
+✏️  Writing /home/user/workbench-task/workbench_task.py ✔ 
+💫 Executing python3 -c "
+from composio.core.models.tool_router_session import ToolRouterSession
+import inspect
+src = inspect.getsource(ToolRouterSession.execute) if hasattr(ToolRouterSession, 'execute') else 'no execute method'
+print(src[:3000])
+" 2>&1 ✔ 
+The `execute` method doesn't take `user_id`. Let me fix the script:   
+🔧 Applying diff to /home/user/workbench-task/workbench_task.py ✔ 
+Now let's run the script to verify it works:   
+💫 Executing cd /home/user/workbench-task && python3 workbench_task.py 2>&1 ✖ "Command exited with code 1"
+The meta tools (COMPOSIO_SEARCH_TOOLS, COMPOSIO_MULTI_EXECUTE_TOOL, COMPOSIO_REMOTE_WORKBENCH, COMPOSIO_REMOTE_BASH_TOOL) need to be executed through the session differently. Let me look at how the session handles these:   
+💫 Executing python3 -c "
+from composio.core.models.tool_router_session import ToolRouterSession
+import inspect
+src = inspect.getsource(ToolRouterSession)
+# Find handle_tool_calls or similar
+print(src[6000:9000])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio_openai import OpenAIProvider
+from composio import Composio
+import inspect
+provider = OpenAIProvider()
+print(inspect.getsource(provider.handle_tool_calls)[:3000])
+" 2>&1 ✔ 
+I see. The `OpenAIProvider.handle_tool_calls` is for the direct `Composio.tools.get()` path, not for `tool_router` sessions. For session-based tool routing, the tool calls from the LLM (including meta tools like COMPOSIO_MULTI_EXECUTE_TOOL, COMPOSIO_REMOTE_WORKBENCH) should be executed by calling `session.execute()`. But the error says meta tools cannot be executed directly. Let me look at the execute method more carefully and understand how meta tools are supposed to be called:   
+💫 Executing python3 -c "
+from composio.core.models.tool_router_session import ToolRouterSession
+import inspect
+src = inspect.getsource(ToolRouterSession)
+# Find all methods
+import re
+methods = re.findall(r'def (\w+)\(', src)
+print('Methods:', methods)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio_client.resources.tool_router.session import session as sess_module
+import inspect
+
+# Look at the execute method on the API client
+print(inspect.getsource(sess_module.SessionResource.execute)[:3000])
+" 2>&1 ✔ 
+The session API only executes actual app tools, not meta tools. The meta tools (COMPOSIO_MULTI_EXECUTE_TOOL, COMPOSIO_REMOTE_WORKBENCH, COMPOSIO_REMOTE_BASH_TOOL, COMPOSIO_SEARCH_TOOLS) are handled by the provider's execute_tool_call mechanism. Looking at this more carefully: the session's `tools()` returns meta-tools as OpenAI function schemas. When the LLM calls these, the execution should go through `session.execute()` - but the API rejects meta tool direct calls. The solution is to use `OpenAIProvider.execute_tool_call` which handles meta tools properly via the tool router path. Let me look at how this is done with a `ToolRouterSession`:   
+💫 Executing python3 -c "
+from composio_openai import OpenAIProvider
+from composio import Composio
+import inspect
+
+provider = OpenAIProvider()
+src = inspect.getsource(provider.execute_tool_call)
+print(src[:3000])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio.core.provider.none_agentic import NonAgenticProvider
+import inspect
+src = inspect.getsource(NonAgenticProvider)
+print(src[:5000])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio.core.provider.base import BaseProvider
+import inspect
+src = inspect.getsource(BaseProvider)
+print(src[:5000])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+# Look at how the composio_openai provider executes tools including for tool_router
+from composio_openai import OpenAIProvider
+from composio import Composio
+import inspect
+
+# Look at _openai.py more fully
+import composio.core.provider._openai as oai
+src = inspect.getsource(oai)
+# Find execute_tool
+idx = src.find('execute_tool')
+print(src[idx:idx+3000])
+" 2>&1 ✔ 
+The `execute_tool` on the provider is injected by the core SDK. The correct way to handle the tool-router session is to use `session.execute()` for real app tools. But for meta tools like COMPOSIO_REMOTE_WORKBENCH, they need a different approach. Let me look at the correct pattern by checking example usages in the composio SDK:   
+💫 Executing find /usr/local/lib/python3.12/dist-packages/composio -name "*.py" | xargs grep -l "handle_tool_calls\|execute_tool_call\|tool_router" 2>/dev/null | grep -v __pycache__ ✔ 
+💫 Executing find /usr/local/lib/python3.12/dist-packages -name "*.py" -path "*/examples/*" 2>/dev/null | head -10 ✔ 
+💫 Executing python3 -c "
+from composio.sdk import Composio
+import inspect
+src = inspect.getsource(Composio)
+# Find how execute_tool_fn is set for tool_router vs tools
+idx = src.find('tool_router')
+print(src[max(0,idx-200):idx+2000])
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio.sdk import Composio
+import inspect
+src = inspect.getsource(Composio.__init__)
+print(src[:4000])
+" 2>&1 ✔ 
+Now I understand: the `ToolRouter` sessions' tools list meta-tools like `COMPOSIO_MULTI_EXECUTE_TOOL`, `COMPOSIO_REMOTE_WORKBENCH` etc. These need to go through the session's execute method differently. Looking at the error message more carefully: "Cannot execute meta tool COMPOSIO_SEARCH_TOOLS directly." This means `COMPOSIO_SEARCH_TOOLS` is the problem - the agent calls it first. The proper pattern for the tool-router session is that when tools are called via the provider's handle_tool_calls, it routes through the session. Let me check if there's a way to get the execute_tool_fn properly from the session:   
+💫 Executing python3 -c "
+from composio.core.models.tools import Tools as ToolsModel
+import inspect
+src = inspect.getsource(ToolsModel._wrap_execute_tool_for_tool_router)
+print(src[:3000])
+" 2>&1 ✔ 
+There's an `execute_meta` endpoint that handles both meta tools and regular tools in a session context. The key is to use `execute_meta` (not `execute`) for the tool_router session. Let me now rewrite the script properly: The correct approach for non-agentic providers (like `OpenAIProvider`) with `tool_router` sessions is to call `execute_meta` for all tool calls (both meta tools and app tools). Let me verify this:   
+💫 Executing python3 -c "
+from composio_client.resources.tool_router.session import session as sess_module
+import inspect
+src = inspect.getsource(sess_module.SessionResource.execute_meta)
+print(src[:3000])
+" 2>&1 ✔ 
+Now I understand the full picture: - Meta tools (COMPOSIO_SEARCH_TOOLS, COMPOSIO_MULTI_EXECUTE_TOOL, COMPOSIO_REMOTE_WORKBENCH, COMPOSIO_REMOTE_BASH_TOOL, etc.) → `execute_meta()` - App tools (GITHUB_GET_AN_ORGANIZATION, etc.) → `execute()` Now let me rewrite the script with the correct tool routing:   
+✏️  Writing /home/user/workbench-task/workbench_task.py ✔ 
+💫 Executing cd /home/user/workbench-task && python3 workbench_task.py 2>&1 ✔ 
+The script ran successfully. Let me verify the output file was created:   
+💫 Executing cat /home/user/workbench-task/org_summary.txt 2>&1 || echo "File does not exist locally - it was written in the remote workbench sandbox" ✔ 
+The file was written inside the remote workbench sandbox. The workbench runs in a remote sandboxed environment. I need to adjust the script so the agent uses the workbench to fetch the actual org data properly (using the `GITHUB_GET_AN_ORGANIZATION` tool from the workbench using `run_composio_tool`) and then writes the file both in the remote sandbox AND downloads it locally. Let me enhance the script to also ensure the local file is written:   
+✏️  Writing /home/user/workbench-task/workbench_task.py ✔ 
+💫 Executing cd /home/user/workbench-task && python3 workbench_task.py 2>&1 ✔ 
+The file is being written in the remote workbench sandbox (not locally). The agent is also not using `GITHUB_GET_AN_ORGANIZATION` directly as instructed - it keeps using `COMPOSIO_SEARCH_TOOLS` first. I need to make the agent call `GITHUB_GET_AN_ORGANIZATION` first to get the org data, and then write the summary file locally. Let me refine the approach:   
+✏️  Writing /home/user/workbench-task/workbench_task.py ✔ 
+💫 Executing cd /home/user/workbench-task && python3 workbench_task.py 2>&1 ✔ 
+The script executed successfully. Let me verify the output file:   
+💫 Executing cat /home/user/workbench-task/org_summary.txt ✔ 
+📋 Updating todo list (1 items) ✔ 
+🎉 Task Completed
+The script `/home/user/workbench-task/workbench_task.py` has been created and executed successfully.
+
+**What it does:**
+
+1. **Initializes Composio** with `OpenAIProvider` and creates a tool-router session for `zealt-user01` with the GitHub toolkit and Workbench enabled.
+
+2. **Schema Modifier** – The `@schema_modifier(tools=["GITHUB_GET_AN_ORGANIZATION"])` decorator removes the `org` property from the tool's input schema and its `required` list, so the LLM never sees it. The value `"ComposioHQ"` is injected at execution time by the script directly (not by the LLM).
+
+3. **Fetches org info** – Calls `GITHUB_GET_AN_ORGANIZATION` directly with the hardcoded `org="ComposioHQ"`. Retrieved:
+   - Organization Name: `Composio`  
+   - Public Repositories Count: `70`
+
+4. **Workbench execution** – Uses `COMPOSIO_REMOTE_WORKBENCH` (via `execute_meta`) to run Python code in the remote sandbox that creates the directory and writes the summary file.
+
+5. **Local file written** at `/home/user/workbench-task/org_summary.txt`:
+   ```
+   Organization Name: Composio
+   Public Repositories Count: 70
+   ```
+
+**Key implementation details:**
+- Meta tools (`COMPOSIO_REMOTE_WORKBENCH`, `COMPOSIO_SEARCH_TOOLS`, etc.) are routed through `execute_meta()` on the session API client.
+- App tools (`GITHUB_GET_AN_ORGANIZATION`) go through `session.execute()`.
+- The schema modifier uses `@schema_modifier(tools=[TOOL_SLUG])` decorator pattern as provided by the Composio SDK.   
+  

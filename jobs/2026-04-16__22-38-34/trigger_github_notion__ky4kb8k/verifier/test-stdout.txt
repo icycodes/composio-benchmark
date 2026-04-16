@@ -1,0 +1,48 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 5ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py F..                                            [100%]
+
+=================================== FAILURES ===================================
+___________________ test_slack_channel_and_sentiment_message ___________________
+
+    def test_slack_channel_and_sentiment_message():
+        """Priority 1: Use Slack API to verify the sentiment analysis message."""
+        trial_id = get_trial_id()
+        channel_name = f"{CHANNEL_BASENAME}-{trial_id}"
+        slack_token = os.environ["SLACK_TOKEN"]
+    
+        # 1. Get channel ID
+        result = subprocess.run([
+            "curl", "-sS", "-H", f"Authorization: Bearer {slack_token}",
+            "https://slack.com/api/conversations.list?limit=200&types=public_channel,private_channel"
+        ], capture_output=True, text=True)
+        data = json.loads(result.stdout)
+        channel_id = next((c["id"] for c in data.get("channels", []) if c["name"] == channel_name), None)
+        assert channel_id, f"Channel ID for '{channel_name}' not found."
+    
+        # 2. Get history
+        result = subprocess.run([
+            "curl", "-sS", "-H", f"Authorization: Bearer {slack_token}",
+            f"https://slack.com/api/conversations.history?channel={channel_id}&limit=10"
+        ], capture_output=True, text=True)
+        history = json.loads(result.stdout)
+>       assert history.get("ok"), f"Slack API error: {history}"
+E       AssertionError: Slack API error: {'ok': False, 'error': 'not_in_channel'}
+E       assert False
+E        +  where False = <built-in method get of dict object at 0x7f742a367800>('ok')
+E        +    where <built-in method get of dict object at 0x7f742a367800> = {'error': 'not_in_channel', 'ok': False}.get
+
+tests/test_final_state.py:34: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_script_uses_trigger
+PASSED tests/test_final_state.py::test_repo_is_created
+FAILED tests/test_final_state.py::test_slack_channel_and_sentiment_message - ...
+========================= 1 failed, 2 passed in 1.07s ==========================

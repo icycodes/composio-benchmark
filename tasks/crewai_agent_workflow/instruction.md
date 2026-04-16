@@ -1,0 +1,37 @@
+# Multi-Agent Workflow with CrewAI and Composio
+
+## Background
+Composio integrates seamlessly with agentic frameworks like CrewAI. In this task, you will build a multi-agent system where one agent researches a GitHub repository and another agent posts a summary to Slack.
+
+## Requirements
+1. Create a Python script `crew_workflow.py` in `/home/user/crewai-task`.
+2. Use the Composio Python SDK, the CrewAI SDK, and the OpenAI SDK.
+3. Create a Composio session for the user `zealt-user01`.
+4. Define two CrewAI agents:
+   - **GitHub Researcher**: Tasked with fetching the last 3 commit messages from the repository `ComposioHQ/composio`.
+   - **Slack Reporter**: Tasked with posting the research findings (the commit messages) to the Slack channel `#general`.
+5. Both agents must use the appropriate tools from the Composio session.
+6. Execute the crew and ensure the final report is posted to Slack.
+
+## Implementation Guide
+1. Initialize `Composio` with `CrewAIProvider`.
+2. Create a session for `zealt-user01`.
+3. Get tools from the session.
+4. Define the **GitHub Researcher** agent with its role, goal, and the GitHub-related tools.
+5. Define the **Slack Reporter** agent with its role, goal, and the Slack-related tools.
+6. Define two tasks: one for research and one for reporting, linking them to the respective agents.
+7. Create a `Crew` with these agents and tasks.
+8. Kick off the crew and print the result.
+
+## Constraints
+- Project path: /home/user/crewai-task
+- Use the test user `zealt-user01`.
+- Repository: `ComposioHQ/composio`.
+- Channel: `#general`.
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+- OpenAI
+- CrewAI

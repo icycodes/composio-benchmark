@@ -1,0 +1,32 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 2ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 4 items
+
+tests/test_final_state.py .F..                                           [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_summary_file_content ___________________________
+
+    def test_summary_file_content():
+        """Priority 3 fallback: check for correct organization name and repo count."""
+        with open(SUMMARY_FILE, 'r') as f:
+            content = f.read()
+>       assert "ComposioHQ" in content, f"Expected 'ComposioHQ' in summary, got: {content}"
+E       AssertionError: Expected 'ComposioHQ' in summary, got: Organization Name: Composio
+E         Public Repositories Count: 70
+E         
+E       assert 'ComposioHQ' in 'Organization Name: Composio\nPublic Repositories Count: 70\n'
+
+tests/test_final_state.py:16: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_summary_file_exists
+PASSED tests/test_final_state.py::test_script_uses_schema_modifier
+PASSED tests/test_final_state.py::test_script_uses_workbench
+FAILED tests/test_final_state.py::test_summary_file_content - AssertionError:...
+========================= 1 failed, 3 passed in 0.01s ==========================
