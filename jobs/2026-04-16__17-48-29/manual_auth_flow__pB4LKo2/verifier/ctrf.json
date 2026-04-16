@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776334608.080677,
+            "stop": 1776334608.090424
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_redirect_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002755879977485165,
+                "start": 1776334608.0841796,
+                "stop": 1776334608.08948,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_redirect_file_exists():\n>       assert os.path.isfile(REDIRECT_FILE), f\"Redirect URL file {REDIRECT_FILE} not found.\"\nE       AssertionError: Redirect URL file /home/user/auth-task/redirect.url not found.\nE       assert False\nE        +  where False = <function isfile at 0x7fa0bea0c220>('/home/user/auth-task/redirect.url')\nE        +    where <function isfile at 0x7fa0bea0c220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:8: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_redirect_url_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0001864180012489669,
+                "start": 1776334608.0895824,
+                "stop": 1776334608.090351,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_redirect_url_content():\n>       with open(REDIRECT_FILE, \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/auth-task/redirect.url'\n\ntests/test_final_state.py:11: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

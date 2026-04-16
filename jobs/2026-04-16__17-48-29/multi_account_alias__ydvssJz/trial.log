@@ -1,0 +1,20 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command failed
+Trial multi_account_alias__ydvssJz failed: Command failed (exit 100): apt-get update && apt-get install -y curl ripgrep
+stdout: Hit:1 https://deb.nodesource.com/node_24.x nodistro InRelease
+Hit:2 https://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:3 https://archive.ubuntu.com/ubuntu noble InRelease
+Get:4 https://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Hit:5 https://archive.ubuntu.com/ubuntu noble-backports InRelease
+Get:6 https://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [38.5 kB]
+Get:7 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2402 kB]
+Ign:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages
+Get:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2156 kB]
+Err:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages
+  Hash Sum mismatch
+  Hashes of expected file:
+   - Filesize:2155936 [weak]
+   - SHA256:ad88b89b886aa10afaa27facac114cbbf7a41aba5a55167d96adec837d1a3dfe
+   - SHA1:ee29d5ae3334ffbc92aaf8a889bba37c30b107e6 [weak]
+   - MD5Sum:49edad864a8dda5688acd4dd2b95d034 [we ... [truncated]
+stderr: None

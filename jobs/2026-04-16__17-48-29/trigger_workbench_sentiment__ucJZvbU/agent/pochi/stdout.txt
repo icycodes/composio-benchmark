@@ -1,0 +1,97 @@
+- Initializing MCP connections...
+You
+# GitHub Issue Sentiment Analysis with Composio Triggers and Workbench ## Background Composio Triggers allow your application to react to external events in real-time. The Composio Workbench provides a sandboxed environment to run complex data processing scripts. In this task, you will build an automated pipeline that listens for new GitHub issues and uses the Workbench to analyze their sentiment. ## Requirements * Create a Python script named `sentiment_pipeline.py` in `/home/user/sentiment-task`. * The script must use the `composio` Python SDK and the user `zealt-user01`. * **Step 1: Create a Trigger** * Create a trigger for the event `GITHUB_ISSUE_OPENED_EVENT` (or similar, search for the correct slug). * Configure it for the repository `composiohq/composio`. * **Step 2: Handle Events** * Use `composio.triggers.subscribe()` to listen for events. * When a new issue is opened, extract the issue body. * **Step 3: Analyze Sentiment via Workbench** * Use the `COMPOSIO_REMOTE_WORKBENCH` meta-tool (via a session) to execute a Python script in the sandbox. * The sandbox script should use a simple heuristic or a library (like `textblob` if available, or just keyword matching) to determine if the sentiment is 'negative'. * If negative, the sandbox script should call `run_composio_tool('GITHUB_ADD_LABELS_TO_AN_ISSUE', ...)` to add the `urgent` label to the issue. * The script should print "Pipeline active" and wait for events. ## Implementation Guide 1. Initialize `Composio`. 2. Create a session for `zealt-user01` to access meta-tools. 3. Create the GitHub trigger. 4. Define an event handler that gets the issue details. 5. In the handler, call `session.execute('COMPOSIO_REMOTE_WORKBENCH', ...)` with the analysis code. 6. The workbench code has access to `run_composio_tool`. ## Constraints * Project path: /home/user/sentiment-task * Language: Python * User ID: `zealt-user01` * Repository: `composiohq/composio` ## Integrations * Composio * GitHub   
+
+Pochi
+💭 Thinking for 982 characters   
+💫 Executing mkdir -p /home/user/sentiment-task ✔ 
+💭 Thinking for 260 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 281 characters   
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 633 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); print([t.slug for t in c.triggers.list(toolkit_slugs=['github']) if 'ISSUE' in t.slug])" ✖ "Command exited with code 1"
+💭 Thinking for 326 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); triggers = c.triggers.list(toolkit_slugs=['github']); print(triggers[0] if triggers else 'None')" ✖ "Command exited with code 1"
+💭 Thinking for 303 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); triggers = c.triggers.list(toolkit_slugs=['github']); print(dir(triggers))" ✔ 
+💭 Thinking for 213 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); triggers = c.triggers.list(toolkit_slugs=['github']); print([t.slug for t in triggers.items if 'ISSUE' in t.slug])" ✔ 
+💭 Thinking for 261 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); triggers = c.triggers.list(toolkit_slugs=['github']); print([(t.slug, t.description) for t in triggers.items if 'ISSUE' in t.slug])" ✔ 
+💭 Thinking for 532 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); triggers = c.triggers.list(toolkit_slugs=['github']); print([t.slug for t in triggers.items if 'OPENED' in t.slug])" ✔ 
+💭 Thinking for 1070 characters   
+💫 Executing python3 -c "from composio import Composio; print(dir(Composio))" ✔ 
+💭 Thinking for 695 characters   
+💫 Executing python3 -c "from composio import ComposioToolSet; print(dir(ComposioToolSet))" ✖ "Command exited with code 1"
+💭 Thinking for 351 characters   
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 1772 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); tool = c.tools.get_tool('GITHUB_ADD_LABELS_TO_AN_ISSUE'); print(tool.parameters)" ✖ "Command exited with code 1"
+💭 Thinking for 290 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); tools = c.tools.get(tool_slugs=['GITHUB_ADD_LABELS_TO_AN_ISSUE']); print(tools[0] if tools else 'None')" ✖ "Command exited with code 1"
+💭 Thinking for 308 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); print(dir(c.tools))" ✔ 
+💫 Executing python3 -c "from composio import Composio; c = Composio(); tool = c.tools.get_raw_composio_tool_by_slug('GITHUB_ADD_LABELS_TO_AN_ISSUE'); print(tool.parameters)" ✖ "Command exited with code 1"
+💭 Thinking for 262 characters   
+💭 Thinking for 183 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); tool = c.tools.get_raw_composio_tool_by_slug('GITHUB_ADD_LABELS_TO_AN_ISSUE'); print(tool)" ✔ 
+💭 Thinking for 1460 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); s = c.create(user_id='zealt-user01'); print(dir(s))" ✔ 
+💭 Thinking for 279 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); s = c.create(user_id='zealt-user01'); import inspect; print(inspect.signature(s.execute))" ✔ 
+💭 Thinking for 785 characters   
+✏️  Writing /home/user/sentiment-task/sentiment_pipeline.py ✔ 
+💭 Thinking for 1037 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); triggers = c.triggers.list(toolkit_slugs=['github']); print([t.slug for t in triggers.items])" ✔ 
+💭 Thinking for 1127 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); tool = c.tools.get_raw_composio_tool_by_slug('COMPOSIO_REMOTE_WORKBENCH'); print(tool.input_parameters)" ✔ 
+💭 Thinking for 186 characters   
+🔧 Applying diff to /home/user/sentiment-task/sentiment_pipeline.py ✔ 
+💭 Thinking for 683 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); s = c.create(user_id='zealt-user01'); print(s.session_id)" ✔ 
+💭 Thinking for 949 characters   
+🔧 Applying diff to /home/user/sentiment-task/sentiment_pipeline.py ✔ 
+💭 Thinking for 593 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); triggers = c.triggers.list(toolkit_slugs=['github']); print([t.slug for t in triggers.items if 'ISSUE' in t.slug])" ✔ 
+💭 Thinking for 1211 characters   
+🔧 Applying diff to /home/user/sentiment-task/sentiment_pipeline.py ✔ 
+💭 Thinking for 177 characters   
+💫 Executing chmod +x /home/user/sentiment-task/sentiment_pipeline.py ✔ 
+💭 Thinking for 270 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 1620 characters   
+🔧 Applying diff to /home/user/sentiment-task/sentiment_pipeline.py ✔ 
+💭 Thinking for 773 characters   
+📖 Reading /home/user/sentiment-task/sentiment_pipeline.py ✔ 
+💭 Thinking for 680 characters   
+🔧 Applying diff to /home/user/sentiment-task/sentiment_pipeline.py ✔ 
+💭 Thinking for 259 characters   
+📖 Reading /home/user/sentiment-task/sentiment_pipeline.py ✔ 
+💭 Thinking for 708 characters   
+🎉 Task Completed
+I have implemented the GitHub issue sentiment analysis pipeline as requested.
+
+### Implementation Details:
+- **Location**: `/home/user/sentiment-task/sentiment_pipeline.py`
+- **User**: `zealt-user01`
+- **Repository**: `composiohq/composio`
+- **Trigger**: `GITHUB_ISSUE_CREATED_TRIGGER` (mapped from `GITHUB_ISSUE_OPENED_EVENT`)
+- **Analysis**: Simple keyword-based sentiment analysis executed in the `COMPOSIO_REMOTE_WORKBENCH` sandbox.
+- **Action**: If negative sentiment is detected, the `urgent` label is added to the issue using `GITHUB_ADD_LABELS_TO_AN_ISSUE`.
+
+### How it works:
+1. The script initializes the Composio client and enables a trigger for new issues on the specified repository.
+2. It creates a session for `zealt-user01` to access meta-tools like the Workbench.
+3. It subscribes to issue creation events.
+4. Upon receiving an event, it extracts the issue body and sends a Python script to the Remote Workbench for analysis.
+5. The Workbench script checks for negative keywords and uses `run_composio_tool` to label the issue if necessary.
+
+You can run the pipeline using:
+```bash
+python3 /home/user/sentiment-task/sentiment_pipeline.py
+```
+
+The script will print "Pipeline active" and wait for incoming GitHub issue events.   
+  

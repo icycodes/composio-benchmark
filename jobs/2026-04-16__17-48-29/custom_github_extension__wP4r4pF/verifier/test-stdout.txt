@@ -1,0 +1,33 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 3ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_repo_and_label_exist ___________________________
+
+    def test_repo_and_label_exist():
+        trial_id = get_trial_id()
+        repo_name = f"custom-repo-{trial_id}"
+        username = "zealt-user01"
+    
+        # Check repo exists
+        result = subprocess.run(
+            ["gh", "repo", "view", f"{username}/{repo_name}", "--json", "name"],
+            capture_output=True, text=True
+        )
+>       assert result.returncode == 0, f"Repository {repo_name} not found."
+E       AssertionError: Repository custom-repo-custom_github_extension__wP4r4pF not found.
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['gh', 'repo', 'view', 'zealt-user01/custom-repo-custom_github_extension__wP4r4pF', '--json', 'n...not resolve to a Repository with the name 'zealt-user01/custom-repo-custom_github_extension__wP4r4pF'. (repository)\n").returncode
+
+tests/test_final_state.py:22: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_repo_and_label_exist - AssertionError:...
+============================== 1 failed in 0.41s ===============================

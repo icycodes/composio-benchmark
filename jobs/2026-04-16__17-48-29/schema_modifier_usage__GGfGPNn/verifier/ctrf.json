@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776335590.0384152,
+            "stop": 1776335590.0478165
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_schema_file_exists",
+                "status": "passed",
+                "duration": 0.00018474499665899202,
+                "start": 1776335590.0421233,
+                "stop": 1776335590.0424032,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_schema_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002542369984439574,
+                "start": 1776335590.0424955,
+                "stop": 1776335590.0477397,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_schema_content():\n        with open(SCHEMA_FILE, \"r\") as f:\n            schema = json.load(f)\n    \n        # In Composio v3, the tool object might have input_parameters or parameters\n        # The task description says extraction from tool object.\n        # Assuming standard JSON schema structure in input_parameters\n    \n        input_params = schema.get(\"input_parameters\", {})\n        properties = input_params.get(\"properties\", {})\n        required = input_params.get(\"required\", [])\n    \n        assert \"page\" not in properties, \"The 'page' argument should have been removed.\"\n>       assert \"size\" in required, \"The 'size' argument should be required.\"\nE       AssertionError: The 'size' argument should be required.\nE       assert 'size' in []\n\ntests/test_final_state.py:24: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

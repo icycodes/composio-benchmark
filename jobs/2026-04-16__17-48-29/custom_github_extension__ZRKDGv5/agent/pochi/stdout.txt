@@ -1,0 +1,81 @@
+- Initializing MCP connections...
+You
+# Create a Custom GitHub Extension Tool with Composio Python SDK ## Background Composio allows you to extend existing toolkits with custom business logic. Extension tools inherit the authentication of the toolkit they extend. In this task, you will create a custom tool that extends the `github` toolkit to perform a specialized action: creating a repository and immediately adding a specific label to it. ## Requirements * Create a Python script named `custom_tool.py` in `/home/user/custom-tool-task`. * The script must use the `composio` Python SDK and the `experimental` custom tool API. * **Define a Custom Tool**: * Name: `CREATE_REPO_WITH_LABEL`. * Extends Toolkit: `github`. * Input Parameters: `repo_name` (string). * Execution Logic: 1. Use `ctx.execute('GITHUB_CREATE_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER', {'name': repo_name})` to create the repo. 2. Use `ctx.execute('GITHUB_CREATE_A_LABEL_FOR_A_REPOSITORY', {'owner': 'zealt-user01', 'repo': repo_name, 'name': 'custom-label', 'color': 'ff0000'})` to add a label. * **Execute the Tool**: * Read the `trial_id` from `/logs/trial_id`. * Set `repo_name` to `custom-repo-${trial_id}`. * Create a session for `zealt-user01` and register the custom tool. * Execute the custom tool within the session. * Print the result of the execution. ## Implementation Guide 1. Import `Composio` and `BaseModel`, `Field` from `pydantic`. 2. Define the input model `CreateRepoInput`. 3. Use `@composio.experimental.tool(extends_toolkit='github')` to define the tool. 4. In the session creation, pass `experimental={'custom_tools': [your_tool]}`. 5. Call `session.execute('CREATE_REPO_WITH_LABEL', {'repo_name': ...})`. ## Constraints * Project path: /home/user/custom-tool-task * Language: Python * User ID: `zealt-user01` * Repository name: `custom-repo-${trial_id}` ## Integrations * Composio * GitHub   
+
+Pochi
+💭 Thinking for 844 characters   
+💫 Executing mkdir -p /home/user/custom-tool-task ✔ 
+💭 Thinking for 1229 characters   
+✏️  Writing /home/user/custom-tool-task/custom_tool.py ✔ 
+💭 Thinking for 598 characters   
+✏️  Writing /home/user/custom-tool-task/custom_tool.py ✔ 
+💭 Thinking for 334 characters   
+💫 Executing cat /logs/trial_id ✔ 
+💭 Thinking for 786 characters   
+💫 Executing python3 /home/user/custom-tool-task/custom_tool.py ✖ "Command exited with code 1"
+💭 Thinking for 241 characters   
+💫 Executing python3 -c "import composio; print(dir(composio))" ✔ 
+💭 Thinking for 342 characters   
+💫 Executing python3 -c "import composio.experimental; print(dir(composio.experimental))" ✖ "Command exited with code 1"
+💭 Thinking for 350 characters   
+💫 Executing find /usr/local/lib/python3.11 -name "experimental*" -o -name "tool.py" | grep composio ✖ "Command exited with code 1"
+💭 Thinking for 354 characters   
+💫 Executing python3 --version ✔ 
+💭 Thinking for 270 characters   
+💫 Executing python3 -c "import composio; print(composio.__file__)" ✔ 
+💭 Thinking for 206 characters   
+💫 Executing find /usr/local/lib/python3.12/dist-packages/composio -name "experimental*" ✔ 
+💭 Thinking for 210 characters   
+💫 Executing grep -rn "experimental" /usr/local/lib/python3.12/dist-packages/composio ✔ 
+💭 Thinking for 718 characters   
+💫 Executing head -n 20 /usr/local/lib/python3.12/dist-packages/composio/core/models/custom_tool.py ✔ 
+💭 Thinking for 287 characters   
+✏️  Writing /home/user/custom-tool-task/custom_tool.py ✔ 
+💭 Thinking for 618 characters   
+💫 Executing sed -n '277,322p' /usr/local/lib/python3.12/dist-packages/composio/core/models/custom_tool.py ✔ 
+💭 Thinking for 300 characters   
+✏️  Writing /home/user/custom-tool-task/custom_tool.py ✔ 
+💭 Thinking for 263 characters   
+💫 Executing python3 /home/user/custom-tool-task/custom_tool.py ✖ "Command exited with code 1"
+💭 Thinking for 328 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); print(dir(client))" ✔ 
+💭 Thinking for 236 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); help(client.create)" ✔ 
+💭 Thinking for 708 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); session = client.create(user_id='zealt-user01'); print(dir(session))" ✔ 
+💭 Thinking for 225 characters   
+✏️  Writing /home/user/custom-tool-task/custom_tool.py ✔ 
+💭 Thinking for 292 characters   
+💫 Executing python3 /home/user/custom-tool-task/custom_tool.py ✖ "Command exited with code 1"
+💭 Thinking for 239 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); session = client.create(user_id='zealt-user01'); help(session.execute)" ✔ 
+💭 Thinking for 333 characters   
+✏️  Writing /home/user/custom-tool-task/custom_tool.py ✔ 
+💭 Thinking for 321 characters   
+💫 Executing python3 -c "from composio.core.models.custom_tool import SessionContext; help(SessionContext.execute)" ✖ "Command exited with code 1"
+💭 Thinking for 296 characters   
+💫 Executing python3 -c "from composio import SessionContext; help(SessionContext.execute)" ✔ 
+💭 Thinking for 318 characters   
+💫 Executing python3 /home/user/custom-tool-task/custom_tool.py ✔ 
+💭 Thinking for 317 characters   
+💫 Executing composio tools -t github ✖ "Command exited with code 127"
+💭 Thinking for 253 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); print([t.name for t in client.tools.get(apps=['github'])])" ✖ "Command exited with code 1"
+💭 Thinking for 247 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); help(client.tools.get)" ✔ 
+💭 Thinking for 354 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); print([t for t in client.tools.get(user_id='zealt-user01', toolkits=['github']) if 'label' in str(t).lower()])" ✔ 
+💭 Thinking for 668 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); tools = client.tools.get(user_id='zealt-user01', toolkits=['github']); print([t['function']['name'] for t in tools if 'CREATE' in t['function']['name'] and 'LABEL' in t['function']['name']])" ✔ 
+💭 Thinking for 262 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); tools = client.tools.get(user_id='zealt-user01', toolkits=['github']); print([t['function']['name'] for t in tools if 'LABEL' in t['function']['name']])" ✔ 
+💭 Thinking for 282 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); tools = client.tools.get(user_id='zealt-user01', toolkits=['github']); print(len(tools))" ✔ 
+💭 Thinking for 349 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); tools = client.tools.get(user_id='zealt-user01', toolkits=['github'], limit=1000); print(len(tools)); print([t['function']['name'] for t in tools if 'LABEL' in t['function']['name']])" ✔ 
+💭 Thinking for 614 characters   
+💫 Executing python3 -c "from composio import Composio; client = Composio(); tools = client.tools.get(user_id='zealt-user01', toolkits=['github'], limit=1000); print([t['function']['parameters'] for t in tools if t['function']['name'] == 'GITHUB_CREATE_A_LABEL'])" ✔ 
+💭 Thinking for 634 characters   
+✏️  Writing /home/user/custom-tool-task/custom_tool.py ✔ 
+💭 Thinking for 161 characters   
+💫 Executing python3 /home/user/custom-tool-task/custom_tool.py ✔ 

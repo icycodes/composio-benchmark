@@ -1,0 +1,4026 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo custom_github_extension__wP4r4pF > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create a Custom GitHub Extension Tool with Composio Python SDK
+
+## Background
+Composio allows you to extend existing toolkits with custom business logic. Extension tools inherit the authentication of the toolkit they extend. In this task, you will create a custom tool that extends the `github` toolkit to perform a specialized action: creating a repository and immediately adding a specific label to it.
+
+## Requirements
+- Create a Python script named `custom_tool.py` in `/home/user/custom-tool-task`.
+- The script must use the `composio` Python SDK and the `experimental` custom tool API.
+- **Define a Custom Tool**:
+  - Name: `CREATE_REPO_WITH_LABEL`.
+  - Extends Toolkit: `github`.
+  - Input Parameters: `repo_name` (string).
+  - Execution Logic:
+    1. Use `ctx.execute('GITHUB_CREATE_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER', {'name': repo_name})` to create the repo.
+    2. Use `ctx.execute('GITHUB_CREATE_A_LABEL_FOR_A_REPOSITORY', {'owner': 'zealt-user01', 'repo': repo_name, 'name': 'custom-label', 'color': 'ff0000'})` to add a label.
+- **Execute the Tool**:
+  - Read the `trial_id` from `/logs/trial_id`.
+  - Set `repo_name` to `custom-repo-${trial_id}`.
+  - Create a session for `zealt-user01` and register the custom tool.
+  - Execute the custom tool within the session.
+  - Print the result of the execution.
+
+## Implementation Guide
+1. Import `Composio` and `BaseModel`, `Field` from `pydantic`.
+2. Define the input model `CreateRepoInput`.
+3. Use `@composio.experimental.tool(extends_toolkit='github')` to define the tool.
+4. In the session creation, pass `experimental={'custom_tools': [your_tool]}`.
+5. Call `session.execute('CREATE_REPO_WITH_LABEL', {'repo_name': ...})`.
+
+## Constraints
+- Project path: /home/user/custom-tool-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository name: `custom-repo-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo custom_github_extension__aj4Gj57 > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create a Custom GitHub Extension Tool with Composio Python SDK
+
+## Background
+Composio allows you to extend existing toolkits with custom business logic. Extension tools inherit the authentication of the toolkit they extend. In this task, you will create a custom tool that extends the `github` toolkit to perform a specialized action: creating a repository and immediately adding a specific label to it.
+
+## Requirements
+- Create a Python script named `custom_tool.py` in `/home/user/custom-tool-task`.
+- The script must use the `composio` Python SDK and the `experimental` custom tool API.
+- **Define a Custom Tool**:
+  - Name: `CREATE_REPO_WITH_LABEL`.
+  - Extends Toolkit: `github`.
+  - Input Parameters: `repo_name` (string).
+  - Execution Logic:
+    1. Use `ctx.execute('GITHUB_CREATE_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER', {'name': repo_name})` to create the repo.
+    2. Use `ctx.execute('GITHUB_CREATE_A_LABEL_FOR_A_REPOSITORY', {'owner': 'zealt-user01', 'repo': repo_name, 'name': 'custom-label', 'color': 'ff0000'})` to add a label.
+- **Execute the Tool**:
+  - Read the `trial_id` from `/logs/trial_id`.
+  - Set `repo_name` to `custom-repo-${trial_id}`.
+  - Create a session for `zealt-user01` and register the custom tool.
+  - Execute the custom tool within the session.
+  - Print the result of the execution.
+
+## Implementation Guide
+1. Import `Composio` and `BaseModel`, `Field` from `pydantic`.
+2. Define the input model `CreateRepoInput`.
+3. Use `@composio.experimental.tool(extends_toolkit='github')` to define the tool.
+4. In the session creation, pass `experimental={'custom_tools': [your_tool]}`.
+5. Call `session.execute('CREATE_REPO_WITH_LABEL', {'repo_name': ...})`.
+
+## Constraints
+- Project path: /home/user/custom-tool-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository name: `custom-repo-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo custom_github_extension__ZRKDGv5 > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create a Custom GitHub Extension Tool with Composio Python SDK
+
+## Background
+Composio allows you to extend existing toolkits with custom business logic. Extension tools inherit the authentication of the toolkit they extend. In this task, you will create a custom tool that extends the `github` toolkit to perform a specialized action: creating a repository and immediately adding a specific label to it.
+
+## Requirements
+- Create a Python script named `custom_tool.py` in `/home/user/custom-tool-task`.
+- The script must use the `composio` Python SDK and the `experimental` custom tool API.
+- **Define a Custom Tool**:
+  - Name: `CREATE_REPO_WITH_LABEL`.
+  - Extends Toolkit: `github`.
+  - Input Parameters: `repo_name` (string).
+  - Execution Logic:
+    1. Use `ctx.execute('GITHUB_CREATE_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER', {'name': repo_name})` to create the repo.
+    2. Use `ctx.execute('GITHUB_CREATE_A_LABEL_FOR_A_REPOSITORY', {'owner': 'zealt-user01', 'repo': repo_name, 'name': 'custom-label', 'color': 'ff0000'})` to add a label.
+- **Execute the Tool**:
+  - Read the `trial_id` from `/logs/trial_id`.
+  - Set `repo_name` to `custom-repo-${trial_id}`.
+  - Create a session for `zealt-user01` and register the custom tool.
+  - Execute the custom tool within the session.
+  - Print the result of the execution.
+
+## Implementation Guide
+1. Import `Composio` and `BaseModel`, `Field` from `pydantic`.
+2. Define the input model `CreateRepoInput`.
+3. Use `@composio.experimental.tool(extends_toolkit='github')` to define the tool.
+4. In the session creation, pass `experimental={'custom_tools': [your_tool]}`.
+5. Call `session.execute('CREATE_REPO_WITH_LABEL', {'repo_name': ...})`.
+
+## Constraints
+- Project path: /home/user/custom-tool-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository name: `custom-repo-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo custom_github_extension__coZdcpY > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create a Custom GitHub Extension Tool with Composio Python SDK
+
+## Background
+Composio allows you to extend existing toolkits with custom business logic. Extension tools inherit the authentication of the toolkit they extend. In this task, you will create a custom tool that extends the `github` toolkit to perform a specialized action: creating a repository and immediately adding a specific label to it.
+
+## Requirements
+- Create a Python script named `custom_tool.py` in `/home/user/custom-tool-task`.
+- The script must use the `composio` Python SDK and the `experimental` custom tool API.
+- **Define a Custom Tool**:
+  - Name: `CREATE_REPO_WITH_LABEL`.
+  - Extends Toolkit: `github`.
+  - Input Parameters: `repo_name` (string).
+  - Execution Logic:
+    1. Use `ctx.execute('GITHUB_CREATE_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER', {'name': repo_name})` to create the repo.
+    2. Use `ctx.execute('GITHUB_CREATE_A_LABEL_FOR_A_REPOSITORY', {'owner': 'zealt-user01', 'repo': repo_name, 'name': 'custom-label', 'color': 'ff0000'})` to add a label.
+- **Execute the Tool**:
+  - Read the `trial_id` from `/logs/trial_id`.
+  - Set `repo_name` to `custom-repo-${trial_id}`.
+  - Create a session for `zealt-user01` and register the custom tool.
+  - Execute the custom tool within the session.
+  - Print the result of the execution.
+
+## Implementation Guide
+1. Import `Composio` and `BaseModel`, `Field` from `pydantic`.
+2. Define the input model `CreateRepoInput`.
+3. Use `@composio.experimental.tool(extends_toolkit='github')` to define the tool.
+4. In the session creation, pass `experimental={'custom_tools': [your_tool]}`.
+5. Call `session.execute('CREATE_REPO_WITH_LABEL', {'repo_name': ...})`.
+
+## Constraints
+- Project path: /home/user/custom-tool-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository name: `custom-repo-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo star_repo_cli__r4hk4yG > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Star a GitHub Repository with Composio CLI
+
+## Background
+Composio provides a CLI to interact with over 1000+ toolkits. You can execute tools directly from your terminal. In this task, you will use the Composio CLI to star a specific GitHub repository.
+
+## Requirements
+- Use the Composio CLI to star the repository `composiohq/composio`.
+- The operation must be performed on behalf of the user `zealt-user01`.
+
+## Implementation Guide
+1. Ensure you are logged in to Composio (the `COMPOSIO_API_KEY` is already set in your environment).
+2. Use the `composio execute` command to call the GitHub star tool.
+3. The tool slug for starring a repository is `GITHUB_STAR_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER`.
+4. Provide the required arguments: `owner` as `composiohq` and `repo` as `composio`.
+
+## Constraints
+- Project path: /home/user/star-task
+- Use Composio CLI.
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo star_repo_cli__U8UE7BJ > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Star a GitHub Repository with Composio CLI
+
+## Background
+Composio provides a CLI to interact with over 1000+ toolkits. You can execute tools directly from your terminal. In this task, you will use the Composio CLI to star a specific GitHub repository.
+
+## Requirements
+- Use the Composio CLI to star the repository `composiohq/composio`.
+- The operation must be performed on behalf of the user `zealt-user01`.
+
+## Implementation Guide
+1. Ensure you are logged in to Composio (the `COMPOSIO_API_KEY` is already set in your environment).
+2. Use the `composio execute` command to call the GitHub star tool.
+3. The tool slug for starring a repository is `GITHUB_STAR_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER`.
+4. Provide the required arguments: `owner` as `composiohq` and `repo` as `composio`.
+
+## Constraints
+- Project path: /home/user/star-task
+- Use Composio CLI.
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo star_repo_cli__e3QWFDA > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Star a GitHub Repository with Composio CLI
+
+## Background
+Composio provides a CLI to interact with over 1000+ toolkits. You can execute tools directly from your terminal. In this task, you will use the Composio CLI to star a specific GitHub repository.
+
+## Requirements
+- Use the Composio CLI to star the repository `composiohq/composio`.
+- The operation must be performed on behalf of the user `zealt-user01`.
+
+## Implementation Guide
+1. Ensure you are logged in to Composio (the `COMPOSIO_API_KEY` is already set in your environment).
+2. Use the `composio execute` command to call the GitHub star tool.
+3. The tool slug for starring a repository is `GITHUB_STAR_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER`.
+4. Provide the required arguments: `owner` as `composiohq` and `repo` as `composio`.
+
+## Constraints
+- Project path: /home/user/star-task
+- Use Composio CLI.
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo custom_github_extension__nEoYigV > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create a Custom GitHub Extension Tool with Composio Python SDK
+
+## Background
+Composio allows you to extend existing toolkits with custom business logic. Extension tools inherit the authentication of the toolkit they extend. In this task, you will create a custom tool that extends the `github` toolkit to perform a specialized action: creating a repository and immediately adding a specific label to it.
+
+## Requirements
+- Create a Python script named `custom_tool.py` in `/home/user/custom-tool-task`.
+- The script must use the `composio` Python SDK and the `experimental` custom tool API.
+- **Define a Custom Tool**:
+  - Name: `CREATE_REPO_WITH_LABEL`.
+  - Extends Toolkit: `github`.
+  - Input Parameters: `repo_name` (string).
+  - Execution Logic:
+    1. Use `ctx.execute('GITHUB_CREATE_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER', {'name': repo_name})` to create the repo.
+    2. Use `ctx.execute('GITHUB_CREATE_A_LABEL_FOR_A_REPOSITORY', {'owner': 'zealt-user01', 'repo': repo_name, 'name': 'custom-label', 'color': 'ff0000'})` to add a label.
+- **Execute the Tool**:
+  - Read the `trial_id` from `/logs/trial_id`.
+  - Set `repo_name` to `custom-repo-${trial_id}`.
+  - Create a session for `zealt-user01` and register the custom tool.
+  - Execute the custom tool within the session.
+  - Print the result of the execution.
+
+## Implementation Guide
+1. Import `Composio` and `BaseModel`, `Field` from `pydantic`.
+2. Define the input model `CreateRepoInput`.
+3. Use `@composio.experimental.tool(extends_toolkit='github')` to define the tool.
+4. In the session creation, pass `experimental={'custom_tools': [your_tool]}`.
+5. Call `session.execute('CREATE_REPO_WITH_LABEL', {'repo_name': ...})`.
+
+## Constraints
+- Project path: /home/user/custom-tool-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository name: `custom-repo-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo star_repo_cli__kznYe9L > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Star a GitHub Repository with Composio CLI
+
+## Background
+Composio provides a CLI to interact with over 1000+ toolkits. You can execute tools directly from your terminal. In this task, you will use the Composio CLI to star a specific GitHub repository.
+
+## Requirements
+- Use the Composio CLI to star the repository `composiohq/composio`.
+- The operation must be performed on behalf of the user `zealt-user01`.
+
+## Implementation Guide
+1. Ensure you are logged in to Composio (the `COMPOSIO_API_KEY` is already set in your environment).
+2. Use the `composio execute` command to call the GitHub star tool.
+3. The tool slug for starring a repository is `GITHUB_STAR_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER`.
+4. Provide the required arguments: `owner` as `composiohq` and `repo` as `composio`.
+
+## Constraints
+- Project path: /home/user/star-task
+- Use Composio CLI.
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo star_repo_cli__BbEgcDZ > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Star a GitHub Repository with Composio CLI
+
+## Background
+Composio provides a CLI to interact with over 1000+ toolkits. You can execute tools directly from your terminal. In this task, you will use the Composio CLI to star a specific GitHub repository.
+
+## Requirements
+- Use the Composio CLI to star the repository `composiohq/composio`.
+- The operation must be performed on behalf of the user `zealt-user01`.
+
+## Implementation Guide
+1. Ensure you are logged in to Composio (the `COMPOSIO_API_KEY` is already set in your environment).
+2. Use the `composio execute` command to call the GitHub star tool.
+3. The tool slug for starring a repository is `GITHUB_STAR_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER`.
+4. Provide the required arguments: `owner` as `composiohq` and `repo` as `composio`.
+
+## Constraints
+- Project path: /home/user/star-task
+- Use Composio CLI.
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo multi_account_alias__5Xezh3z > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manage Multiple Accounts with Aliases in Composio Python SDK
+
+## Background
+Composio supports multiple connected accounts for the same toolkit (e.g., work and personal accounts). Aliases help you identify and select these accounts easily. In this task, you will use the Composio Python SDK to assign aliases to existing connected accounts and verify them.
+
+## Requirements
+- Create a Python script named `manage_aliases.py` in `/home/user/alias-task`.
+- The script must use the `composio` Python SDK.
+- **Step 1: List Accounts**
+  - List all connected accounts for the user `zealt-user01`.
+- **Step 2: Assign Aliases**
+  - Find the first connected account for the `github` toolkit and assign it the alias `primary-github`.
+  - Find the first connected account for the `slack` toolkit and assign it the alias `work-slack`.
+- **Step 3: Verification**
+  - Print the updated account details (ID and alias) to the console.
+  - Save a JSON list of updated accounts (ID and alias only) to `/home/user/alias-task/updated_accounts.json`.
+
+## Implementation Guide
+1. Initialize `Composio`.
+2. Use `composio.connected_accounts.list(user_ids=['zealt-user01'])` to get all accounts.
+3. Loop through the items and use `composio.connected_accounts.update(account_id, alias='...')` to set the aliases.
+4. Collect the results and write to the JSON file.
+
+## Constraints
+- Project path: /home/user/alias-task
+- Language: Python
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo multi_account_alias__XC8KxrL > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manage Multiple Accounts with Aliases in Composio Python SDK
+
+## Background
+Composio supports multiple connected accounts for the same toolkit (e.g., work and personal accounts). Aliases help you identify and select these accounts easily. In this task, you will use the Composio Python SDK to assign aliases to existing connected accounts and verify them.
+
+## Requirements
+- Create a Python script named `manage_aliases.py` in `/home/user/alias-task`.
+- The script must use the `composio` Python SDK.
+- **Step 1: List Accounts**
+  - List all connected accounts for the user `zealt-user01`.
+- **Step 2: Assign Aliases**
+  - Find the first connected account for the `github` toolkit and assign it the alias `primary-github`.
+  - Find the first connected account for the `slack` toolkit and assign it the alias `work-slack`.
+- **Step 3: Verification**
+  - Print the updated account details (ID and alias) to the console.
+  - Save a JSON list of updated accounts (ID and alias only) to `/home/user/alias-task/updated_accounts.json`.
+
+## Implementation Guide
+1. Initialize `Composio`.
+2. Use `composio.connected_accounts.list(user_ids=['zealt-user01'])` to get all accounts.
+3. Loop through the items and use `composio.connected_accounts.update(account_id, alias='...')` to set the aliases.
+4. Collect the results and write to the JSON file.
+
+## Constraints
+- Project path: /home/user/alias-task
+- Language: Python
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command failed
+Trial multi_account_alias__ydvssJz failed: Command failed (exit 100): apt-get update && apt-get install -y curl ripgrep
+stdout: Hit:1 https://deb.nodesource.com/node_24.x nodistro InRelease
+Hit:2 https://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:3 https://archive.ubuntu.com/ubuntu noble InRelease
+Get:4 https://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Hit:5 https://archive.ubuntu.com/ubuntu noble-backports InRelease
+Get:6 https://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [38.5 kB]
+Get:7 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2402 kB]
+Ign:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages
+Get:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2156 kB]
+Err:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages
+  Hash Sum mismatch
+  Hashes of expected file:
+   - Filesize:2155936 [weak]
+   - SHA256:ad88b89b886aa10afaa27facac114cbbf7a41aba5a55167d96adec837d1a3dfe
+   - SHA1:ee29d5ae3334ffbc92aaf8a889bba37c30b107e6 [weak]
+   - MD5Sum:49edad864a8dda5688acd4dd2b95d034 [we ... [truncated]
+stderr: None
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo multi_account_alias__HE5sjqn > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manage Multiple Accounts with Aliases in Composio Python SDK
+
+## Background
+Composio supports multiple connected accounts for the same toolkit (e.g., work and personal accounts). Aliases help you identify and select these accounts easily. In this task, you will use the Composio Python SDK to assign aliases to existing connected accounts and verify them.
+
+## Requirements
+- Create a Python script named `manage_aliases.py` in `/home/user/alias-task`.
+- The script must use the `composio` Python SDK.
+- **Step 1: List Accounts**
+  - List all connected accounts for the user `zealt-user01`.
+- **Step 2: Assign Aliases**
+  - Find the first connected account for the `github` toolkit and assign it the alias `primary-github`.
+  - Find the first connected account for the `slack` toolkit and assign it the alias `work-slack`.
+- **Step 3: Verification**
+  - Print the updated account details (ID and alias) to the console.
+  - Save a JSON list of updated accounts (ID and alias only) to `/home/user/alias-task/updated_accounts.json`.
+
+## Implementation Guide
+1. Initialize `Composio`.
+2. Use `composio.connected_accounts.list(user_ids=['zealt-user01'])` to get all accounts.
+3. Loop through the items and use `composio.connected_accounts.update(account_id, alias='...')` to set the aliases.
+4. Collect the results and write to the JSON file.
+
+## Constraints
+- Project path: /home/user/alias-task
+- Language: Python
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Not retrying trial because the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo multi_account_alias__TvUbjfU > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manage Multiple Accounts with Aliases in Composio Python SDK
+
+## Background
+Composio supports multiple connected accounts for the same toolkit (e.g., work and personal accounts). Aliases help you identify and select these accounts easily. In this task, you will use the Composio Python SDK to assign aliases to existing connected accounts and verify them.
+
+## Requirements
+- Create a Python script named `manage_aliases.py` in `/home/user/alias-task`.
+- The script must use the `composio` Python SDK.
+- **Step 1: List Accounts**
+  - List all connected accounts for the user `zealt-user01`.
+- **Step 2: Assign Aliases**
+  - Find the first connected account for the `github` toolkit and assign it the alias `primary-github`.
+  - Find the first connected account for the `slack` toolkit and assign it the alias `work-slack`.
+- **Step 3: Verification**
+  - Print the updated account details (ID and alias) to the console.
+  - Save a JSON list of updated accounts (ID and alias only) to `/home/user/alias-task/updated_accounts.json`.
+
+## Implementation Guide
+1. Initialize `Composio`.
+2. Use `composio.connected_accounts.list(user_ids=['zealt-user01'])` to get all accounts.
+3. Loop through the items and use `composio.connected_accounts.update(account_id, alias='...')` to set the aliases.
+4. Collect the results and write to the JSON file.
+
+## Constraints
+- Project path: /home/user/alias-task
+- Language: Python
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo mcp_config_sdk__ySYp3JX > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manage MCP Configurations with Composio Python SDK
+
+## Background
+Composio allows you to create hosted MCP (Model Context Protocol) servers that expose specific toolkits to MCP-compatible clients like Claude Desktop or Cursor. In this task, you will use the Composio Python SDK to create and verify an MCP configuration.
+
+## Requirements
+- Create a Python script named `manage_mcp.py` in `/home/user/mcp-task`.
+- The script must use the `composio` Python SDK.
+- Create an MCP configuration with the following details:
+  - Name: `github-mcp-server`.
+  - Toolkits: `github` (use the default auth config).
+  - Allowed Tools: `GITHUB_GET_THE_AUTHENTICATED_USER`, `GITHUB_LIST_REPOS`.
+- The script must print the created server's ID to the console and save it to a file named `server_id.txt`.
+- Finally, the script should list all MCP servers and print the count of existing servers.
+
+## Implementation Guide
+1. Initialize the `Composio` client.
+2. Use `composio.mcp.create(name='github-mcp-server', toolkits=['github'], allowed_tools=['GITHUB_GET_THE_AUTHENTICATED_USER', 'GITHUB_LIST_REPOS'])`.
+3. Extract the `id` from the response.
+4. Write the ID to `/home/user/mcp-task/server_id.txt`.
+5. Call `composio.mcp.list()` and print the length of the `items` list.
+
+## Constraints
+- Project path: /home/user/mcp-task
+- Language: Python
+- User ID: `zealt-user01` (though not strictly needed for config creation, good for context).
+
+## Integrations
+- Composio
+
+EOF
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo mcp_config_sdk__mkfL3QF > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manage MCP Configurations with Composio Python SDK
+
+## Background
+Composio allows you to create hosted MCP (Model Context Protocol) servers that expose specific toolkits to MCP-compatible clients like Claude Desktop or Cursor. In this task, you will use the Composio Python SDK to create and verify an MCP configuration.
+
+## Requirements
+- Create a Python script named `manage_mcp.py` in `/home/user/mcp-task`.
+- The script must use the `composio` Python SDK.
+- Create an MCP configuration with the following details:
+  - Name: `github-mcp-server`.
+  - Toolkits: `github` (use the default auth config).
+  - Allowed Tools: `GITHUB_GET_THE_AUTHENTICATED_USER`, `GITHUB_LIST_REPOS`.
+- The script must print the created server's ID to the console and save it to a file named `server_id.txt`.
+- Finally, the script should list all MCP servers and print the count of existing servers.
+
+## Implementation Guide
+1. Initialize the `Composio` client.
+2. Use `composio.mcp.create(name='github-mcp-server', toolkits=['github'], allowed_tools=['GITHUB_GET_THE_AUTHENTICATED_USER', 'GITHUB_LIST_REPOS'])`.
+3. Extract the `id` from the response.
+4. Write the ID to `/home/user/mcp-task/server_id.txt`.
+5. Call `composio.mcp.list()` and print the length of the `items` list.
+
+## Constraints
+- Project path: /home/user/mcp-task
+- Language: Python
+- User ID: `zealt-user01` (though not strictly needed for config creation, good for context).
+
+## Integrations
+- Composio
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo mcp_config_sdk__yT9GfvJ > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manage MCP Configurations with Composio Python SDK
+
+## Background
+Composio allows you to create hosted MCP (Model Context Protocol) servers that expose specific toolkits to MCP-compatible clients like Claude Desktop or Cursor. In this task, you will use the Composio Python SDK to create and verify an MCP configuration.
+
+## Requirements
+- Create a Python script named `manage_mcp.py` in `/home/user/mcp-task`.
+- The script must use the `composio` Python SDK.
+- Create an MCP configuration with the following details:
+  - Name: `github-mcp-server`.
+  - Toolkits: `github` (use the default auth config).
+  - Allowed Tools: `GITHUB_GET_THE_AUTHENTICATED_USER`, `GITHUB_LIST_REPOS`.
+- The script must print the created server's ID to the console and save it to a file named `server_id.txt`.
+- Finally, the script should list all MCP servers and print the count of existing servers.
+
+## Implementation Guide
+1. Initialize the `Composio` client.
+2. Use `composio.mcp.create(name='github-mcp-server', toolkits=['github'], allowed_tools=['GITHUB_GET_THE_AUTHENTICATED_USER', 'GITHUB_LIST_REPOS'])`.
+3. Extract the `id` from the response.
+4. Write the ID to `/home/user/mcp-task/server_id.txt`.
+5. Call `composio.mcp.list()` and print the length of the `items` list.
+
+## Constraints
+- Project path: /home/user/mcp-task
+- Language: Python
+- User ID: `zealt-user01` (though not strictly needed for config creation, good for context).
+
+## Integrations
+- Composio
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo mcp_config_sdk__TiqdwyV > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manage MCP Configurations with Composio Python SDK
+
+## Background
+Composio allows you to create hosted MCP (Model Context Protocol) servers that expose specific toolkits to MCP-compatible clients like Claude Desktop or Cursor. In this task, you will use the Composio Python SDK to create and verify an MCP configuration.
+
+## Requirements
+- Create a Python script named `manage_mcp.py` in `/home/user/mcp-task`.
+- The script must use the `composio` Python SDK.
+- Create an MCP configuration with the following details:
+  - Name: `github-mcp-server`.
+  - Toolkits: `github` (use the default auth config).
+  - Allowed Tools: `GITHUB_GET_THE_AUTHENTICATED_USER`, `GITHUB_LIST_REPOS`.
+- The script must print the created server's ID to the console and save it to a file named `server_id.txt`.
+- Finally, the script should list all MCP servers and print the count of existing servers.
+
+## Implementation Guide
+1. Initialize the `Composio` client.
+2. Use `composio.mcp.create(name='github-mcp-server', toolkits=['github'], allowed_tools=['GITHUB_GET_THE_AUTHENTICATED_USER', 'GITHUB_LIST_REPOS'])`.
+3. Extract the `id` from the response.
+4. Write the ID to `/home/user/mcp-task/server_id.txt`.
+5. Call `composio.mcp.list()` and print the length of the `items` list.
+
+## Constraints
+- Project path: /home/user/mcp-task
+- Language: Python
+- User ID: `zealt-user01` (though not strictly needed for config creation, good for context).
+
+## Integrations
+- Composio
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo mcp_config_sdk__3SScpN7 > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manage MCP Configurations with Composio Python SDK
+
+## Background
+Composio allows you to create hosted MCP (Model Context Protocol) servers that expose specific toolkits to MCP-compatible clients like Claude Desktop or Cursor. In this task, you will use the Composio Python SDK to create and verify an MCP configuration.
+
+## Requirements
+- Create a Python script named `manage_mcp.py` in `/home/user/mcp-task`.
+- The script must use the `composio` Python SDK.
+- Create an MCP configuration with the following details:
+  - Name: `github-mcp-server`.
+  - Toolkits: `github` (use the default auth config).
+  - Allowed Tools: `GITHUB_GET_THE_AUTHENTICATED_USER`, `GITHUB_LIST_REPOS`.
+- The script must print the created server's ID to the console and save it to a file named `server_id.txt`.
+- Finally, the script should list all MCP servers and print the count of existing servers.
+
+## Implementation Guide
+1. Initialize the `Composio` client.
+2. Use `composio.mcp.create(name='github-mcp-server', toolkits=['github'], allowed_tools=['GITHUB_GET_THE_AUTHENTICATED_USER', 'GITHUB_LIST_REPOS'])`.
+3. Extract the `id` from the response.
+4. Write the ID to `/home/user/mcp-task/server_id.txt`.
+5. Call `composio.mcp.list()` and print the length of the `items` list.
+
+## Constraints
+- Project path: /home/user/mcp-task
+- Language: Python
+- User ID: `zealt-user01` (though not strictly needed for config creation, good for context).
+
+## Integrations
+- Composio
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo summarize_gmail_slack__VTHuNHi > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Summarize Gmail to Slack with Composio TypeScript SDK
+
+## Background
+Composio enables AI agents to work across multiple apps. In this task, you will create a TypeScript script that integrates Gmail and Slack. The script will fetch the last 5 emails and post a summary to a Slack channel.
+
+## Requirements
+- Create a TypeScript project in `/home/user/summarize-task`.
+- Use the `@composio/core` and `@composio/openai` SDKs.
+- The script must use the user `zealt-user01`.
+- Fetch the last 5 messages from Gmail using the `GMAIL_LIST_MESSAGES` tool (or search for the appropriate tool).
+- Create a summary of the email subjects.
+- Post the summary to a Slack channel named `summary-${trial_id}` (read `trial_id` from `/logs/trial_id`).
+- The script should be named `index.ts` and be runnable with `npx tsx index.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies: `@composio/core`, `@composio/openai`, `openai`, `tsx`, `dotenv`.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `OpenAIProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `session.execute` or an LLM agent to fetch the last 5 emails.
+6. Format a summary string.
+7. Post the message to Slack using `SLACK_CHAT_POST_MESSAGE`.
+
+## Constraints
+- Project path: /home/user/summarize-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `summary-${trial_id}`
+
+## Integrations
+- Composio
+- Gmail
+- Slack
+- OpenAI
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo summarize_gmail_slack__9eXDQpQ > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Summarize Gmail to Slack with Composio TypeScript SDK
+
+## Background
+Composio enables AI agents to work across multiple apps. In this task, you will create a TypeScript script that integrates Gmail and Slack. The script will fetch the last 5 emails and post a summary to a Slack channel.
+
+## Requirements
+- Create a TypeScript project in `/home/user/summarize-task`.
+- Use the `@composio/core` and `@composio/openai` SDKs.
+- The script must use the user `zealt-user01`.
+- Fetch the last 5 messages from Gmail using the `GMAIL_LIST_MESSAGES` tool (or search for the appropriate tool).
+- Create a summary of the email subjects.
+- Post the summary to a Slack channel named `summary-${trial_id}` (read `trial_id` from `/logs/trial_id`).
+- The script should be named `index.ts` and be runnable with `npx tsx index.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies: `@composio/core`, `@composio/openai`, `openai`, `tsx`, `dotenv`.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `OpenAIProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `session.execute` or an LLM agent to fetch the last 5 emails.
+6. Format a summary string.
+7. Post the message to Slack using `SLACK_CHAT_POST_MESSAGE`.
+
+## Constraints
+- Project path: /home/user/summarize-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `summary-${trial_id}`
+
+## Integrations
+- Composio
+- Gmail
+- Slack
+- OpenAI
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo summarize_gmail_slack__2ywLdz5 > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Summarize Gmail to Slack with Composio TypeScript SDK
+
+## Background
+Composio enables AI agents to work across multiple apps. In this task, you will create a TypeScript script that integrates Gmail and Slack. The script will fetch the last 5 emails and post a summary to a Slack channel.
+
+## Requirements
+- Create a TypeScript project in `/home/user/summarize-task`.
+- Use the `@composio/core` and `@composio/openai` SDKs.
+- The script must use the user `zealt-user01`.
+- Fetch the last 5 messages from Gmail using the `GMAIL_LIST_MESSAGES` tool (or search for the appropriate tool).
+- Create a summary of the email subjects.
+- Post the summary to a Slack channel named `summary-${trial_id}` (read `trial_id` from `/logs/trial_id`).
+- The script should be named `index.ts` and be runnable with `npx tsx index.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies: `@composio/core`, `@composio/openai`, `openai`, `tsx`, `dotenv`.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `OpenAIProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `session.execute` or an LLM agent to fetch the last 5 emails.
+6. Format a summary string.
+7. Post the message to Slack using `SLACK_CHAT_POST_MESSAGE`.
+
+## Constraints
+- Project path: /home/user/summarize-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `summary-${trial_id}`
+
+## Integrations
+- Composio
+- Gmail
+- Slack
+- OpenAI
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo summarize_gmail_slack__KxxKTUL > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Summarize Gmail to Slack with Composio TypeScript SDK
+
+## Background
+Composio enables AI agents to work across multiple apps. In this task, you will create a TypeScript script that integrates Gmail and Slack. The script will fetch the last 5 emails and post a summary to a Slack channel.
+
+## Requirements
+- Create a TypeScript project in `/home/user/summarize-task`.
+- Use the `@composio/core` and `@composio/openai` SDKs.
+- The script must use the user `zealt-user01`.
+- Fetch the last 5 messages from Gmail using the `GMAIL_LIST_MESSAGES` tool (or search for the appropriate tool).
+- Create a summary of the email subjects.
+- Post the summary to a Slack channel named `summary-${trial_id}` (read `trial_id` from `/logs/trial_id`).
+- The script should be named `index.ts` and be runnable with `npx tsx index.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies: `@composio/core`, `@composio/openai`, `openai`, `tsx`, `dotenv`.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `OpenAIProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `session.execute` or an LLM agent to fetch the last 5 emails.
+6. Format a summary string.
+7. Post the message to Slack using `SLACK_CHAT_POST_MESSAGE`.
+
+## Constraints
+- Project path: /home/user/summarize-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `summary-${trial_id}`
+
+## Integrations
+- Composio
+- Gmail
+- Slack
+- OpenAI
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo summarize_gmail_slack__PP8QTQ5 > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Summarize Gmail to Slack with Composio TypeScript SDK
+
+## Background
+Composio enables AI agents to work across multiple apps. In this task, you will create a TypeScript script that integrates Gmail and Slack. The script will fetch the last 5 emails and post a summary to a Slack channel.
+
+## Requirements
+- Create a TypeScript project in `/home/user/summarize-task`.
+- Use the `@composio/core` and `@composio/openai` SDKs.
+- The script must use the user `zealt-user01`.
+- Fetch the last 5 messages from Gmail using the `GMAIL_LIST_MESSAGES` tool (or search for the appropriate tool).
+- Create a summary of the email subjects.
+- Post the summary to a Slack channel named `summary-${trial_id}` (read `trial_id` from `/logs/trial_id`).
+- The script should be named `index.ts` and be runnable with `npx tsx index.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies: `@composio/core`, `@composio/openai`, `openai`, `tsx`, `dotenv`.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `OpenAIProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `session.execute` or an LLM agent to fetch the last 5 emails.
+6. Format a summary string.
+7. Post the message to Slack using `SLACK_CHAT_POST_MESSAGE`.
+
+## Constraints
+- Project path: /home/user/summarize-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `summary-${trial_id}`
+
+## Integrations
+- Composio
+- Gmail
+- Slack
+- OpenAI
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo manual_auth_flow__kutqBHS > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manual OAuth Flow with Composio Python SDK
+
+## Background
+Composio allows developers to manually initiate authentication flows for users. This is useful when you want to control when and how a user connects their account. In this task, you will use the Composio Python SDK to initiate an OAuth flow for Slack.
+
+## Requirements
+- Create a Python script named `initiate_slack.py` in `/home/user/auth-task`.
+- The script must use the Composio Python SDK to create a session for the user `zealt-user01`.
+- Use the session to initiate an authorization flow for the `slack` toolkit.
+- The script must print the `redirect_url` to the console and also save it to a file named `redirect.url` in the project directory.
+
+## Implementation Guide
+1. Initialize the `Composio` client.
+2. Create a session using `composio.create(user_id='zealt-user01')`.
+3. Call `session.authorize('slack')` to get a connection request.
+4. Access the `redirect_url` property from the connection request.
+5. Write the `redirect_url` to `/home/user/auth-task/redirect.url`.
+
+## Constraints
+- Project path: /home/user/auth-task
+- Language: Python
+- SDK: `composio`
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- Slack
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo manual_auth_flow__k8ddVkV > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manual OAuth Flow with Composio Python SDK
+
+## Background
+Composio allows developers to manually initiate authentication flows for users. This is useful when you want to control when and how a user connects their account. In this task, you will use the Composio Python SDK to initiate an OAuth flow for Slack.
+
+## Requirements
+- Create a Python script named `initiate_slack.py` in `/home/user/auth-task`.
+- The script must use the Composio Python SDK to create a session for the user `zealt-user01`.
+- Use the session to initiate an authorization flow for the `slack` toolkit.
+- The script must print the `redirect_url` to the console and also save it to a file named `redirect.url` in the project directory.
+
+## Implementation Guide
+1. Initialize the `Composio` client.
+2. Create a session using `composio.create(user_id='zealt-user01')`.
+3. Call `session.authorize('slack')` to get a connection request.
+4. Access the `redirect_url` property from the connection request.
+5. Write the `redirect_url` to `/home/user/auth-task/redirect.url`.
+
+## Constraints
+- Project path: /home/user/auth-task
+- Language: Python
+- SDK: `composio`
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- Slack
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo manual_auth_flow__ouGm39U > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manual OAuth Flow with Composio Python SDK
+
+## Background
+Composio allows developers to manually initiate authentication flows for users. This is useful when you want to control when and how a user connects their account. In this task, you will use the Composio Python SDK to initiate an OAuth flow for Slack.
+
+## Requirements
+- Create a Python script named `initiate_slack.py` in `/home/user/auth-task`.
+- The script must use the Composio Python SDK to create a session for the user `zealt-user01`.
+- Use the session to initiate an authorization flow for the `slack` toolkit.
+- The script must print the `redirect_url` to the console and also save it to a file named `redirect.url` in the project directory.
+
+## Implementation Guide
+1. Initialize the `Composio` client.
+2. Create a session using `composio.create(user_id='zealt-user01')`.
+3. Call `session.authorize('slack')` to get a connection request.
+4. Access the `redirect_url` property from the connection request.
+5. Write the `redirect_url` to `/home/user/auth-task/redirect.url`.
+
+## Constraints
+- Project path: /home/user/auth-task
+- Language: Python
+- SDK: `composio`
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- Slack
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo manual_auth_flow__ndkCz2F > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manual OAuth Flow with Composio Python SDK
+
+## Background
+Composio allows developers to manually initiate authentication flows for users. This is useful when you want to control when and how a user connects their account. In this task, you will use the Composio Python SDK to initiate an OAuth flow for Slack.
+
+## Requirements
+- Create a Python script named `initiate_slack.py` in `/home/user/auth-task`.
+- The script must use the Composio Python SDK to create a session for the user `zealt-user01`.
+- Use the session to initiate an authorization flow for the `slack` toolkit.
+- The script must print the `redirect_url` to the console and also save it to a file named `redirect.url` in the project directory.
+
+## Implementation Guide
+1. Initialize the `Composio` client.
+2. Create a session using `composio.create(user_id='zealt-user01')`.
+3. Call `session.authorize('slack')` to get a connection request.
+4. Access the `redirect_url` property from the connection request.
+5. Write the `redirect_url` to `/home/user/auth-task/redirect.url`.
+
+## Constraints
+- Project path: /home/user/auth-task
+- Language: Python
+- SDK: `composio`
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- Slack
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo vercel_ai_slack_github__M7TP4Nk > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Multi-App Agent with Vercel AI SDK and Composio
+
+## Background
+Composio's native tools integrate seamlessly with the Vercel AI SDK. This allows you to build powerful agents that can act across multiple services. In this task, you will create a TypeScript agent that fetches information about a GitHub user and posts a summary to Slack.
+
+## Requirements
+- Create a TypeScript project in `/home/user/vercel-agent-task`.
+- Use `@composio/core`, `@composio/vercel`, `ai`, and `@ai-sdk/openai`.
+- The script must use the user `zealt-user01`.
+- **Agent Logic**:
+  1. Fetch the GitHub profile of the user `composiohq` using the `GITHUB_GET_A_USER` tool.
+  2. Extract the user's `bio` and `public_repos` count.
+  3. Post a message to a Slack channel named `agent-results-${trial_id}` (read `trial_id` from `/logs/trial_id`) with the summary: "User composiohq has {public_repos} repos. Bio: {bio}".
+- The script should be named `agent.ts` and be runnable with `npx tsx agent.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `VercelProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `generateText` from the `ai` package.
+6. Pass the session's tools to the `tools` parameter of `generateText`.
+7. Provide a prompt that instructs the agent to perform the steps.
+
+## Constraints
+- Project path: /home/user/vercel-agent-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `agent-results-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+- OpenAI
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo vercel_ai_slack_github__YCdK2KU > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Multi-App Agent with Vercel AI SDK and Composio
+
+## Background
+Composio's native tools integrate seamlessly with the Vercel AI SDK. This allows you to build powerful agents that can act across multiple services. In this task, you will create a TypeScript agent that fetches information about a GitHub user and posts a summary to Slack.
+
+## Requirements
+- Create a TypeScript project in `/home/user/vercel-agent-task`.
+- Use `@composio/core`, `@composio/vercel`, `ai`, and `@ai-sdk/openai`.
+- The script must use the user `zealt-user01`.
+- **Agent Logic**:
+  1. Fetch the GitHub profile of the user `composiohq` using the `GITHUB_GET_A_USER` tool.
+  2. Extract the user's `bio` and `public_repos` count.
+  3. Post a message to a Slack channel named `agent-results-${trial_id}` (read `trial_id` from `/logs/trial_id`) with the summary: "User composiohq has {public_repos} repos. Bio: {bio}".
+- The script should be named `agent.ts` and be runnable with `npx tsx agent.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `VercelProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `generateText` from the `ai` package.
+6. Pass the session's tools to the `tools` parameter of `generateText`.
+7. Provide a prompt that instructs the agent to perform the steps.
+
+## Constraints
+- Project path: /home/user/vercel-agent-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `agent-results-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+- OpenAI
+
+EOF
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo vercel_ai_slack_github__r2pe5GD > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Multi-App Agent with Vercel AI SDK and Composio
+
+## Background
+Composio's native tools integrate seamlessly with the Vercel AI SDK. This allows you to build powerful agents that can act across multiple services. In this task, you will create a TypeScript agent that fetches information about a GitHub user and posts a summary to Slack.
+
+## Requirements
+- Create a TypeScript project in `/home/user/vercel-agent-task`.
+- Use `@composio/core`, `@composio/vercel`, `ai`, and `@ai-sdk/openai`.
+- The script must use the user `zealt-user01`.
+- **Agent Logic**:
+  1. Fetch the GitHub profile of the user `composiohq` using the `GITHUB_GET_A_USER` tool.
+  2. Extract the user's `bio` and `public_repos` count.
+  3. Post a message to a Slack channel named `agent-results-${trial_id}` (read `trial_id` from `/logs/trial_id`) with the summary: "User composiohq has {public_repos} repos. Bio: {bio}".
+- The script should be named `agent.ts` and be runnable with `npx tsx agent.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `VercelProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `generateText` from the `ai` package.
+6. Pass the session's tools to the `tools` parameter of `generateText`.
+7. Provide a prompt that instructs the agent to perform the steps.
+
+## Constraints
+- Project path: /home/user/vercel-agent-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `agent-results-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+- OpenAI
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo manual_auth_flow__pB4LKo2 > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Manual OAuth Flow with Composio Python SDK
+
+## Background
+Composio allows developers to manually initiate authentication flows for users. This is useful when you want to control when and how a user connects their account. In this task, you will use the Composio Python SDK to initiate an OAuth flow for Slack.
+
+## Requirements
+- Create a Python script named `initiate_slack.py` in `/home/user/auth-task`.
+- The script must use the Composio Python SDK to create a session for the user `zealt-user01`.
+- Use the session to initiate an authorization flow for the `slack` toolkit.
+- The script must print the `redirect_url` to the console and also save it to a file named `redirect.url` in the project directory.
+
+## Implementation Guide
+1. Initialize the `Composio` client.
+2. Create a session using `composio.create(user_id='zealt-user01')`.
+3. Call `session.authorize('slack')` to get a connection request.
+4. Access the `redirect_url` property from the connection request.
+5. Write the `redirect_url` to `/home/user/auth-task/redirect.url`.
+
+## Constraints
+- Project path: /home/user/auth-task
+- Language: Python
+- SDK: `composio`
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- Slack
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo vercel_ai_slack_github__hAoMZGZ > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Multi-App Agent with Vercel AI SDK and Composio
+
+## Background
+Composio's native tools integrate seamlessly with the Vercel AI SDK. This allows you to build powerful agents that can act across multiple services. In this task, you will create a TypeScript agent that fetches information about a GitHub user and posts a summary to Slack.
+
+## Requirements
+- Create a TypeScript project in `/home/user/vercel-agent-task`.
+- Use `@composio/core`, `@composio/vercel`, `ai`, and `@ai-sdk/openai`.
+- The script must use the user `zealt-user01`.
+- **Agent Logic**:
+  1. Fetch the GitHub profile of the user `composiohq` using the `GITHUB_GET_A_USER` tool.
+  2. Extract the user's `bio` and `public_repos` count.
+  3. Post a message to a Slack channel named `agent-results-${trial_id}` (read `trial_id` from `/logs/trial_id`) with the summary: "User composiohq has {public_repos} repos. Bio: {bio}".
+- The script should be named `agent.ts` and be runnable with `npx tsx agent.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `VercelProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `generateText` from the `ai` package.
+6. Pass the session's tools to the `tools` parameter of `generateText`.
+7. Provide a prompt that instructs the agent to perform the steps.
+
+## Constraints
+- Project path: /home/user/vercel-agent-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `agent-results-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+- OpenAI
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo vercel_ai_slack_github__vP5H9Dd > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Multi-App Agent with Vercel AI SDK and Composio
+
+## Background
+Composio's native tools integrate seamlessly with the Vercel AI SDK. This allows you to build powerful agents that can act across multiple services. In this task, you will create a TypeScript agent that fetches information about a GitHub user and posts a summary to Slack.
+
+## Requirements
+- Create a TypeScript project in `/home/user/vercel-agent-task`.
+- Use `@composio/core`, `@composio/vercel`, `ai`, and `@ai-sdk/openai`.
+- The script must use the user `zealt-user01`.
+- **Agent Logic**:
+  1. Fetch the GitHub profile of the user `composiohq` using the `GITHUB_GET_A_USER` tool.
+  2. Extract the user's `bio` and `public_repos` count.
+  3. Post a message to a Slack channel named `agent-results-${trial_id}` (read `trial_id` from `/logs/trial_id`) with the summary: "User composiohq has {public_repos} repos. Bio: {bio}".
+- The script should be named `agent.ts` and be runnable with `npx tsx agent.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `VercelProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `generateText` from the `ai` package.
+6. Pass the session's tools to the `tools` parameter of `generateText`.
+7. Provide a prompt that instructs the agent to perform the steps.
+
+## Constraints
+- Project path: /home/user/vercel-agent-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `agent-results-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+- OpenAI
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo trigger_workbench_sentiment__JQiBX7P > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# GitHub Issue Sentiment Analysis with Composio Triggers and Workbench
+
+## Background
+Composio Triggers allow your application to react to external events in real-time. The Composio Workbench provides a sandboxed environment to run complex data processing scripts. In this task, you will build an automated pipeline that listens for new GitHub issues and uses the Workbench to analyze their sentiment.
+
+## Requirements
+- Create a Python script named `sentiment_pipeline.py` in `/home/user/sentiment-task`.
+- The script must use the `composio` Python SDK and the user `zealt-user01`.
+- **Step 1: Create a Trigger**
+  - Create a trigger for the event `GITHUB_ISSUE_OPENED_EVENT` (or similar, search for the correct slug).
+  - Configure it for the repository `composiohq/composio`.
+- **Step 2: Handle Events**
+  - Use `composio.triggers.subscribe()` to listen for events.
+  - When a new issue is opened, extract the issue body.
+- **Step 3: Analyze Sentiment via Workbench**
+  - Use the `COMPOSIO_REMOTE_WORKBENCH` meta-tool (via a session) to execute a Python script in the sandbox.
+  - The sandbox script should use a simple heuristic or a library (like `textblob` if available, or just keyword matching) to determine if the sentiment is 'negative'.
+  - If negative, the sandbox script should call `run_composio_tool('GITHUB_ADD_LABELS_TO_AN_ISSUE', ...)` to add the `urgent` label to the issue.
+- The script should print "Pipeline active" and wait for events.
+
+## Implementation Guide
+1. Initialize `Composio`.
+2. Create a session for `zealt-user01` to access meta-tools.
+3. Create the GitHub trigger.
+4. Define an event handler that gets the issue details.
+5. In the handler, call `session.execute('COMPOSIO_REMOTE_WORKBENCH', ...)` with the analysis code.
+6. The workbench code has access to `run_composio_tool`.
+
+## Constraints
+- Project path: /home/user/sentiment-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository: `composiohq/composio`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo trigger_workbench_sentiment__ucJZvbU > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# GitHub Issue Sentiment Analysis with Composio Triggers and Workbench
+
+## Background
+Composio Triggers allow your application to react to external events in real-time. The Composio Workbench provides a sandboxed environment to run complex data processing scripts. In this task, you will build an automated pipeline that listens for new GitHub issues and uses the Workbench to analyze their sentiment.
+
+## Requirements
+- Create a Python script named `sentiment_pipeline.py` in `/home/user/sentiment-task`.
+- The script must use the `composio` Python SDK and the user `zealt-user01`.
+- **Step 1: Create a Trigger**
+  - Create a trigger for the event `GITHUB_ISSUE_OPENED_EVENT` (or similar, search for the correct slug).
+  - Configure it for the repository `composiohq/composio`.
+- **Step 2: Handle Events**
+  - Use `composio.triggers.subscribe()` to listen for events.
+  - When a new issue is opened, extract the issue body.
+- **Step 3: Analyze Sentiment via Workbench**
+  - Use the `COMPOSIO_REMOTE_WORKBENCH` meta-tool (via a session) to execute a Python script in the sandbox.
+  - The sandbox script should use a simple heuristic or a library (like `textblob` if available, or just keyword matching) to determine if the sentiment is 'negative'.
+  - If negative, the sandbox script should call `run_composio_tool('GITHUB_ADD_LABELS_TO_AN_ISSUE', ...)` to add the `urgent` label to the issue.
+- The script should print "Pipeline active" and wait for events.
+
+## Implementation Guide
+1. Initialize `Composio`.
+2. Create a session for `zealt-user01` to access meta-tools.
+3. Create the GitHub trigger.
+4. Define an event handler that gets the issue details.
+5. In the handler, call `session.execute('COMPOSIO_REMOTE_WORKBENCH', ...)` with the analysis code.
+6. The workbench code has access to `run_composio_tool`.
+
+## Constraints
+- Project path: /home/user/sentiment-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository: `composiohq/composio`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo trigger_workbench_sentiment__dPVEdEw > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# GitHub Issue Sentiment Analysis with Composio Triggers and Workbench
+
+## Background
+Composio Triggers allow your application to react to external events in real-time. The Composio Workbench provides a sandboxed environment to run complex data processing scripts. In this task, you will build an automated pipeline that listens for new GitHub issues and uses the Workbench to analyze their sentiment.
+
+## Requirements
+- Create a Python script named `sentiment_pipeline.py` in `/home/user/sentiment-task`.
+- The script must use the `composio` Python SDK and the user `zealt-user01`.
+- **Step 1: Create a Trigger**
+  - Create a trigger for the event `GITHUB_ISSUE_OPENED_EVENT` (or similar, search for the correct slug).
+  - Configure it for the repository `composiohq/composio`.
+- **Step 2: Handle Events**
+  - Use `composio.triggers.subscribe()` to listen for events.
+  - When a new issue is opened, extract the issue body.
+- **Step 3: Analyze Sentiment via Workbench**
+  - Use the `COMPOSIO_REMOTE_WORKBENCH` meta-tool (via a session) to execute a Python script in the sandbox.
+  - The sandbox script should use a simple heuristic or a library (like `textblob` if available, or just keyword matching) to determine if the sentiment is 'negative'.
+  - If negative, the sandbox script should call `run_composio_tool('GITHUB_ADD_LABELS_TO_AN_ISSUE', ...)` to add the `urgent` label to the issue.
+- The script should print "Pipeline active" and wait for events.
+
+## Implementation Guide
+1. Initialize `Composio`.
+2. Create a session for `zealt-user01` to access meta-tools.
+3. Create the GitHub trigger.
+4. Define an event handler that gets the issue details.
+5. In the handler, call `session.execute('COMPOSIO_REMOTE_WORKBENCH', ...)` with the analysis code.
+6. The workbench code has access to `run_composio_tool`.
+
+## Constraints
+- Project path: /home/user/sentiment-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository: `composiohq/composio`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo trigger_workbench_sentiment__VeCuJSQ > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# GitHub Issue Sentiment Analysis with Composio Triggers and Workbench
+
+## Background
+Composio Triggers allow your application to react to external events in real-time. The Composio Workbench provides a sandboxed environment to run complex data processing scripts. In this task, you will build an automated pipeline that listens for new GitHub issues and uses the Workbench to analyze their sentiment.
+
+## Requirements
+- Create a Python script named `sentiment_pipeline.py` in `/home/user/sentiment-task`.
+- The script must use the `composio` Python SDK and the user `zealt-user01`.
+- **Step 1: Create a Trigger**
+  - Create a trigger for the event `GITHUB_ISSUE_OPENED_EVENT` (or similar, search for the correct slug).
+  - Configure it for the repository `composiohq/composio`.
+- **Step 2: Handle Events**
+  - Use `composio.triggers.subscribe()` to listen for events.
+  - When a new issue is opened, extract the issue body.
+- **Step 3: Analyze Sentiment via Workbench**
+  - Use the `COMPOSIO_REMOTE_WORKBENCH` meta-tool (via a session) to execute a Python script in the sandbox.
+  - The sandbox script should use a simple heuristic or a library (like `textblob` if available, or just keyword matching) to determine if the sentiment is 'negative'.
+  - If negative, the sandbox script should call `run_composio_tool('GITHUB_ADD_LABELS_TO_AN_ISSUE', ...)` to add the `urgent` label to the issue.
+- The script should print "Pipeline active" and wait for events.
+
+## Implementation Guide
+1. Initialize `Composio`.
+2. Create a session for `zealt-user01` to access meta-tools.
+3. Create the GitHub trigger.
+4. Define an event handler that gets the issue details.
+5. In the handler, call `session.execute('COMPOSIO_REMOTE_WORKBENCH', ...)` with the analysis code.
+6. The workbench code has access to `run_composio_tool`.
+
+## Constraints
+- Project path: /home/user/sentiment-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository: `composiohq/composio`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo trigger_workbench_sentiment__oY84Nss > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# GitHub Issue Sentiment Analysis with Composio Triggers and Workbench
+
+## Background
+Composio Triggers allow your application to react to external events in real-time. The Composio Workbench provides a sandboxed environment to run complex data processing scripts. In this task, you will build an automated pipeline that listens for new GitHub issues and uses the Workbench to analyze their sentiment.
+
+## Requirements
+- Create a Python script named `sentiment_pipeline.py` in `/home/user/sentiment-task`.
+- The script must use the `composio` Python SDK and the user `zealt-user01`.
+- **Step 1: Create a Trigger**
+  - Create a trigger for the event `GITHUB_ISSUE_OPENED_EVENT` (or similar, search for the correct slug).
+  - Configure it for the repository `composiohq/composio`.
+- **Step 2: Handle Events**
+  - Use `composio.triggers.subscribe()` to listen for events.
+  - When a new issue is opened, extract the issue body.
+- **Step 3: Analyze Sentiment via Workbench**
+  - Use the `COMPOSIO_REMOTE_WORKBENCH` meta-tool (via a session) to execute a Python script in the sandbox.
+  - The sandbox script should use a simple heuristic or a library (like `textblob` if available, or just keyword matching) to determine if the sentiment is 'negative'.
+  - If negative, the sandbox script should call `run_composio_tool('GITHUB_ADD_LABELS_TO_AN_ISSUE', ...)` to add the `urgent` label to the issue.
+- The script should print "Pipeline active" and wait for events.
+
+## Implementation Guide
+1. Initialize `Composio`.
+2. Create a session for `zealt-user01` to access meta-tools.
+3. Create the GitHub trigger.
+4. Define an event handler that gets the issue details.
+5. In the handler, call `session.execute('COMPOSIO_REMOTE_WORKBENCH', ...)` with the analysis code.
+6. The workbench code has access to `run_composio_tool`.
+
+## Constraints
+- Project path: /home/user/sentiment-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository: `composiohq/composio`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo schema_modifier_usage__TfbT3uG > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Use Schema Modifiers in Composio Python SDK
+
+## Background
+Schema Modifiers allow you to customize tool definitions before they are passed to an AI agent. This is useful for hiding irrelevant arguments, adding default values, or changing descriptions. In this task, you will use a Schema Modifier to modify the `HACKERNEWS_GET_LATEST_POSTS` tool.
+
+## Requirements
+- Create a Python script named `modify_hn.py` in `/home/user/modifier-task`.
+- The script must use the `composio` Python SDK.
+- Define a Schema Modifier that targets the `HACKERNEWS_GET_LATEST_POSTS` tool.
+- The modifier must remove the `page` argument from the tool's input parameters.
+- The modifier must also make the `size` argument required.
+- The script should use `composio.tools.get` with the modifier and save the resulting tool schema for `HACKERNEWS_GET_LATEST_POSTS` to a file named `modified_schema.json`.
+
+## Implementation Guide
+1. Import `Composio`, `schema_modifier`, and `Tool` from `composio`.
+2. Use the `@schema_modifier(tools=["HACKERNEWS_GET_LATEST_POSTS"])` decorator.
+3. In the modifier function, pop `page` from `schema.input_parameters["properties"]`.
+4. Add `size` to `schema.input_parameters["required"]`.
+5. Call `composio.tools.get(user_id="default", tools=["HACKERNEWS_GET_LATEST_POSTS"], modifiers=[your_modifier])`.
+6. Extract the schema from the returned tool object and save it to `modified_schema.json`.
+
+## Constraints
+- Project path: /home/user/modifier-task
+- Language: Python
+- Tool: `HACKERNEWS_GET_LATEST_POSTS`
+
+## Integrations
+- Composio
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo schema_modifier_usage__LWDViRE > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Use Schema Modifiers in Composio Python SDK
+
+## Background
+Schema Modifiers allow you to customize tool definitions before they are passed to an AI agent. This is useful for hiding irrelevant arguments, adding default values, or changing descriptions. In this task, you will use a Schema Modifier to modify the `HACKERNEWS_GET_LATEST_POSTS` tool.
+
+## Requirements
+- Create a Python script named `modify_hn.py` in `/home/user/modifier-task`.
+- The script must use the `composio` Python SDK.
+- Define a Schema Modifier that targets the `HACKERNEWS_GET_LATEST_POSTS` tool.
+- The modifier must remove the `page` argument from the tool's input parameters.
+- The modifier must also make the `size` argument required.
+- The script should use `composio.tools.get` with the modifier and save the resulting tool schema for `HACKERNEWS_GET_LATEST_POSTS` to a file named `modified_schema.json`.
+
+## Implementation Guide
+1. Import `Composio`, `schema_modifier`, and `Tool` from `composio`.
+2. Use the `@schema_modifier(tools=["HACKERNEWS_GET_LATEST_POSTS"])` decorator.
+3. In the modifier function, pop `page` from `schema.input_parameters["properties"]`.
+4. Add `size` to `schema.input_parameters["required"]`.
+5. Call `composio.tools.get(user_id="default", tools=["HACKERNEWS_GET_LATEST_POSTS"], modifiers=[your_modifier])`.
+6. Extract the schema from the returned tool object and save it to `modified_schema.json`.
+
+## Constraints
+- Project path: /home/user/modifier-task
+- Language: Python
+- Tool: `HACKERNEWS_GET_LATEST_POSTS`
+
+## Integrations
+- Composio
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo schema_modifier_usage__N279RWL > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Use Schema Modifiers in Composio Python SDK
+
+## Background
+Schema Modifiers allow you to customize tool definitions before they are passed to an AI agent. This is useful for hiding irrelevant arguments, adding default values, or changing descriptions. In this task, you will use a Schema Modifier to modify the `HACKERNEWS_GET_LATEST_POSTS` tool.
+
+## Requirements
+- Create a Python script named `modify_hn.py` in `/home/user/modifier-task`.
+- The script must use the `composio` Python SDK.
+- Define a Schema Modifier that targets the `HACKERNEWS_GET_LATEST_POSTS` tool.
+- The modifier must remove the `page` argument from the tool's input parameters.
+- The modifier must also make the `size` argument required.
+- The script should use `composio.tools.get` with the modifier and save the resulting tool schema for `HACKERNEWS_GET_LATEST_POSTS` to a file named `modified_schema.json`.
+
+## Implementation Guide
+1. Import `Composio`, `schema_modifier`, and `Tool` from `composio`.
+2. Use the `@schema_modifier(tools=["HACKERNEWS_GET_LATEST_POSTS"])` decorator.
+3. In the modifier function, pop `page` from `schema.input_parameters["properties"]`.
+4. Add `size` to `schema.input_parameters["required"]`.
+5. Call `composio.tools.get(user_id="default", tools=["HACKERNEWS_GET_LATEST_POSTS"], modifiers=[your_modifier])`.
+6. Extract the schema from the returned tool object and save it to `modified_schema.json`.
+
+## Constraints
+- Project path: /home/user/modifier-task
+- Language: Python
+- Tool: `HACKERNEWS_GET_LATEST_POSTS`
+
+## Integrations
+- Composio
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo schema_modifier_usage__GGfGPNn > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Use Schema Modifiers in Composio Python SDK
+
+## Background
+Schema Modifiers allow you to customize tool definitions before they are passed to an AI agent. This is useful for hiding irrelevant arguments, adding default values, or changing descriptions. In this task, you will use a Schema Modifier to modify the `HACKERNEWS_GET_LATEST_POSTS` tool.
+
+## Requirements
+- Create a Python script named `modify_hn.py` in `/home/user/modifier-task`.
+- The script must use the `composio` Python SDK.
+- Define a Schema Modifier that targets the `HACKERNEWS_GET_LATEST_POSTS` tool.
+- The modifier must remove the `page` argument from the tool's input parameters.
+- The modifier must also make the `size` argument required.
+- The script should use `composio.tools.get` with the modifier and save the resulting tool schema for `HACKERNEWS_GET_LATEST_POSTS` to a file named `modified_schema.json`.
+
+## Implementation Guide
+1. Import `Composio`, `schema_modifier`, and `Tool` from `composio`.
+2. Use the `@schema_modifier(tools=["HACKERNEWS_GET_LATEST_POSTS"])` decorator.
+3. In the modifier function, pop `page` from `schema.input_parameters["properties"]`.
+4. Add `size` to `schema.input_parameters["required"]`.
+5. Call `composio.tools.get(user_id="default", tools=["HACKERNEWS_GET_LATEST_POSTS"], modifiers=[your_modifier])`.
+6. Extract the schema from the returned tool object and save it to `modified_schema.json`.
+
+## Constraints
+- Project path: /home/user/modifier-task
+- Language: Python
+- Tool: `HACKERNEWS_GET_LATEST_POSTS`
+
+## Integrations
+- Composio
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo schema_modifier_usage__kVoYAB9 > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Use Schema Modifiers in Composio Python SDK
+
+## Background
+Schema Modifiers allow you to customize tool definitions before they are passed to an AI agent. This is useful for hiding irrelevant arguments, adding default values, or changing descriptions. In this task, you will use a Schema Modifier to modify the `HACKERNEWS_GET_LATEST_POSTS` tool.
+
+## Requirements
+- Create a Python script named `modify_hn.py` in `/home/user/modifier-task`.
+- The script must use the `composio` Python SDK.
+- Define a Schema Modifier that targets the `HACKERNEWS_GET_LATEST_POSTS` tool.
+- The modifier must remove the `page` argument from the tool's input parameters.
+- The modifier must also make the `size` argument required.
+- The script should use `composio.tools.get` with the modifier and save the resulting tool schema for `HACKERNEWS_GET_LATEST_POSTS` to a file named `modified_schema.json`.
+
+## Implementation Guide
+1. Import `Composio`, `schema_modifier`, and `Tool` from `composio`.
+2. Use the `@schema_modifier(tools=["HACKERNEWS_GET_LATEST_POSTS"])` decorator.
+3. In the modifier function, pop `page` from `schema.input_parameters["properties"]`.
+4. Add `size` to `schema.input_parameters["required"]`.
+5. Call `composio.tools.get(user_id="default", tools=["HACKERNEWS_GET_LATEST_POSTS"], modifiers=[your_modifier])`.
+6. Extract the schema from the returned tool object and save it to `modified_schema.json`.
+
+## Constraints
+- Project path: /home/user/modifier-task
+- Language: Python
+- Tool: `HACKERNEWS_GET_LATEST_POSTS`
+
+## Integrations
+- Composio
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

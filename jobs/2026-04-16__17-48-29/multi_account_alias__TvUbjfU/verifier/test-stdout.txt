@@ -1,0 +1,55 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 8ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py FFF                                            [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_json_file_exists _____________________________
+
+    def test_json_file_exists():
+>       assert os.path.isfile(JSON_FILE), f"JSON file {JSON_FILE} not found."
+E       AssertionError: JSON file /home/user/alias-task/updated_accounts.json not found.
+E       assert False
+E        +  where False = <function isfile at 0x7f77fb214220>('/home/user/alias-task/updated_accounts.json')
+E        +    where <function isfile at 0x7f77fb214220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:10: AssertionError
+_____________________________ test_aliases_updated _____________________________
+
+    def test_aliases_updated():
+        # Use the SDK to verify the aliases
+        check_script = """
+    from composio import Composio
+    import os
+    composio = Composio(api_key=os.environ['COMPOSIO_API_KEY'])
+    accounts = composio.connected_accounts.list(user_ids=['zealt-user01'])
+    results = {a.toolkit.slug: a.alias for a in accounts.items}
+    print(results.get('github') == 'primary-github' and results.get('slack') == 'work-slack')
+    """
+        result = subprocess.run(["python3", "-c", check_script], capture_output=True, text=True)
+>       assert "True" in result.stdout, "Aliases were not correctly updated in the platform."
+E       AssertionError: Aliases were not correctly updated in the platform.
+E       assert 'True' in ''
+E        +  where '' = CompletedProcess(args=['python3', '-c', "\nfrom composio import Composio\nimport os\ncomposio = Composio(api_key=os.en...(most recent call last):\n  File "<string>", line 2, in <module>\nModuleNotFoundError: No module named \'composio\'\n').stdout
+
+tests/test_final_state.py:23: AssertionError
+______________________________ test_json_content _______________________________
+
+    def test_json_content():
+>       with open(JSON_FILE, "r") as f:
+             ^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/alias-task/updated_accounts.json'
+
+tests/test_final_state.py:26: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_json_file_exists - AssertionError: JSO...
+FAILED tests/test_final_state.py::test_aliases_updated - AssertionError: Alia...
+FAILED tests/test_final_state.py::test_json_content - FileNotFoundError: [Err...
+============================== 3 failed in 0.02s ===============================

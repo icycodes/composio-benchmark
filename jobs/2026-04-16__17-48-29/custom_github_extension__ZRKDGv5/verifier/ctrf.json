@@ -1,0 +1,29 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776333544.1157985,
+            "stop": 1776333545.0299745
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_repo_and_label_exist",
+                "status": "passed",
+                "duration": 0.909536715997092,
+                "start": 1776333544.1196234,
+                "stop": 1776333545.0295563,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

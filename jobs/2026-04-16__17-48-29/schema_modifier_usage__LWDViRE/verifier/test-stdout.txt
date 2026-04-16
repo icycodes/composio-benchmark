@@ -1,0 +1,35 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 12ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_schema_file_exists ____________________________
+
+    def test_schema_file_exists():
+>       assert os.path.isfile(SCHEMA_FILE), f"Modified schema file {SCHEMA_FILE} not found."
+E       AssertionError: Modified schema file /home/user/modifier-task/modified_schema.json not found.
+E       assert False
+E        +  where False = <function isfile at 0x7f7a44294220>('/home/user/modifier-task/modified_schema.json')
+E        +    where <function isfile at 0x7f7a44294220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:9: AssertionError
+_____________________________ test_schema_content ______________________________
+
+    def test_schema_content():
+>       with open(SCHEMA_FILE, "r") as f:
+             ^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/modifier-task/modified_schema.json'
+
+tests/test_final_state.py:12: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_schema_file_exists - AssertionError: M...
+FAILED tests/test_final_state.py::test_schema_content - FileNotFoundError: [E...
+============================== 2 failed in 0.01s ===============================

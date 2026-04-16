@@ -1,0 +1,93 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo vercel_ai_slack_github__hAoMZGZ > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Multi-App Agent with Vercel AI SDK and Composio
+
+## Background
+Composio's native tools integrate seamlessly with the Vercel AI SDK. This allows you to build powerful agents that can act across multiple services. In this task, you will create a TypeScript agent that fetches information about a GitHub user and posts a summary to Slack.
+
+## Requirements
+- Create a TypeScript project in `/home/user/vercel-agent-task`.
+- Use `@composio/core`, `@composio/vercel`, `ai`, and `@ai-sdk/openai`.
+- The script must use the user `zealt-user01`.
+- **Agent Logic**:
+  1. Fetch the GitHub profile of the user `composiohq` using the `GITHUB_GET_A_USER` tool.
+  2. Extract the user's `bio` and `public_repos` count.
+  3. Post a message to a Slack channel named `agent-results-${trial_id}` (read `trial_id` from `/logs/trial_id`) with the summary: "User composiohq has {public_repos} repos. Bio: {bio}".
+- The script should be named `agent.ts` and be runnable with `npx tsx agent.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `VercelProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `generateText` from the `ai` package.
+6. Pass the session's tools to the `tools` parameter of `generateText`.
+7. Provide a prompt that instructs the agent to perform the steps.
+
+## Constraints
+- Project path: /home/user/vercel-agent-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `agent-results-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+- Slack
+- OpenAI
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

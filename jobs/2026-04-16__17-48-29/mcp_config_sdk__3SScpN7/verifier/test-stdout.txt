@@ -1,0 +1,35 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 13ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_id_file_exists ______________________________
+
+    def test_id_file_exists():
+>       assert os.path.isfile(ID_FILE), f"Server ID file {ID_FILE} not found."
+E       AssertionError: Server ID file /home/user/mcp-task/server_id.txt not found.
+E       assert False
+E        +  where False = <function isfile at 0x7f9064d84220>('/home/user/mcp-task/server_id.txt')
+E        +    where <function isfile at 0x7f9064d84220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:10: AssertionError
+___________________________ test_mcp_config_details ____________________________
+
+    def test_mcp_config_details():
+>       with open(ID_FILE, "r") as f:
+             ^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/mcp-task/server_id.txt'
+
+tests/test_final_state.py:13: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_id_file_exists - AssertionError: Serve...
+FAILED tests/test_final_state.py::test_mcp_config_details - FileNotFoundError...
+============================== 2 failed in 0.01s ===============================

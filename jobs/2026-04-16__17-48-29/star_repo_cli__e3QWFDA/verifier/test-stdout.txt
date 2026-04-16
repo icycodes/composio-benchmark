@@ -1,0 +1,64 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 13ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py F.                                             [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_repo_is_starred _____________________________
+
+    def test_repo_is_starred():
+        """Priority 1: Use GitHub CLI to verify that the repository is starred."""
+        repo = "composiohq/composio"
+        # gh api user/starred/{owner}/{repo} returns 204 if starred, 404 if not
+        result = subprocess.run(
+            ["gh", "api", f"user/starred/{repo}", "--include"],
+            capture_output=True, text=True
+        )
+        # The command might exit with 0 even for 404 depending on how gh api handles it,
+        # but usually it returns non-zero for 4xx errors unless --silent is used.
+        # We check for "204 No Content" in the output.
+>       assert "204 No Content" in result.stdout or "204 No Content" in result.stderr, \
+            f"Repository {repo} is not starred. Output: {result.stdout} {result.stderr}"
+E       AssertionError: Repository composiohq/composio is not starred. Output: HTTP/2.0 404 Not Found
+E         Access-Control-Allow-Origin: *
+E         Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset
+E         Content-Security-Policy: default-src 'none'
+E         Content-Type: application/json; charset=utf-8
+E         Date: Thu, 16 Apr 2026 09:53:05 GMT
+E         Github-Authentication-Token-Expiration: 2027-03-31 16:00:00 UTC
+E         Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+E         Server: github.com
+E         Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+E         Vary: Accept-Encoding, Accept, X-Requested-With
+E         X-Accepted-Oauth-Scopes: public_repo, repo
+E         X-Content-Type-Options: nosniff
+E         X-Frame-Options: deny
+E         X-Github-Api-Version-Selected: 2022-11-28
+E         X-Github-Media-Type: github.v3; format=json
+E         X-Github-Request-Id: 85CC:11460D:11F0F04:146BE3E:69E0B181
+E         X-Oauth-Scopes: audit_log, codespace, delete:packages, delete_repo, gist, notifications, project, repo, user, workflow, write:discussion, write:network_configurations, write:packages
+E         X-Ratelimit-Limit: 5000
+E         X-Ratelimit-Remaining: 4994
+E         X-Ratelimit-Reset: 1776336233
+E         X-Ratelimit-Resource: core
+E         X-Ratelimit-Used: 6
+E         X-Xss-Protection: 0
+E         
+E         {"message":"Not Found","documentation_url":"https://docs.github.com/rest/activity/starring#check-if-a-repository-is-starred-by-the-authenticated-user","status":"404"} gh: Not Found (HTTP 404)
+E         
+E       assert ('204 No Content' in 'HTTP/2.0 404 Not Found\nAccess-Control-Allow-Origin: *\nAccess-Control-Expose-Headers: ETag, Link, Location, Retry-Af...s://docs.github.com/rest/activity/starring#check-if-a-repository-is-starred-by-the-authenticated-user","status":"404"}' or '204 No Content' in 'gh: Not Found (HTTP 404)\n')
+E        +  where 'HTTP/2.0 404 Not Found\nAccess-Control-Allow-Origin: *\nAccess-Control-Expose-Headers: ETag, Link, Location, Retry-Af...s://docs.github.com/rest/activity/starring#check-if-a-repository-is-starred-by-the-authenticated-user","status":"404"}' = CompletedProcess(args=['gh', 'api', 'user/starred/composiohq/composio', '--include'], returncode=1, stdout='HTTP/2.0 4...ring#check-if-a-repository-is-starred-by-the-authenticated-user","status":"404"}', stderr='gh: Not Found (HTTP 404)\n').stdout
+E        +  and   'gh: Not Found (HTTP 404)\n' = CompletedProcess(args=['gh', 'api', 'user/starred/composiohq/composio', '--include'], returncode=1, stdout='HTTP/2.0 4...ring#check-if-a-repository-is-starred-by-the-authenticated-user","status":"404"}', stderr='gh: Not Found (HTTP 404)\n').stderr
+
+tests/test_final_state.py:17: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_composio_execution_log
+FAILED tests/test_final_state.py::test_repo_is_starred - AssertionError: Repo...
+========================= 1 failed, 1 passed in 0.45s ==========================

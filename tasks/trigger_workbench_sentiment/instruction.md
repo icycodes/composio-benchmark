@@ -1,0 +1,37 @@
+# GitHub Issue Sentiment Analysis with Composio Triggers and Workbench
+
+## Background
+Composio Triggers allow your application to react to external events in real-time. The Composio Workbench provides a sandboxed environment to run complex data processing scripts. In this task, you will build an automated pipeline that listens for new GitHub issues and uses the Workbench to analyze their sentiment.
+
+## Requirements
+- Create a Python script named `sentiment_pipeline.py` in `/home/user/sentiment-task`.
+- The script must use the `composio` Python SDK and the user `zealt-user01`.
+- **Step 1: Create a Trigger**
+  - Create a trigger for the event `GITHUB_ISSUE_OPENED_EVENT` (or similar, search for the correct slug).
+  - Configure it for the repository `composiohq/composio`.
+- **Step 2: Handle Events**
+  - Use `composio.triggers.subscribe()` to listen for events.
+  - When a new issue is opened, extract the issue body.
+- **Step 3: Analyze Sentiment via Workbench**
+  - Use the `COMPOSIO_REMOTE_WORKBENCH` meta-tool (via a session) to execute a Python script in the sandbox.
+  - The sandbox script should use a simple heuristic or a library (like `textblob` if available, or just keyword matching) to determine if the sentiment is 'negative'.
+  - If negative, the sandbox script should call `run_composio_tool('GITHUB_ADD_LABELS_TO_AN_ISSUE', ...)` to add the `urgent` label to the issue.
+- The script should print "Pipeline active" and wait for events.
+
+## Implementation Guide
+1. Initialize `Composio`.
+2. Create a session for `zealt-user01` to access meta-tools.
+3. Create the GitHub trigger.
+4. Define an event handler that gets the issue details.
+5. In the handler, call `session.execute('COMPOSIO_REMOTE_WORKBENCH', ...)` with the analysis code.
+6. The workbench code has access to `run_composio_tool`.
+
+## Constraints
+- Project path: /home/user/sentiment-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository: `composiohq/composio`
+
+## Integrations
+- Composio
+- GitHub

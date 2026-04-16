@@ -1,0 +1,38 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776334153.4392066,
+            "stop": 1776334153.4433985
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_redirect_file_exists",
+                "status": "passed",
+                "duration": 0.0001976060011656955,
+                "start": 1776334153.4427192,
+                "stop": 1776334153.4430172,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_redirect_url_content",
+                "status": "passed",
+                "duration": 0.00016230199980782345,
+                "start": 1776334153.4431112,
+                "stop": 1776334153.4433324,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

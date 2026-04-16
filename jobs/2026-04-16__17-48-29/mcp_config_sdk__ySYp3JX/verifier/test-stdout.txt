@@ -1,0 +1,42 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 8ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_mcp_config_details ____________________________
+
+    def test_mcp_config_details():
+        with open(ID_FILE, "r") as f:
+            server_id = f.read().strip()
+    
+        # Use the SDK to verify the config
+        check_script = f"""
+    from composio import Composio
+    import os
+    import json
+    composio = Composio(api_key=os.environ['COMPOSIO_API_KEY'])
+    server = composio.mcp.get('{server_id}')
+    print(json.dumps(server))
+    """
+        result = subprocess.run(["python3", "-c", check_script], capture_output=True, text=True)
+>       assert result.returncode == 0, f"Failed to get MCP config: {result.stderr}"
+E       AssertionError: Failed to get MCP config: Traceback (most recent call last):
+E           File "<string>", line 2, in <module>
+E         ModuleNotFoundError: No module named 'composio'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', '-c', "\nfrom composio import Composio\nimport os\nimport json\ncomposio = Composio(...(most recent call last):\n  File "<string>", line 2, in <module>\nModuleNotFoundError: No module named \'composio\'\n').returncode
+
+tests/test_final_state.py:26: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_id_file_exists
+FAILED tests/test_final_state.py::test_mcp_config_details - AssertionError: F...
+========================= 1 failed, 1 passed in 0.02s ==========================

@@ -1,0 +1,35 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 13ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_redirect_file_exists ___________________________
+
+    def test_redirect_file_exists():
+>       assert os.path.isfile(REDIRECT_FILE), f"Redirect URL file {REDIRECT_FILE} not found."
+E       AssertionError: Redirect URL file /home/user/auth-task/redirect.url not found.
+E       assert False
+E        +  where False = <function isfile at 0x7f16a7358220>('/home/user/auth-task/redirect.url')
+E        +    where <function isfile at 0x7f16a7358220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:8: AssertionError
+__________________________ test_redirect_url_content ___________________________
+
+    def test_redirect_url_content():
+>       with open(REDIRECT_FILE, "r") as f:
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/auth-task/redirect.url'
+
+tests/test_final_state.py:11: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_redirect_file_exists - AssertionError:...
+FAILED tests/test_final_state.py::test_redirect_url_content - FileNotFoundErr...
+============================== 2 failed in 0.01s ===============================

@@ -1,0 +1,37 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 12ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_schema_content ______________________________
+
+    def test_schema_content():
+        with open(SCHEMA_FILE, "r") as f:
+            schema = json.load(f)
+    
+        # In Composio v3, the tool object might have input_parameters or parameters
+        # The task description says extraction from tool object.
+        # Assuming standard JSON schema structure in input_parameters
+    
+        input_params = schema.get("input_parameters", {})
+        properties = input_params.get("properties", {})
+        required = input_params.get("required", [])
+    
+        assert "page" not in properties, "The 'page' argument should have been removed."
+>       assert "size" in required, "The 'size' argument should be required."
+E       AssertionError: The 'size' argument should be required.
+E       assert 'size' in []
+
+tests/test_final_state.py:24: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_schema_file_exists
+FAILED tests/test_final_state.py::test_schema_content - AssertionError: The '...
+========================= 1 failed, 1 passed in 0.01s ==========================

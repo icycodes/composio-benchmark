@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776335372.9490373,
+            "stop": 1776335372.9651403
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_trigger_active",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00633173800088116,
+                "start": 1776335372.9531362,
+                "stop": 1776335372.9646938,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_trigger_active():\n        \"\"\"Verify that the GitHub issue opened trigger is active.\"\"\"\n        # We use the Composio CLI or SDK to check active triggers\n        # For simplicity in test, we use the SDK via a small python snippet\n        check_script = \"\"\"\n    from composio import Composio\n    import os\n    composio = Composio(api_key=os.environ['COMPOSIO_API_KEY'])\n    active = composio.triggers.list_active(trigger_names=['GITHUB_ISSUE_OPENED_EVENT'])\n    found = any(t.trigger_name == 'GITHUB_ISSUE_OPENED_EVENT' for t in active.items)\n    print(found)\n    \"\"\"\n        result = subprocess.run([\"python3\", \"-c\", check_script], capture_output=True, text=True)\n>       assert \"True\" in result.stdout, \"GITHUB_ISSUE_OPENED_EVENT trigger is not active.\"\nE       AssertionError: GITHUB_ISSUE_OPENED_EVENT trigger is not active.\nE       assert 'True' in ''\nE        +  where '' = CompletedProcess(args=['python3', '-c', \"\\nfrom composio import Composio\\nimport os\\ncomposio = Composio(api_key=os.en...(most recent call last):\\n  File \"<string>\", line 2, in <module>\\nModuleNotFoundError: No module named \\'composio\\'\\n').stdout\n\ntests/test_final_state.py:21: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_script_contains_workbench_call",
+                "status": "passed",
+                "duration": 0.00019264099682914093,
+                "start": 1776335372.964805,
+                "stop": 1776335372.9650679,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

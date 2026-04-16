@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776333874.9098587,
+            "stop": 1776333874.9265416
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_id_file_exists",
+                "status": "passed",
+                "duration": 0.00020359100017230958,
+                "start": 1776333874.9142234,
+                "stop": 1776333874.9145298,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mcp_config_details",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.006420185000024503,
+                "start": 1776333874.914624,
+                "stop": 1776333874.926446,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_mcp_config_details():\n        with open(ID_FILE, \"r\") as f:\n            server_id = f.read().strip()\n    \n        # Use the SDK to verify the config\n        check_script = f\"\"\"\n    from composio import Composio\n    import os\n    import json\n    composio = Composio(api_key=os.environ['COMPOSIO_API_KEY'])\n    server = composio.mcp.get('{server_id}')\n    print(json.dumps(server))\n    \"\"\"\n        result = subprocess.run([\"python3\", \"-c\", check_script], capture_output=True, text=True)\n>       assert result.returncode == 0, f\"Failed to get MCP config: {result.stderr}\"\nE       AssertionError: Failed to get MCP config: Traceback (most recent call last):\nE           File \"<string>\", line 2, in <module>\nE         ModuleNotFoundError: No module named 'composio'\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python3', '-c', \"\\nfrom composio import Composio\\nimport os\\nimport json\\ncomposio = Composio(...(most recent call last):\\n  File \"<string>\", line 2, in <module>\\nModuleNotFoundError: No module named \\'composio\\'\\n').returncode\n\ntests/test_final_state.py:26: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

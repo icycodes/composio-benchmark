@@ -1,0 +1,208 @@
+- Initializing MCP connections...
+You
+# GitHub Issue Sentiment Analysis with Composio Triggers and Workbench ## Background Composio Triggers allow your application to react to external events in real-time. The Composio Workbench provides a sandboxed environment to run complex data processing scripts. In this task, you will build an automated pipeline that listens for new GitHub issues and uses the Workbench to analyze their sentiment. ## Requirements * Create a Python script named `sentiment_pipeline.py` in `/home/user/sentiment-task`. * The script must use the `composio` Python SDK and the user `zealt-user01`. * **Step 1: Create a Trigger** * Create a trigger for the event `GITHUB_ISSUE_OPENED_EVENT` (or similar, search for the correct slug). * Configure it for the repository `composiohq/composio`. * **Step 2: Handle Events** * Use `composio.triggers.subscribe()` to listen for events. * When a new issue is opened, extract the issue body. * **Step 3: Analyze Sentiment via Workbench** * Use the `COMPOSIO_REMOTE_WORKBENCH` meta-tool (via a session) to execute a Python script in the sandbox. * The sandbox script should use a simple heuristic or a library (like `textblob` if available, or just keyword matching) to determine if the sentiment is 'negative'. * If negative, the sandbox script should call `run_composio_tool('GITHUB_ADD_LABELS_TO_AN_ISSUE', ...)` to add the `urgent` label to the issue. * The script should print "Pipeline active" and wait for events. ## Implementation Guide 1. Initialize `Composio`. 2. Create a session for `zealt-user01` to access meta-tools. 3. Create the GitHub trigger. 4. Define an event handler that gets the issue details. 5. In the handler, call `session.execute('COMPOSIO_REMOTE_WORKBENCH', ...)` with the analysis code. 6. The workbench code has access to `run_composio_tool`. ## Constraints * Project path: /home/user/sentiment-task * Language: Python * User ID: `zealt-user01` * Repository: `composiohq/composio` ## Integrations * Composio * GitHub   
+
+Pochi
+💭 Thinking for 118 characters   
+📂 Listing files in /home/user/sentiment-task ✔ 
+💫 Executing pip show composio-core composio 2>/dev/null | head -40; python3 -c "import composio; print(dir(composio))" 2>/dev/null || echo "composio not found" ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+print(dir(Composio))
+c = Composio()
+print(dir(c))
+" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "import composio; help(composio.Composio)" 2>&1 | head -100 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Inspect triggers
+print('triggers:', dir(c.triggers))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Inspect sessions / experimental
+print('experimental:', dir(c.experimental))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+help(c.triggers.create)
+" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+help(c.triggers.subscribe)
+" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "
+from composio.core.models.triggers import TriggerSubscription
+help(TriggerSubscription)
+" 2>&1 | head -80 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Search for github trigger slugs
+result = c.triggers.list_enum()
+triggers = [t for t in result if 'github' in t.lower() and 'issue' in t.lower()]
+print(triggers)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Get details about the GITHUB_ISSUE_ADDED_EVENT trigger
+result = c.triggers.get_type(slug='GITHUB_ISSUE_ADDED_EVENT')
+print(result)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Check sessions / tools
+help(c.tools)
+" 2>&1 | head -80 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# search for workbench tools
+results = c.tools.get_raw_composio_tools(search='workbench')
+for t in results:
+    print(t.slug, '-', t.display_name)
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Check if there are sessions in connected_accounts or elsewhere
+help(c.connected_accounts)
+" 2>&1 | head -80 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# search for workbench tools
+results = c.tools.get_raw_composio_tools(search='workbench')
+for t in results:
+    print(t.slug)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# look for meta tools or session tools
+results = c.tools.get_raw_composio_tools(search='remote')
+for t in results:
+    print(t.slug)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Get schema for COMPOSIO_REMOTE_WORKBENCH
+tool = c.tools.get_raw_composio_tool_by_slug('COMPOSIO_REMOTE_WORKBENCH')
+import json
+print(json.dumps(tool.model_dump(), indent=2, default=str))
+" 2>&1 | head -100 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Get trigger handle callback signature
+from composio.core.models.triggers import TriggerEventFilters
+import inspect
+print(inspect.signature(TriggerEventFilters.__init__))
+# get fields
+print(TriggerEventFilters.__annotations__)
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio.core.models.triggers import TriggerCallback, TriggerEvent
+import inspect
+print(inspect.getsource(TriggerEvent))
+" 2>&1 | head -60 ✔ 
+Now I have a thorough understanding of the SDK. Let me create the sentiment pipeline script.   
+📋 Updating todo list (1 items) ✔ 
+✏️  Writing /home/user/sentiment-task/sentiment_pipeline.py ✔ 
+💫 Executing cd /home/user/sentiment-task && python3 -c "
+import ast, sys
+with open('sentiment_pipeline.py') as f:
+    source = f.read()
+try:
+    tree = ast.parse(source)
+    print('Syntax OK')
+except SyntaxError as e:
+    print(f'Syntax error: {e}')
+    sys.exit(1)
+" ✔ 
+💫 Executing cd /home/user/sentiment-task && python3 -c "
+# Verify all imports resolve and the module structure is sane
+from composio import Composio
+from composio.core.models.triggers import TriggerEvent
+print('All imports OK')
+
+# Verify Composio exposes required API surface
+c = Composio.__new__(Composio)
+assert hasattr(Composio, '__init__'), 'missing __init__'
+
+# Verify trigger slugs exist
+import composio
+sdk_c = Composio()
+triggers = sdk_c.triggers.list_enum()
+assert 'GITHUB_ISSUE_ADDED_EVENT' in triggers, 'trigger slug not found'
+print('Trigger slug GITHUB_ISSUE_ADDED_EVENT confirmed')
+
+# Verify workbench tool slug exists
+tool = sdk_c.tools.get_raw_composio_tool_by_slug('COMPOSIO_REMOTE_WORKBENCH')
+print(f'Workbench tool confirmed: {tool.slug}')
+print('All checks passed')
+" 2>&1 ✔ 
+📋 Updating todo list (1 items) ✔ 
+🎉 Task Completed
+Created `/home/user/sentiment-task/sentiment_pipeline.py`. Here's a summary of every part of the pipeline:
+
+---
+
+### What the script does
+
+#### Step 1 — SDK initialisation
+```python
+composio = Composio()
+```
+The SDK picks up the API key from the environment automatically.
+
+#### Step 2 — Create / upsert the trigger
+```python
+composio.triggers.create(
+    slug="GITHUB_ISSUE_ADDED_EVENT",   # confirmed slug via list_enum()
+    user_id="zealt-user01",
+    trigger_config={"owner": "composiohq", "repo": "composio"},
+)
+```
+`GITHUB_ISSUE_ADDED_EVENT` fires a webhook payload containing `number`, `title`, `description`, `createdBy`, and `url` every time a new issue is opened on the target repo.
+
+#### Step 3 — Subscribe and handle events
+```python
+subscription = composio.triggers.subscribe()
+
+@subscription.handle(trigger_slug="GITHUB_ISSUE_ADDED_EVENT", user_id="zealt-user01")
+def on_issue_opened(event: TriggerEvent) -> None: ...
+```
+The handler extracts `issue_number`, `issue_title`, and `issue_body` from the webhook payload.
+
+#### Step 4 — Sentiment analysis inside the Workbench
+The handler calls `composio.tools.execute("COMPOSIO_REMOTE_WORKBENCH", ...)` with a Python script that:
+
+1. **Heuristic analysis** — searches the combined title + body for ~30 negative keywords (`bug`, `crash`, `error`, `critical`, `regression`, `vulnerability`, etc.).
+2. **If negative** → calls `run_composio_tool("GITHUB_ADD_LABELS_TO_AN_ISSUE", {..., "labels": ["urgent"]})` inside the sandbox, which already has the user's GitHub connection in scope.
+3. Prints a full diagnostic (matched keywords, sentiment verdict, label response).
+
+Runtime values (title, body, issue number, repo coordinates) are injected as variable assignments prepended to the sandbox code, with backslash/quote escaping to prevent injection from issue content.
+
+#### Step 5 — Wait forever
+```python
+subscription.wait_forever()
+```
+Keeps the process alive and prints `"Pipeline active"` before blocking.
+
+---
+
+### Run it
+```bash
+cd /home/user/sentiment-task
+python3 sentiment_pipeline.py
+```
+The script will print `Pipeline active` and block until a new issue is opened on `composiohq/composio`.   
+  

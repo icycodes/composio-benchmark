@@ -1,0 +1,43 @@
+[37m2026-04-16 09:52:51.271[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.7
+[37m2026-04-16 09:52:51.772[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:503190[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 5 custom agents (5 valid, 0 invalid)
+[37m2026-04-16 09:52:51.773[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:503191[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-04-16 09:52:51.805[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:439415[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-04-16 09:52:53.985[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:415701[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	MCP servers configuration changed via signal:
+[37m2026-04-16 09:52:53.985[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:415813[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	Build MCPHub Status
+[37m2026-04-16 09:52:54.206[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:502612[39m[0m[0m[1m[37m	TaskRunner[39m[22m[0m[0m	Starting TaskRunner...
+[37m2026-04-16 09:52:54.232[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:496613[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: null, new: # Create a Custom GitHub Extension Tool with Composio Python SDK
+[37m2026-04-16 09:53:11.035[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:496613[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: # Create a Custom GitHub Extension Tool with Composio Python SDK, new: Create a custom GitHub extension tool with Composio Python SDK
+[37m2026-04-16 09:53:39.504[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/composio/ create_session|get_session [90mundefined[39m
+[37m2026-04-16 09:53:39.505[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'create_session|get_session' '/usr/local/lib/python3.12/dist-packages/composio'
+[37m2026-04-16 09:53:39.517[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:502348[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/composio/core/models/__pycache__/mcp.cpython-312.pyc"},"lines":{"bytes":"2jdjb21wb3Npb19jbGllbnQudHlwZXMudG9vbF9yb3V0ZXJfY3JlYXRlX3Nlc3Npb25fcGFyYW1zcgUK"},"line_number":3265,"absolute_offset":17141,"submatches":[{"match":{"text":"create_session"},"start":36,"end":50}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 454011, 42, 454011, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:454011[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:502348[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall[0m[0m
+	[37m$bunfs/root/pochi:502453[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:502810[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:502752[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:502698[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:502618[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:503300[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-04-16 09:53:43.799[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/composio/ class Composio [90mundefined[39m
+[37m2026-04-16 09:53:43.799[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'class Composio' '/usr/local/lib/python3.12/dist-packages/composio'
+[37m2026-04-16 09:53:50.107[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/composio/ def execute [90mundefined[39m
+[37m2026-04-16 09:53:50.107[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'def execute' '/usr/local/lib/python3.12/dist-packages/composio'
+[37m2026-04-16 09:53:53.328[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/composio/ def create_session [90mundefined[39m
+[37m2026-04-16 09:53:53.329[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'def create_session' '/usr/local/lib/python3.12/dist-packages/composio'
+[37m2026-04-16 09:53:57.603[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/composio/ class ToolRouter [90mundefined[39m
+[37m2026-04-16 09:53:57.603[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'class ToolRouter' '/usr/local/lib/python3.12/dist-packages/composio'
+[37m2026-04-16 09:54:46.407[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/composio/ GITHUB_CREATE_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER [90mundefined[39m
+[37m2026-04-16 09:54:46.408[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:453983[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'GITHUB_CREATE_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER' '/usr/local/lib/python3.12/dist-packages/composio'

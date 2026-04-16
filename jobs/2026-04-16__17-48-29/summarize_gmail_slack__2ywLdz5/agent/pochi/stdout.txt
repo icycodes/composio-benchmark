@@ -1,0 +1,276 @@
+- Initializing MCP connections...
+You
+# Summarize Gmail to Slack with Composio TypeScript SDK ## Background Composio enables AI agents to work across multiple apps. In this task, you will create a TypeScript script that integrates Gmail and Slack. The script will fetch the last 5 emails and post a summary to a Slack channel. ## Requirements * Create a TypeScript project in `/home/user/summarize-task`. * Use the `@composio/core` and `@composio/openai` SDKs. * The script must use the user `zealt-user01`. * Fetch the last 5 messages from Gmail using the `GMAIL_LIST_MESSAGES` tool (or search for the appropriate tool). * Create a summary of the email subjects. * Post the summary to a Slack channel named `summary-${trial_id}` (read `trial_id` from `/logs/trial_id`). * The script should be named `index.ts` and be runnable with `npx tsx index.ts`. ## Implementation Guide 1. Initialize a new Node.js project and install dependencies: `@composio/core`, `@composio/openai`, `openai`, `tsx`, `dotenv`. 2. Read `trial_id` from `/logs/trial_id`. 3. Initialize `Composio` with `OpenAIProvider`. 4. Create a session for `zealt-user01`. 5. Use `session.execute` or an LLM agent to fetch the last 5 emails. 6. Format a summary string. 7. Post the message to Slack using `SLACK_CHAT_POST_MESSAGE`. ## Constraints * Project path: /home/user/summarize-task * Language: TypeScript * User ID: `zealt-user01` * Channel name: `summary-${trial_id}` ## Integrations * Composio * Gmail * Slack * OpenAI   
+
+Pochi
+💭 Thinking for 139 characters   
+💫 Executing cat /logs/trial_id ✔ 
+📂 Listing files in /home/user ✔ 
+📂 Listing files in /home/user/summarize-task ✔ 
+💫 Executing node --version && npm --version ✔ 
+💫 Executing cat /root/.env 2>/dev/null || cat /home/user/.env 2>/dev/null || env | grep -E "(OPENAI|COMPOSIO)" | head -20 ✔ 
+📋 Updating todo list (4 items) ✔ 
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/summarize-task/package.json ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/summarize-task && npm install 2>&1 ✔ 
+💫 Executing ls /home/user/summarize-task/node_modules | grep composio ✔ 
+💫 Executing ls /home/user/summarize-task/node_modules/@composio/ ✔ 
+💫 Executing cat /home/user/summarize-task/node_modules/@composio/core/package.json | grep -E '"version"|"main"|"exports"' | head -10 ✔ 
+💫 Executing cat /home/user/summarize-task/node_modules/@composio/openai/package.json | grep -E '"version"|"main"|"exports"' | head -10 ✔ 
+💫 Executing ls /home/user/summarize-task/node_modules/@composio/core/dist/ | head -20 ✔ 
+💫 Executing ls /home/user/summarize-task/node_modules/@composio/openai/dist/ | head -20 ✔ 
+💫 Executing cat /home/user/summarize-task/node_modules/@composio/openai/dist/index.d.mts ✔ 
+💫 Executing cat /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs 2>/dev/null | head -5 || ls /home/user/summarize-task/node_modules/@composio/core/dist/ | grep index ✔ 
+💫 Executing grep -r "class Composio\|export.*Composio\|session\|Session" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs 2>/dev/null | head -30 ✔ 
+💫 Executing grep -r "execute\|\.get\|getTools\|tools\b" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs 2>/dev/null | grep -v "^\s*//" | grep "async\|function\|=>" | head -40 ✔ 
+💫 Executing grep -r "class Composio\b\|new Composio\|Composio(" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs | head -20 ✔ 
+💫 Executing grep -r "class Composio\b" /home/user/summarize-task/node_modules/@composio/core/dist/*.mjs | head -5 ✔ 
+💫 Executing grep -A 100 "var Composio = class Composio" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs | head -120 ✔ 
+💫 Executing grep -r "tools\.get\b\|tools\.execute\b\|\.execute(" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs | head -20 ✔ 
+💫 Executing grep -B5 -A30 "async get\b\|async get(" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs | grep -A30 "tools\.get\|getTools\|get(userId" | head -60 ✔ 
+Now I have enough understanding of the SDK. Let me look at a usage example:   
+💫 Executing grep -r "composio.tools.execute\|composio\.tools\.get" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs | head -20 ✔ 
+💫 Executing grep -B2 -A15 "const result = await composio.tools.execute" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs | head -60 ✔ 
+📋 Updating todo list (4 items) ✔ 
+Now let me write the `index.ts` script:   
+✏️  Writing /home/user/summarize-task/index.ts ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/summarize-task && OPENAI_API_KEY=(*****SECRET_LEAK_DETECTED*****) COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx index.ts 2>&1 ✖ "Command exited with code 1"
+The error indicates no connected account for `zealt-user01` for Gmail. I need to first check connected accounts and initiate a connection if needed. Let me check the connected accounts for this user:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)' });
+composio.connectedAccounts.list({ userId: 'zealt-user01' }).then(r => console.log(JSON.stringify(r, null, 2))).catch(e => console.error(e.message));
+" 2>&1 ✔ 
+The user `zealt-user01` has active Slack connections but no Gmail connection. I see there are Slack active connections (`ca_PReooAaI_n_c` and `ca_-LtBsLZw7sGx`). I need to initiate a Gmail connection. Let me check what auth configs are available for Gmail and initiate a connection:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)' });
+composio.toolkits.get('gmail').then(r => console.log(JSON.stringify(r, null, 2))).catch(e => console.error('toolkit error:', e.message));
+" 2>&1 ✔ 
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)' });
+composio.authConfigs.list({ toolkit: 'gmail' }).then(r => console.log(JSON.stringify(r, null, 2))).catch(e => console.error('authconfig error:', e.message, e.cause?.message));
+" 2>&1 ✔ 
+No existing Gmail auth configs. I need to use Composio-managed auth (which supports OAUTH2 for Gmail). Let me initiate a connected account using the composio-managed auth:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)' });
+composio.connectedAccounts.initiate({
+  userId: 'zealt-user01',
+  toolkit: 'gmail',
+}).then(r => console.log(JSON.stringify(r, null, 2))).catch(e => {
+  console.error('error:', e.message);
+  if (e.cause) console.error('cause:', e.cause.message);
+});
+" 2>&1 ✔ 
+💫 Executing grep -A 50 "async initiate\b" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs | head -60 ✔ 
+The `initiate` method requires an `authConfigId`. I need to first create an auth config for Gmail using Composio-managed auth. Let me check how to create one:   
+💫 Executing grep -B2 -A40 "async create\b" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs | grep -A40 "authConfig\|AuthConfig" | head -60 ✔ 
+💫 Executing grep -B2 -A30 "composioManagedAuth\|useComposioManagedAuth\|isComposioManaged" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs | head -60 ✔ 
+💫 Executing grep -B5 -A30 "use_composio_auth\|use_composio_managed\|composio_managed\|CreateAuthConfigParamsSchema" /home/user/summarize-task/node_modules/@composio/core/dist/index.mjs | head -80 ✔ 
+Now I understand the structure. Let me create the Gmail auth config and initiate a connection:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)' });
+
+// First, create a composio-managed auth config for Gmail
+composio.authConfigs.create('gmail', {
+  type: 'use_composio_managed_auth',
+  name: 'gmail-managed',
+}).then(r => {
+  console.log('AuthConfig created:', JSON.stringify(r, null, 2));
+  return r;
+}).catch(e => {
+  console.error('error creating auth config:', e.message);
+  if (e.cause) console.error('cause:', JSON.stringify(e.cause, null, 2));
+});
+" 2>&1 ✔ 
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)' });
+
+// Initiate a connection for the user with the Gmail auth config
+composio.connectedAccounts.initiate('zealt-user01', 'ac_QUBB4TEOvJyf').then(r => {
+  console.log('Connection initiated:', JSON.stringify(r, null, 2));
+}).catch(e => {
+  console.error('error initiating connection:', e.message);
+  if (e.cause) console.error('cause:', JSON.stringify(e.cause, null, 2));
+});
+" 2>&1 ✔ 
+💫 Executing curl -s "https://backend.composio.dev/api/v3/s/hKxB8k_e" -L -I 2>&1 | head -20 ✔ 
+The redirect URL goes to Google OAuth. There must be a pre-authorized connection somewhere, or I need to use a different approach. Let me check if there's a way to use a pre-configured test account or check available connections more broadly:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)' });
+// Check all connected accounts broadly
+composio.connectedAccounts.list({ toolkit: 'gmail' }).then(r => console.log(JSON.stringify(r, null, 2))).catch(e => console.error(e.message));
+" 2>&1 ✔ 
+The Gmail connection is in `INITIATED` state. I need to use the LLM agentic approach with `COMPOSIO_INITIATE_CONNECTION` tool, or wait for the connection to be established. Let me check if there's a way to use the Composio tool to initiate and complete the Gmail connection using an agentic approach via the `COMPOSIO_INITIATE_CONNECTION` meta tool:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)' });
+
+// Check the status of the initiated connection and try to wait for it
+async function checkAndWait() {
+  const accounts = await composio.connectedAccounts.list({ toolkit: 'gmail', userId: 'zealt-user01' });
+  console.log('Gmail accounts:', JSON.stringify(accounts.items.map(a => ({ id: a.id, status: a.status })), null, 2));
+}
+checkAndWait().catch(e => console.error(e.message));
+" 2>&1 ✔ 
+There's a new `ca_VdUN-PJAkepd` Gmail account with `INITIALIZING` status! Let me check it more carefully - filtering properly:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)' });
+
+// List only gmail connected accounts for our user
+async function check() {
+  const accounts = await composio.connectedAccounts.list({});
+  const gmail = accounts.items.filter(a => a.toolkit?.slug === 'gmail');
+  console.log('Gmail accounts:', JSON.stringify(gmail, null, 2));
+}
+check().catch(e => console.error(e.message));
+" 2>&1 ✔ 
+The `ca_VdUN-PJAkepd` one is an INITIALIZING account but it doesn't show as Gmail. Let me check all accounts with a full check, including via the Composio client API endpoint directly to see what accounts are available for this user's Gmail:   
+💫 Executing curl -s "https://backend.composio.dev/api/v3/connected_accounts?toolkit=gmail&userIds=zealt-user01" -H "x-api-key: (*****SECRET_LEAK_DETECTED*****)" | python3 -m json.tool 2>&1 | head -50 ✔ 
+💫 Executing curl -s "https://backend.composio.dev/api/v3/connected_accounts?toolkit=gmail&userIds=zealt-user01&statuses=ACTIVE" -H "x-api-key: (*****SECRET_LEAK_DETECTED*****)" | python3 -m json.tool 2>&1 ✔ 
+There's no active Gmail connection. The `ca_VdUN-PJAkepd` is actually a Slack connection. I need to use the Composio tool router session approach to complete the Gmail OAuth flow. Let me use the agentic approach with the `COMPOSIO_INITIATE_CONNECTION` meta tool to set up the connection, and use an LLM agent to handle the whole flow:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)' });
+
+// Try executing with an LLM-based agent approach
+// First check what tools are available
+composio.tools.getRawComposioTools({ toolkits: ['gmail'], limit: 10 }).then(r => {
+  console.log('Gmail tools:', r.map(t => t.slug).join(', '));
+}).catch(e => console.error(e.message));
+" 2>&1 ✔ 
+Now let me use the agentic approach. I'll use the OpenAI agent with `COMPOSIO_INITIATE_CONNECTION` to set up the connection. But first let me check what session-based tools are available:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+import { OpenAIProvider } from '@composio/openai';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)', provider: new OpenAIProvider() });
+
+// Try creating a session to use the tool router
+async function main() {
+  const session = await composio.create('zealt-user01', {
+    manageConnections: true,
+  });
+  console.log('Session created:', JSON.stringify({ id: session.sessionId, url: session.url, status: session.status }, null, 2));
+}
+main().catch(e => console.error('error:', e.message, e.cause?.message));
+" 2>&1 ✔ 
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+import { OpenAIProvider } from '@composio/openai';
+
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)', provider: new OpenAIProvider() });
+
+async function main() {
+  const session = await composio.create('zealt-user01', { manageConnections: true });
+  console.log('Session ID:', session.sessionId);
+  
+  // Execute the COMPOSIO_INITIATE_CONNECTION meta tool
+  const result = await session.execute('COMPOSIO_INITIATE_CONNECTION', {
+    toolkit: 'gmail',
+    auth_config_id: 'ac_QUBB4TEOvJyf',
+  });
+  console.log('Result:', JSON.stringify(result, null, 2));
+}
+main().catch(e => {
+  console.error('error:', e.message);
+  if (e.cause) console.error('cause:', e.cause.message || JSON.stringify(e.cause));
+});
+" 2>&1 ✔ 
+Let me use the agentic (LLM-driven) approach with OpenAI to use the full tool routing:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) OPENAI_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+import { OpenAIProvider } from '@composio/openai';
+import OpenAI from 'openai';
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY, provider: new OpenAIProvider() });
+
+async function main() {
+  const session = await composio.create('zealt-user01', { manageConnections: true });
+  console.log('Session ID:', session.sessionId);
+  
+  const tools = await session.tools();
+  console.log('Available meta tools:', (tools as any[]).map((t: any) => t.function?.name || t.name).join(', '));
+}
+main().catch(e => {
+  console.error('error:', e.message);
+});
+" 2>&1 ✔ 
+I see `COMPOSIO_MANAGE_CONNECTIONS` is available. Let me use the LLM agent with OpenAI to complete the entire task - letting the agent handle Gmail auth and message fetching:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) OPENAI_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+import { OpenAIProvider } from '@composio/openai';
+import OpenAI from 'openai';
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY, provider: new OpenAIProvider() });
+
+async function main() {
+  const session = await composio.create('zealt-user01', { manageConnections: true });
+  console.log('Session ID:', session.sessionId);
+  
+  // Use COMPOSIO_MANAGE_CONNECTIONS to see gmail connection status
+  const result = await session.execute('COMPOSIO_MANAGE_CONNECTIONS', { action: 'list' });
+  console.log('Connections:', JSON.stringify(result, null, 2));
+}
+main().catch(e => {
+  console.error('error:', e.message);
+  if (e.cause) console.error('cause:', e.cause.message || JSON.stringify(e.cause, null, 2));
+});
+" 2>&1 ✔ 
+The meta tools can't be executed directly. I need to use the LLM to drive these. Let me take the fully agentic approach using OpenAI Responses API:   
+✏️  Writing /home/user/summarize-task/index.ts ✔ 
+💫 Executing cd /home/user/summarize-task && OPENAI_API_KEY=(*****SECRET_LEAK_DETECTED*****) COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx index.ts 2>&1 ✖ "Command exited with code 1"
+The OpenAI call timed out with the chat completions API. Let me use the OpenAI Responses API instead which is what the `@composio/openai` package is designed for:   
+💫 Executing cd /home/user/summarize-task && COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import { Composio } from '@composio/core';
+import { OpenAIProvider } from '@composio/openai';
+const composio = new Composio({ apiKey: '(*****SECRET_LEAK_DETECTED*****)', provider: new OpenAIProvider() });
+
+// Check what tools COMPOSIO_SEARCH_TOOLS returns for gmail  
+async function main() {
+  const session = await composio.create('zealt-user01', { manageConnections: true });
+  // Get the raw session tools to understand schema
+  const tools = await session.tools();
+  const searchTool = (tools as any[]).find(t => t.function?.name === 'COMPOSIO_SEARCH_TOOLS');
+  console.log('SEARCH_TOOLS schema:', JSON.stringify(searchTool, null, 2));
+}
+main().catch(e => console.error(e.message));
+" 2>&1 ✔ 
+Now I understand the proper way to use the Composio session. The description says "User has manually connected the apps: github, slack" - which means Gmail is not connected. However, I need to use `COMPOSIO_MULTI_EXECUTE_TOOL` to execute tools. Let me use the proper Responses API approach with OpenAI:   
+✏️  Writing /home/user/summarize-task/index.ts ✔ 
+💫 Executing cd /home/user/summarize-task && OPENAI_API_KEY=(*****SECRET_LEAK_DETECTED*****) COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx index.ts 2>&1 ✖ "Command exited with code 1"
+The OpenAI API is timing out consistently. Let me check if this is a network issue:   
+💫 Executing curl -s --max-time 30 "https://api.openai.com/v1/models" -H "Authorization: Bearer (*****SECRET_LEAK_DETECTED*****)" 2>&1 | head -5 ✔ 
+💫 Executing curl -s --max-time 60 "https://api.openai.com/v1/chat/completions" \
+  -H "Authorization: Bearer (*****SECRET_LEAK_DETECTED*****)" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"gpt-4o-mini","messages":[{"role":"user","content":"Say hello"}],"max_tokens":10}' 2>&1 | head -20 ✔ 
+The API works directly with curl. The issue is the OpenAI Node.js client has a default 10-second timeout. With the large tools payload (meta tools with long descriptions), the request is taking too long to process. Let me set a higher timeout in the OpenAI client and also try the `chat.completions` endpoint with specific tools:   
+✏️  Writing /home/user/summarize-task/index.ts ✔ 
+💫 Executing cd /home/user/summarize-task && OPENAI_API_KEY=(*****SECRET_LEAK_DETECTED*****) COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx index.ts 2>&1 ✖ "Command exited with code 1"
+The timeout is happening even with a higher timeout set. The issue might be that the `openai.responses.create` API call with those huge tools is too long. Let me check if the `responses` API endpoint works at all:   
+💫 Executing curl -s --max-time 60 "https://api.openai.com/v1/responses" \
+  -H "Authorization: Bearer (*****SECRET_LEAK_DETECTED*****)" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"gpt-4o-mini","input":"Say hello","max_output_tokens":10}' 2>&1 | head -20 ✔ 
+💫 Executing curl -s --max-time 60 "https://api.openai.com/v1/responses" \
+  -H "Authorization: Bearer (*****SECRET_LEAK_DETECTED*****)" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"gpt-4o-mini","input":"Say hello"}' 2>&1 | head -20 ✔ 
+The Responses API works. The issue is likely the Node.js openai client's default behavior. Let me check what version of openai is installed and if it supports the Responses API, and also check what's happening with the timeout more carefully:   
+💫 Executing cat /home/user/summarize-task/node_modules/openai/package.json | grep '"version"' ✔ 
+💫 Executing cd /home/user/summarize-task && OPENAI_API_KEY=(*****SECRET_LEAK_DETECTED*****) COMPOSIO_API_KEY=(*****SECRET_LEAK_DETECTED*****) npx tsx -e "
+import OpenAI from 'openai';
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY, timeout: 120_000 });
+openai.responses.create({ model: 'gpt-4o-mini', input: 'Say hello' }, { timeout: 120_000 }).then(r => console.log('ok:', r.output_text)).catch(e => console.error('err:', e.message));
+" 2>&1 ✔ 
+Even a simple call to the Responses API times out from Node.js. The `chat.completions` works but `responses` doesn't. Let me use the `chat.completions` API instead:   

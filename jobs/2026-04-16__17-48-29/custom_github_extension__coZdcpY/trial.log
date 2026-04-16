@@ -1,0 +1,97 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo custom_github_extension__coZdcpY > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Create a Custom GitHub Extension Tool with Composio Python SDK
+
+## Background
+Composio allows you to extend existing toolkits with custom business logic. Extension tools inherit the authentication of the toolkit they extend. In this task, you will create a custom tool that extends the `github` toolkit to perform a specialized action: creating a repository and immediately adding a specific label to it.
+
+## Requirements
+- Create a Python script named `custom_tool.py` in `/home/user/custom-tool-task`.
+- The script must use the `composio` Python SDK and the `experimental` custom tool API.
+- **Define a Custom Tool**:
+  - Name: `CREATE_REPO_WITH_LABEL`.
+  - Extends Toolkit: `github`.
+  - Input Parameters: `repo_name` (string).
+  - Execution Logic:
+    1. Use `ctx.execute('GITHUB_CREATE_A_REPOSITORY_FOR_THE_AUTHENTICATED_USER', {'name': repo_name})` to create the repo.
+    2. Use `ctx.execute('GITHUB_CREATE_A_LABEL_FOR_A_REPOSITORY', {'owner': 'zealt-user01', 'repo': repo_name, 'name': 'custom-label', 'color': 'ff0000'})` to add a label.
+- **Execute the Tool**:
+  - Read the `trial_id` from `/logs/trial_id`.
+  - Set `repo_name` to `custom-repo-${trial_id}`.
+  - Create a session for `zealt-user01` and register the custom tool.
+  - Execute the custom tool within the session.
+  - Print the result of the execution.
+
+## Implementation Guide
+1. Import `Composio` and `BaseModel`, `Field` from `pydantic`.
+2. Define the input model `CreateRepoInput`.
+3. Use `@composio.experimental.tool(extends_toolkit='github')` to define the tool.
+4. In the session creation, pass `experimental={'custom_tools': [your_tool]}`.
+5. Call `session.execute('CREATE_REPO_WITH_LABEL', {'repo_name': ...})`.
+
+## Constraints
+- Project path: /home/user/custom-tool-task
+- Language: Python
+- User ID: `zealt-user01`
+- Repository name: `custom-repo-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

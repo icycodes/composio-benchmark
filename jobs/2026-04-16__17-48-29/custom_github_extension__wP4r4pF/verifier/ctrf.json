@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776332971.8566804,
+            "stop": 1776332972.2646823
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_repo_and_label_exist",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.38515884800290223,
+                "start": 1776332971.8606074,
+                "stop": 1776332972.264528,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_repo_and_label_exist():\n        trial_id = get_trial_id()\n        repo_name = f\"custom-repo-{trial_id}\"\n        username = \"zealt-user01\"\n    \n        # Check repo exists\n        result = subprocess.run(\n            [\"gh\", \"repo\", \"view\", f\"{username}/{repo_name}\", \"--json\", \"name\"],\n            capture_output=True, text=True\n        )\n>       assert result.returncode == 0, f\"Repository {repo_name} not found.\"\nE       AssertionError: Repository custom-repo-custom_github_extension__wP4r4pF not found.\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['gh', 'repo', 'view', 'zealt-user01/custom-repo-custom_github_extension__wP4r4pF', '--json', 'n...not resolve to a Repository with the name 'zealt-user01/custom-repo-custom_github_extension__wP4r4pF'. (repository)\\n\").returncode\n\ntests/test_final_state.py:22: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

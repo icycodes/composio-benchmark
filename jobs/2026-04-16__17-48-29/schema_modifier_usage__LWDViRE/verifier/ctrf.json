@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776335326.064512,
+            "stop": 1776335326.0745213
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_schema_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00026719400557340123,
+                "start": 1776335326.0682006,
+                "stop": 1776335326.073556,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_schema_file_exists():\n>       assert os.path.isfile(SCHEMA_FILE), f\"Modified schema file {SCHEMA_FILE} not found.\"\nE       AssertionError: Modified schema file /home/user/modifier-task/modified_schema.json not found.\nE       assert False\nE        +  where False = <function isfile at 0x7f7a44294220>('/home/user/modifier-task/modified_schema.json')\nE        +    where <function isfile at 0x7f7a44294220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:9: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_schema_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00018309999722987413,
+                "start": 1776335326.0736566,
+                "stop": 1776335326.0744476,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_schema_content():\n>       with open(SCHEMA_FILE, \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/modifier-task/modified_schema.json'\n\ntests/test_final_state.py:12: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

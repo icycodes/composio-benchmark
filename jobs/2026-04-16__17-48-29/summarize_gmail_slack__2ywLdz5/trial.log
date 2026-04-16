@@ -1,0 +1,92 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo summarize_gmail_slack__2ywLdz5 > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Summarize Gmail to Slack with Composio TypeScript SDK
+
+## Background
+Composio enables AI agents to work across multiple apps. In this task, you will create a TypeScript script that integrates Gmail and Slack. The script will fetch the last 5 emails and post a summary to a Slack channel.
+
+## Requirements
+- Create a TypeScript project in `/home/user/summarize-task`.
+- Use the `@composio/core` and `@composio/openai` SDKs.
+- The script must use the user `zealt-user01`.
+- Fetch the last 5 messages from Gmail using the `GMAIL_LIST_MESSAGES` tool (or search for the appropriate tool).
+- Create a summary of the email subjects.
+- Post the summary to a Slack channel named `summary-${trial_id}` (read `trial_id` from `/logs/trial_id`).
+- The script should be named `index.ts` and be runnable with `npx tsx index.ts`.
+
+## Implementation Guide
+1. Initialize a new Node.js project and install dependencies: `@composio/core`, `@composio/openai`, `openai`, `tsx`, `dotenv`.
+2. Read `trial_id` from `/logs/trial_id`.
+3. Initialize `Composio` with `OpenAIProvider`.
+4. Create a session for `zealt-user01`.
+5. Use `session.execute` or an LLM agent to fetch the last 5 emails.
+6. Format a summary string.
+7. Post the message to Slack using `SLACK_CHAT_POST_MESSAGE`.
+
+## Constraints
+- Project path: /home/user/summarize-task
+- Language: TypeScript
+- User ID: `zealt-user01`
+- Channel name: `summary-${trial_id}`
+
+## Integrations
+- Composio
+- Gmail
+- Slack
+- OpenAI
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

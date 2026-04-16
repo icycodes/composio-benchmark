@@ -1,0 +1,89 @@
+{
+    "id": "504da9d3-2b10-43ba-8055-0aeadc0ef3af",
+    "task_name": "multi_account_alias",
+    "trial_name": "multi_account_alias__ydvssJz",
+    "trial_uri": "file:///mnt/E/Icy/data/run-harbor/jobs/2026-04-16__17-48-29/multi_account_alias__ydvssJz",
+    "task_id": {
+        "path": "/mnt/E/Icy/data/run-harbor/local_scripts/../tasks/multi_account_alias"
+    },
+    "source": "tasks",
+    "task_checksum": "9b54cf1c12ad8f362ff21b44f6561ed14d72ea525824cd5276227702b78a0311",
+    "config": {
+        "task": {
+            "path": "/mnt/E/Icy/data/run-harbor/local_scripts/../tasks/multi_account_alias",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "tasks"
+        },
+        "trial_name": "multi_account_alias__ydvssJz",
+        "trials_dir": "/mnt/E/Icy/data/run-harbor/local_scripts/../jobs/2026-04-16__17-48-29",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "anthropic/claude-4-6-sonnet",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {}
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "965a7bce-33ca-42eb-b5d7-e713dbc6c6af"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "unknown",
+        "model_info": {
+            "name": "claude-4-6-sonnet",
+            "provider": "anthropic"
+        }
+    },
+    "agent_result": null,
+    "verifier_result": null,
+    "exception_info": {
+        "exception_type": "NonZeroAgentExitCodeError",
+        "exception_message": "Command failed (exit 100): apt-get update && apt-get install -y curl ripgrep\nstdout: Hit:1 https://deb.nodesource.com/node_24.x nodistro InRelease\nHit:2 https://security.ubuntu.com/ubuntu noble-security InRelease\nHit:3 https://archive.ubuntu.com/ubuntu noble InRelease\nGet:4 https://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]\nHit:5 https://archive.ubuntu.com/ubuntu noble-backports InRelease\nGet:6 https://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [38.5 kB]\nGet:7 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2402 kB]\nIgn:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages\nGet:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2156 kB]\nErr:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages\n  Hash Sum mismatch\n  Hashes of expected file:\n   - Filesize:2155936 [weak]\n   - SHA256:ad88b89b886aa10afaa27facac114cbbf7a41aba5a55167d96adec837d1a3dfe\n   - SHA1:ee29d5ae3334ffbc92aaf8a889bba37c30b107e6 [weak]\n   - MD5Sum:49edad864a8dda5688acd4dd2b95d034 [we ... [truncated]\nstderr: None",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/mnt/E/Icy/data/run-harbor/.venv/lib/python3.12/site-packages/harbor/trial/trial.py\", line 533, in run\n    await self._setup_agent()\n  File \"/mnt/E/Icy/data/run-harbor/.venv/lib/python3.12/site-packages/harbor/trial/trial.py\", line 266, in _setup_agent\n    await asyncio.wait_for(\n  File \"/home/icy/snap/code/230/.local/share/uv/python/cpython-3.12.10-linux-x86_64-gnu/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/mnt/E/Icy/data/run-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 384, in setup\n    await self.install(environment)\n  File \"/mnt/E/Icy/data/run-harbor/agents/pochi.py\", line 50, in install\n    await self.exec_as_root(\n  File \"/mnt/E/Icy/data/run-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 345, in exec_as_root\n    return await self._exec(\n           ^^^^^^^^^^^^^^^^^\n  File \"/mnt/E/Icy/data/run-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 321, in _exec\n    raise NonZeroAgentExitCodeError(\nharbor.agents.installed.base.NonZeroAgentExitCodeError: Command failed (exit 100): apt-get update && apt-get install -y curl ripgrep\nstdout: Hit:1 https://deb.nodesource.com/node_24.x nodistro InRelease\nHit:2 https://security.ubuntu.com/ubuntu noble-security InRelease\nHit:3 https://archive.ubuntu.com/ubuntu noble InRelease\nGet:4 https://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]\nHit:5 https://archive.ubuntu.com/ubuntu noble-backports InRelease\nGet:6 https://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [38.5 kB]\nGet:7 https://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2402 kB]\nIgn:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages\nGet:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2156 kB]\nErr:8 https://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages\n  Hash Sum mismatch\n  Hashes of expected file:\n   - Filesize:2155936 [weak]\n   - SHA256:ad88b89b886aa10afaa27facac114cbbf7a41aba5a55167d96adec837d1a3dfe\n   - SHA1:ee29d5ae3334ffbc92aaf8a889bba37c30b107e6 [weak]\n   - MD5Sum:49edad864a8dda5688acd4dd2b95d034 [we ... [truncated]\nstderr: None\n",
+        "occurred_at": "2026-04-16T18:00:15.528271"
+    },
+    "started_at": "2026-04-16T09:59:53.253294Z",
+    "finished_at": "2026-04-16T10:00:26.294983Z",
+    "environment_setup": {
+        "started_at": "2026-04-16T09:59:53.259685Z",
+        "finished_at": "2026-04-16T09:59:54.810653Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-04-16T09:59:54.810660Z",
+        "finished_at": "2026-04-16T10:00:15.528041Z"
+    },
+    "agent_execution": null,
+    "verifier": null
+}

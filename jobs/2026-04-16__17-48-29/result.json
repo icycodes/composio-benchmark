@@ -1,0 +1,169 @@
+{
+    "id": "965a7bce-33ca-42eb-b5d7-e713dbc6c6af",
+    "started_at": "2026-04-16T17:48:32.232359",
+    "finished_at": "2026-04-16T18:33:58.301776",
+    "n_total_trials": 45,
+    "stats": {
+        "n_trials": 45,
+        "n_errors": 13,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 9,
+                "n_errors": 4,
+                "metrics": [
+                    {
+                        "mean": 0.1111111111111111
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "custom_github_extension__ZRKDGv5"
+                        ],
+                        "0.0": [
+                            "star_repo_cli__r4hk4yG",
+                            "multi_account_alias__5Xezh3z",
+                            "mcp_config_sdk__ySYp3JX",
+                            "summarize_gmail_slack__9eXDQpQ",
+                            "manual_auth_flow__kutqBHS",
+                            "vercel_ai_slack_github__M7TP4Nk",
+                            "trigger_workbench_sentiment__JQiBX7P",
+                            "schema_modifier_usage__GGfGPNn"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "custom_github_extension__ZRKDGv5",
+                        "star_repo_cli__r4hk4yG",
+                        "summarize_gmail_slack__9eXDQpQ",
+                        "vercel_ai_slack_github__M7TP4Nk"
+                    ]
+                }
+            },
+            "pochi__gemini-3-flash__tasks": {
+                "n_trials": 9,
+                "n_errors": 3,
+                "metrics": [
+                    {
+                        "mean": 0.1111111111111111
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "custom_github_extension__nEoYigV",
+                            "star_repo_cli__U8UE7BJ",
+                            "multi_account_alias__XC8KxrL",
+                            "mcp_config_sdk__mkfL3QF",
+                            "summarize_gmail_slack__VTHuNHi",
+                            "vercel_ai_slack_github__YCdK2KU",
+                            "trigger_workbench_sentiment__ucJZvbU",
+                            "schema_modifier_usage__TfbT3uG"
+                        ],
+                        "1.0": [
+                            "manual_auth_flow__k8ddVkV"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "star_repo_cli__U8UE7BJ",
+                        "summarize_gmail_slack__VTHuNHi",
+                        "vercel_ai_slack_github__YCdK2KU"
+                    ]
+                }
+            },
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 9,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "custom_github_extension__wP4r4pF",
+                            "star_repo_cli__e3QWFDA",
+                            "multi_account_alias__TvUbjfU",
+                            "mcp_config_sdk__yT9GfvJ",
+                            "summarize_gmail_slack__KxxKTUL",
+                            "manual_auth_flow__ouGm39U",
+                            "vercel_ai_slack_github__r2pe5GD",
+                            "trigger_workbench_sentiment__VeCuJSQ",
+                            "schema_modifier_usage__LWDViRE"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            },
+            "pochi__claude-4-6-sonnet__tasks": {
+                "n_trials": 8,
+                "n_errors": 3,
+                "metrics": [
+                    {
+                        "mean": 0.2222222222222222
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "custom_github_extension__coZdcpY",
+                            "manual_auth_flow__ndkCz2F"
+                        ],
+                        "0.0": [
+                            "star_repo_cli__kznYe9L",
+                            "mcp_config_sdk__TiqdwyV",
+                            "summarize_gmail_slack__2ywLdz5",
+                            "vercel_ai_slack_github__hAoMZGZ",
+                            "trigger_workbench_sentiment__dPVEdEw",
+                            "schema_modifier_usage__N279RWL"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "NonZeroAgentExitCodeError": [
+                        "multi_account_alias__ydvssJz"
+                    ],
+                    "AgentTimeoutError": [
+                        "summarize_gmail_slack__2ywLdz5",
+                        "vercel_ai_slack_github__hAoMZGZ"
+                    ]
+                }
+            },
+            "pochi__glm-4.7__tasks": {
+                "n_trials": 9,
+                "n_errors": 3,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "custom_github_extension__aj4Gj57",
+                            "star_repo_cli__BbEgcDZ",
+                            "multi_account_alias__HE5sjqn",
+                            "mcp_config_sdk__3SScpN7",
+                            "summarize_gmail_slack__PP8QTQ5",
+                            "manual_auth_flow__pB4LKo2",
+                            "vercel_ai_slack_github__vP5H9Dd",
+                            "trigger_workbench_sentiment__oY84Nss",
+                            "schema_modifier_usage__kVoYAB9"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "star_repo_cli__BbEgcDZ",
+                        "summarize_gmail_slack__PP8QTQ5",
+                        "vercel_ai_slack_github__vP5H9Dd"
+                    ]
+                }
+            }
+        }
+    }
+}

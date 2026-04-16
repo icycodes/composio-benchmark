@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776333624.0341012,
+            "stop": 1776333624.488147
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_repo_is_starred",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.43288655600190395,
+                "start": 1776333624.0377753,
+                "stop": 1776333624.487426,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_repo_is_starred():\n        \"\"\"Priority 1: Use GitHub CLI to verify that the repository is starred.\"\"\"\n        repo = \"composiohq/composio\"\n        # gh api user/starred/{owner}/{repo} returns 204 if starred, 404 if not\n        result = subprocess.run(\n            [\"gh\", \"api\", f\"user/starred/{repo}\", \"--include\"],\n            capture_output=True, text=True\n        )\n        # The command might exit with 0 even for 404 depending on how gh api handles it,\n        # but usually it returns non-zero for 4xx errors unless --silent is used.\n        # We check for \"204 No Content\" in the output.\n>       assert \"204 No Content\" in result.stdout or \"204 No Content\" in result.stderr, \\\n            f\"Repository {repo} is not starred. Output: {result.stdout} {result.stderr}\"\nE       AssertionError: Repository composiohq/composio is not starred. Output: HTTP/2.0 404 Not Found\nE         Access-Control-Allow-Origin: *\nE         Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset\nE         Content-Security-Policy: default-src 'none'\nE         Content-Type: application/json; charset=utf-8\nE         Date: Thu, 16 Apr 2026 10:00:24 GMT\nE         Github-Authentication-Token-Expiration: 2027-03-31 16:00:00 UTC\nE         Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin\nE         Server: github.com\nE         Strict-Transport-Security: max-age=31536000; includeSubdomains; preload\nE         Vary: Accept-Encoding, Accept, X-Requested-With\nE         X-Accepted-Oauth-Scopes: public_repo, repo\nE         X-Content-Type-Options: nosniff\nE         X-Frame-Options: deny\nE         X-Github-Api-Version-Selected: 2022-11-28\nE         X-Github-Media-Type: github.v3; format=json\nE         X-Github-Request-Id: B7BA:35857:11EB75C:14693D9:69E0B338\nE         X-Oauth-Scopes: audit_log, codespace, delete:packages, delete_repo, gist, notifications, project, repo, user, workflow, write:discussion, write:network_configurations, write:packages\nE         X-Ratelimit-Limit: 5000\nE         X-Ratelimit-Remaining: 4987\nE         X-Ratelimit-Reset: 1776336233\nE         X-Ratelimit-Resource: core\nE         X-Ratelimit-Used: 13\nE         X-Xss-Protection: 0\nE         \nE         {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/activity/starring#check-if-a-repository-is-starred-by-the-authenticated-user\",\"status\":\"404\"} gh: Not Found (HTTP 404)\nE         \nE       assert ('204 No Content' in 'HTTP/2.0 404 Not Found\\nAccess-Control-Allow-Origin: *\\nAccess-Control-Expose-Headers: ETag, Link, Location, Retry-Af...s://docs.github.com/rest/activity/starring#check-if-a-repository-is-starred-by-the-authenticated-user\",\"status\":\"404\"}' or '204 No Content' in 'gh: Not Found (HTTP 404)\\n')\nE        +  where 'HTTP/2.0 404 Not Found\\nAccess-Control-Allow-Origin: *\\nAccess-Control-Expose-Headers: ETag, Link, Location, Retry-Af...s://docs.github.com/rest/activity/starring#check-if-a-repository-is-starred-by-the-authenticated-user\",\"status\":\"404\"}' = CompletedProcess(args=['gh', 'api', 'user/starred/composiohq/composio', '--include'], returncode=1, stdout='HTTP/2.0 4...ring#check-if-a-repository-is-starred-by-the-authenticated-user\",\"status\":\"404\"}', stderr='gh: Not Found (HTTP 404)\\n').stdout\nE        +  and   'gh: Not Found (HTTP 404)\\n' = CompletedProcess(args=['gh', 'api', 'user/starred/composiohq/composio', '--include'], returncode=1, stdout='HTTP/2.0 4...ring#check-if-a-repository-is-starred-by-the-authenticated-user\",\"status\":\"404\"}', stderr='gh: Not Found (HTTP 404)\\n').stderr\n\ntests/test_final_state.py:17: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_composio_execution_log",
+                "status": "passed",
+                "duration": 0.0002835609993780963,
+                "start": 1776333624.4876368,
+                "stop": 1776333624.488024,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

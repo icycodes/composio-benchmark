@@ -1,0 +1,42 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 6ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_slack_message_content __________________________
+
+    def test_slack_message_content():
+        trial_id = get_trial_id()
+        channel_name = f"agent-results-{trial_id}"
+        slack_token = os.environ["SLACK_TOKEN"]
+    
+        # First find the channel ID
+        result = subprocess.run([
+            "curl", "-sS", "-H", f"Authorization: Bearer {slack_token}",
+            "https://slack.com/api/conversations.list?types=public_channel,private_channel"
+        ], capture_output=True, text=True)
+        assert result.returncode == 0
+        data = json.loads(result.stdout)
+        assert data.get("ok"), f"Slack API error: {data}"
+    
+        channel_id = None
+        for c in data.get("channels", []):
+            if c["name"] == channel_name:
+                channel_id = c["id"]
+                break
+    
+>       assert channel_id is not None, f"Channel {channel_name} not found."
+E       AssertionError: Channel agent-results-vercel_ai_slack_github__hAoMZGZ not found.
+E       assert None is not None
+
+tests/test_final_state.py:32: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_slack_message_content - AssertionError...
+============================== 1 failed in 0.49s ===============================

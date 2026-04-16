@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776333665.6343775,
+            "stop": 1776333665.6523213
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_json_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002940079975815024,
+                "start": 1776333665.6386313,
+                "stop": 1776333665.643975,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_json_file_exists():\n>       assert os.path.isfile(JSON_FILE), f\"JSON file {JSON_FILE} not found.\"\nE       AssertionError: JSON file /home/user/alias-task/updated_accounts.json not found.\nE       assert False\nE        +  where False = <function isfile at 0x7f77fb214220>('/home/user/alias-task/updated_accounts.json')\nE        +    where <function isfile at 0x7f77fb214220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:10: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_aliases_updated",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0063477619987679645,
+                "start": 1776333665.6440806,
+                "stop": 1776333665.6512575,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_aliases_updated():\n        # Use the SDK to verify the aliases\n        check_script = \"\"\"\n    from composio import Composio\n    import os\n    composio = Composio(api_key=os.environ['COMPOSIO_API_KEY'])\n    accounts = composio.connected_accounts.list(user_ids=['zealt-user01'])\n    results = {a.toolkit.slug: a.alias for a in accounts.items}\n    print(results.get('github') == 'primary-github' and results.get('slack') == 'work-slack')\n    \"\"\"\n        result = subprocess.run([\"python3\", \"-c\", check_script], capture_output=True, text=True)\n>       assert \"True\" in result.stdout, \"Aliases were not correctly updated in the platform.\"\nE       AssertionError: Aliases were not correctly updated in the platform.\nE       assert 'True' in ''\nE        +  where '' = CompletedProcess(args=['python3', '-c', \"\\nfrom composio import Composio\\nimport os\\ncomposio = Composio(api_key=os.en...(most recent call last):\\n  File \"<string>\", line 2, in <module>\\nModuleNotFoundError: No module named \\'composio\\'\\n').stdout\n\ntests/test_final_state.py:23: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_json_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00018103200272889808,
+                "start": 1776333665.6513536,
+                "stop": 1776333665.652245,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_json_content():\n>       with open(JSON_FILE, \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/alias-task/updated_accounts.json'\n\ntests/test_final_state.py:26: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}
