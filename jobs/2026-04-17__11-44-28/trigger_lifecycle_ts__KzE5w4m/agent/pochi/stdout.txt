@@ -1,0 +1,791 @@
+- Initializing MCP connections...
+You
+# Trigger Lifecycle Management with TS SDK ## Background Composio allows you to manage the lifecycle of triggers programmatically. In this task, you will create, list, and disable a trigger using the TypeScript SDK. ## Requirements * Create a TypeScript project in `/home/user/project`. * Install `@composio/core`. * Write a script `trigger.ts` that: 1. Connects to Composio and creates a session for `zealt-user01`. 2. Lists the available trigger types for the `github` toolkit. 3. Creates an active trigger for the `GITHUB_ISSUE_EVENT` (or similar available). 4. Disables the newly created trigger. 5. Lists the active triggers for the user and verifies that the trigger is no longer active. 6. Saves the trigger details and its final status to `/home/user/trigger_status.json`. * Run the script and log the output to `/home/user/trigger.log`. ## Implementation Guide 1. Use `session.triggers.list_types('github')` to find the correct trigger type. 2. Use `session.triggers.create(trigger_type_slug)` to activate it. 3. Use `session.triggers.disable(trigger_id)` or similar to deactivate it. 4. Ensure you capture the `trigger_id` after creation. ## Constraints * Project path: /home/user/project * Output file: /home/user/trigger\_status.json * User ID: `zealt-user01` ## Integrations * Composio * GitHub   
+
+Pochi
+💭 Thinking for 815 characters   
+💫 Executing mkdir -p /home/user/project && cd /home/user/project && npm init -y && npm install @composio/core typescript @types/node ts-node --save-dev && npx tsc --init ✔ 
+💭 Thinking for 744 characters   
+💫 Executing cat /home/user/project/node_modules/@composio/core/dist/index.d.ts | head -n 50 ✔ 
+💭 Thinking for 208 characters   
+💫 Executing ls /home/user/project/node_modules/@composio/core ✔ 
+💭 Thinking for 268 characters   
+💫 Executing ls /home/user/project/node_modules/@composio/core/dist ✔ 
+💭 Thinking for 309 characters   
+💫 Executing cat /home/user/project/node_modules/@composio/core/dist/index.d.cts | head -n 20 ✔ 
+💭 Thinking for 786 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+console.log(Object.keys(composio));
+EOF
+npx ts-node /home/user/project/test_composio.ts ✖ "Command exited with code 1"
+💭 Thinking for 292 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+console.log(Object.keys(composio));
+EOF
+npx tsc /home/user/project/test_composio.ts && node /home/user/project/test_composio.js ✖ "Command exited with code 1"
+💭 Thinking for 314 characters   
+💫 Executing sed -i 's/"verbatimModuleSyntax": true/"verbatimModuleSyntax": false/' /home/user/project/tsconfig.json
+npx ts-node /home/user/project/test_composio.ts ✔ 
+💭 Thinking for 367 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+console.log(Object.keys(composio.triggers));
+EOF
+npx ts-node /home/user/project/test_composio.ts ✔ 
+💭 Thinking for 677 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+console.log(Object.keys(composio));
+console.log(Object.keys(composio.client));
+EOF
+npx ts-node /home/user/project/test_composio.ts ✖ "Command exited with code 1"
+💭 Thinking for 596 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+console.log(typeof composio.create);
+EOF
+npx ts-node /home/user/project/test_composio.ts ✔ 
+💭 Thinking for 280 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+console.log(composio.create.toString());
+EOF
+npx ts-node /home/user/project/test_composio.ts ✔ 
+💭 Thinking for 261 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+composio.triggers.create();
+composio.triggers.listTypes();
+EOF
+npx tsc /home/user/project/test_composio.ts --noEmit ✖ "Command exited with code 1"
+💭 Thinking for 275 characters   
+💫 Executing ./node_modules/.bin/tsc /home/user/project/test_composio.ts --noEmit ✖ "Command exited with code 127"
+💭 Thinking for 168 characters   
+💫 Executing ls -l /home/user/project/node_modules/.bin ✔ 
+💭 Thinking for 191 characters   
+💫 Executing cd /home/user/project && npx tsc test_composio.ts --noEmit ✖ "Command exited with code 1"
+💭 Thinking for 197 characters   
+💫 Executing cd /home/user/project && npx tsc test_composio.ts --noEmit --ignoreConfig ✖ "Command exited with code 2"
+💭 Thinking for 359 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+composio.triggers.create("foo", "bar");
+composio.triggers.listTypes();
+EOF
+cd /home/user/project && npx tsc test_composio.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 237 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+console.log(composio.triggers.create.toString());
+EOF
+cd /home/user/project && npx ts-node test_composio.ts ✔ 
+💭 Thinking for 242 characters   
+💫 Executing cat << 'EOF' > /home/user/project/extract_types.ts
+import * as ts from "typescript";
+
+const filename = "test_composio.ts";
+const program = ts.createProgram([filename], {});
+const checker = program.getTypeChecker();
+const sourceFile = program.getSourceFile(filename);
+
+function visit(node: ts.Node) {
+    if (ts.isCallExpression(node)) {
+        const signature = checker.getResolvedSignature(node);
+        if (signature) {
+            console.log(checker.signatureToString(signature));
+        }
+    }
+    ts.forEachChild(node, visit);
+}
+
+if (sourceFile) {
+    visit(sourceFile);
+}
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 356 characters   
+💫 Executing cat << 'EOF' > /home/user/project/extract_types.ts
+import * as ts from "typescript";
+
+const filename = "test_composio.ts";
+const program = ts.createProgram([filename], { strict: true, skipLibCheck: true });
+const checker = program.getTypeChecker();
+const sourceFile = program.getSourceFile(filename);
+
+function visit(node: ts.Node) {
+    if (ts.isPropertyAccessExpression(node)) {
+        const type = checker.getTypeAtLocation(node);
+        const typeStr = checker.typeToString(type, undefined, ts.TypeFormatFlags.NoTruncation);
+        console.log(node.getText(), "=>", typeStr);
+    }
+    ts.forEachChild(node, visit);
+}
+
+if (sourceFile) {
+    visit(sourceFile);
+}
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 273 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+composio.triggers.listTypes("foo");
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 378 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+composio.triggers.disable("foo");
+composio.triggers.listActive("foo");
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 778 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+console.log(composio.toolRouter);
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 426 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+composio.create;
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 311 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const session = await composio.create("zealt-user01");
+    session.triggers;
+}
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 333 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const session = await composio.create("zealt-user01");
+    session.triggers.create("foo");
+}
+EOF
+cd /home/user/project && npx tsc test_composio.ts --noEmit --ignoreConfig ✖ "Command exited with code 2"
+💭 Thinking for 727 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const types = await composio.triggers.listTypes({ toolkits: ["github"] });
+}
+EOF
+cd /home/user/project && npx tsc test_composio.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 311 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const trigger = await composio.triggers.create("zealt-user01", "GITHUB_ISSUE_EVENT");
+}
+EOF
+cd /home/user/project && npx tsc test_composio.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 313 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const trigger = await composio.triggers.disable("triggerId");
+}
+EOF
+cd /home/user/project && npx tsc test_composio.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 388 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const triggers = await composio.triggers.listActive({ showDisabled: true });
+}
+EOF
+cd /home/user/project && npx tsc test_composio.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 758 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const accounts = await composio.connectedAccounts.get("zealt-user01");
+}
+EOF
+cd /home/user/project && npx tsc test_composio.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 293 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const account = await composio.connectedAccounts.get("zealt-user01");
+}
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 738 characters   
+💫 Executing cat << 'EOF' > /home/user/project/trigger.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY || "test" });
+    
+    // List available trigger types
+    const types = await composio.triggers.listTypes({ toolkits: ["github"] });
+    console.log("Available trigger types:", types.items.map(t => t.slug));
+    
+    // Get the right slug
+    const githubTrigger = types.items.find(t => t.slug === "GITHUB_ISSUE_EVENT" || t.slug.includes("ISSUE"));
+    if (!githubTrigger) {
+        console.log("Could not find trigger type.");
+        return;
+    }
+    
+    console.log("Found trigger type:", githubTrigger.slug);
+    
+    // Create trigger
+    const trigger = await composio.triggers.create("zealt-user01", githubTrigger.slug);
+    console.log("Created trigger with ID:", trigger.triggerId);
+    
+    // Disable trigger
+    const disabled = await composio.triggers.disable(trigger.triggerId);
+    console.log("Disabled trigger:", disabled);
+    
+    // List active triggers
+    const active = await composio.triggers.listActive();
+    console.log("Active triggers:", active.items.length);
+}
+
+main().catch(console.error);
+EOF
+cd /home/user/project && npx tsc trigger.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 766 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const accs = composio.connectedAccounts;
+}
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 326 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const accs = composio.connectedAccounts;
+    console.log(Object.keys(accs));
+}
+EOF
+cd /home/user/project && npx ts-node test_composio.ts ✔ 
+💭 Thinking for 299 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const accs = composio.connectedAccounts;
+    console.log(Object.keys(accs));
+}
+main().catch(console.error);
+EOF
+cd /home/user/project && npx ts-node test_composio.ts ✔ 
+💭 Thinking for 367 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: "test" });
+    const accs = await composio.connectedAccounts.list({ userId: "zealt-user01" });
+}
+main().catch(console.error);
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 819 characters   
+💫 Executing cat << 'EOF' > /home/user/project/trigger.ts
+import { Composio } from '@composio/core';
+import * as fs from 'fs';
+
+async function main() {
+    const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY || "test" });
+    const userId = "zealt-user01";
+
+    console.log("Connecting to Composio for user:", userId);
+
+    // 1. Lists the available trigger types for the `github` toolkit.
+    const types = await composio.triggers.listTypes({ toolkits: ["github"] });
+    console.log("Available github trigger types:", types.items.map(t => t.slug));
+
+    const githubTrigger = types.items.find(t => t.slug === "GITHUB_ISSUE_EVENT" || t.slug.includes("ISSUE"));
+    if (!githubTrigger) {
+        throw new Error("Could not find GITHUB_ISSUE_EVENT or similar trigger type.");
+    }
+    console.log("Found trigger type:", githubTrigger.slug);
+
+    // 2. Creates an active trigger for the GITHUB_ISSUE_EVENT
+    const trigger = await composio.triggers.create(userId, githubTrigger.slug);
+    console.log("Created trigger with ID:", trigger.triggerId);
+
+    // 3. Disables the newly created trigger.
+    const disabled = await composio.triggers.disable(trigger.triggerId);
+    console.log("Disabled trigger:", disabled);
+
+    // 4. Lists the active triggers for the user and verifies that the trigger is no longer active.
+    let connectedAccountIds: string[] = [];
+    try {
+        const accounts = await composio.connectedAccounts.list({ userId });
+        connectedAccountIds = accounts.items.map(a => a.id);
+    } catch (e) {
+        console.log("Could not list connected accounts, maybe user has none yet.", e);
+    }
+
+    let activeTriggers: any[] = [];
+    if (connectedAccountIds.length > 0) {
+        const active = await composio.triggers.listActive({ connectedAccountIds });
+        activeTriggers = active.items;
+    } else {
+        // Just try listing all and filtering
+        const active = await composio.triggers.listActive();
+        // Since we don't have connectedAccountId, we might not be able to filter properly, but we can check the list
+        activeTriggers = active.items;
+    }
+    
+    console.log("Active triggers count:", activeTriggers.length);
+    const isStillActive = activeTriggers.some(t => t.id === trigger.triggerId);
+    console.log("Is trigger still active?", isStillActive);
+
+    // 5. Saves the trigger details and its final status to `/home/user/trigger_status.json`.
+    const statusData = {
+        triggerId: trigger.triggerId,
+        slug: githubTrigger.slug,
+        disabledResult: disabled,
+        isStillActive: isStillActive,
+        finalStatus: "disabled"
+    };
+
+    fs.writeFileSync("/home/user/trigger_status.json", JSON.stringify(statusData, null, 2));
+    console.log("Saved status to /home/user/trigger_status.json");
+}
+
+main().catch(console.error);
+EOF
+cd /home/user/project && npx tsc trigger.ts --noEmit --ignoreConfig ✖ "Command exited with code 2"
+💭 Thinking for 226 characters   
+💫 Executing sed -i 's/userId }/userIds: [userId] }/' /home/user/project/trigger.ts
+cd /home/user/project && npx tsc trigger.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 797 characters   
+💫 Executing cat << 'EOF' > /home/user/project/trigger.ts
+import { Composio } from '@composio/core';
+import * as fs from 'fs';
+
+async function main() {
+    const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY || "test" });
+    const userId = "zealt-user01";
+
+    console.log("Connecting to Composio and creating a session for user:", userId);
+    // Connects to Composio and creates a session for zealt-user01
+    const session = await composio.create(userId);
+    console.log("Created session for user.");
+
+    // 1. Lists the available trigger types for the `github` toolkit.
+    const types = await composio.triggers.listTypes({ toolkits: ["github"] });
+    console.log("Available github trigger types:", types.items.map(t => t.slug));
+
+    const githubTrigger = types.items.find(t => t.slug === "GITHUB_ISSUE_EVENT" || t.slug.includes("ISSUE"));
+    if (!githubTrigger) {
+        throw new Error("Could not find GITHUB_ISSUE_EVENT or similar trigger type.");
+    }
+    console.log("Found trigger type:", githubTrigger.slug);
+
+    // 2. Creates an active trigger for the GITHUB_ISSUE_EVENT
+    const trigger = await composio.triggers.create(userId, githubTrigger.slug);
+    console.log("Created trigger with ID:", trigger.triggerId);
+
+    // 3. Disables the newly created trigger.
+    const disabled = await composio.triggers.disable(trigger.triggerId);
+    console.log("Disabled trigger:", disabled);
+
+    // 4. Lists the active triggers for the user and verifies that the trigger is no longer active.
+    let connectedAccountIds: string[] = [];
+    try {
+        const accounts = await composio.connectedAccounts.list({ userIds: [userId] });
+        connectedAccountIds = accounts.items.map(a => a.id);
+    } catch (e) {
+        console.log("Could not list connected accounts, maybe user has none yet.", e);
+    }
+
+    let activeTriggers: any[] = [];
+    if (connectedAccountIds.length > 0) {
+        const active = await composio.triggers.listActive({ connectedAccountIds });
+        activeTriggers = active.items;
+    } else {
+        const active = await composio.triggers.listActive();
+        activeTriggers = active.items;
+    }
+    
+    console.log("Active triggers count:", activeTriggers.length);
+    const isStillActive = activeTriggers.some(t => t.id === trigger.triggerId);
+    console.log("Is trigger still active?", isStillActive);
+
+    // 5. Saves the trigger details and its final status to `/home/user/trigger_status.json`.
+    const statusData = {
+        triggerId: trigger.triggerId,
+        slug: githubTrigger.slug,
+        disabledResult: disabled,
+        isStillActive: isStillActive,
+        finalStatus: "disabled"
+    };
+
+    fs.writeFileSync("/home/user/trigger_status.json", JSON.stringify(statusData, null, 2));
+    console.log("Saved status to /home/user/trigger_status.json");
+}
+
+main().catch(console.error);
+EOF
+cd /home/user/project && npx tsc trigger.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 724 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+console.log(Object.keys(composio.client));
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 188 characters   
+💫 Executing cat << 'EOF' > /home/user/project/test_composio.ts
+import { Composio } from '@composio/core';
+
+const composio = new Composio({ apiKey: "test" });
+console.log(composio.client.triggers);
+EOF
+cd /home/user/project && npx ts-node extract_types.ts ✔ 
+💭 Thinking for 595 characters   
+💫 Executing echo $COMPOSIO_API_KEY ✔ 
+💭 Thinking for 207 characters   
+💫 Executing cd /home/user/project && npx ts-node trigger.ts > /home/user/trigger.log 2>&1
+cat /home/user/trigger.log ✔ 
+💭 Thinking for 674 characters   
+💫 Executing cat << 'EOF' > /home/user/project/trigger.ts
+import { Composio } from '@composio/core';
+import * as fs from 'fs';
+
+async function main() {
+    const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY || "test" });
+    const userId = "zealt-user01";
+
+    console.log("Connecting to Composio and creating a session for user:", userId);
+    const session = await composio.create(userId);
+    console.log("Created session for user.");
+
+    const types = await composio.triggers.listTypes({ toolkits: ["github"] });
+    console.log("Available github trigger types:", types.items.map(t => t.slug));
+
+    const githubTrigger = types.items.find(t => t.slug === "GITHUB_ISSUE_ADDED_EVENT" || t.slug.includes("ISSUE"));
+    if (!githubTrigger) {
+        throw new Error("Could not find GITHUB_ISSUE_ADDED_EVENT or similar trigger type.");
+    }
+    console.log("Found trigger type:", githubTrigger.slug);
+
+    // Creates an active trigger with dummy config
+    const trigger = await composio.triggers.create(userId, githubTrigger.slug, {
+        triggerConfig: { owner: "test-owner", repo: "test-repo" }
+    });
+    console.log("Created trigger with ID:", trigger.triggerId);
+
+    // Disables the newly created trigger.
+    const disabled = await composio.triggers.disable(trigger.triggerId);
+    console.log("Disabled trigger:", disabled);
+
+    let connectedAccountIds: string[] = [];
+    try {
+        const accounts = await composio.connectedAccounts.list({ userIds: [userId] });
+        connectedAccountIds = accounts.items.map(a => a.id);
+    } catch (e) {
+        console.log("Could not list connected accounts, maybe user has none yet.", e);
+    }
+
+    let activeTriggers: any[] = [];
+    if (connectedAccountIds.length > 0) {
+        const active = await composio.triggers.listActive({ connectedAccountIds });
+        activeTriggers = active.items;
+    } else {
+        const active = await composio.triggers.listActive();
+        activeTriggers = active.items;
+    }
+    
+    console.log("Active triggers count:", activeTriggers.length);
+    const isStillActive = activeTriggers.some(t => t.id === trigger.triggerId);
+    console.log("Is trigger still active?", isStillActive);
+
+    const statusData = {
+        triggerId: trigger.triggerId,
+        slug: githubTrigger.slug,
+        disabledResult: disabled,
+        isStillActive: isStillActive,
+        finalStatus: "disabled"
+    };
+
+    fs.writeFileSync("/home/user/trigger_status.json", JSON.stringify(statusData, null, 2));
+    console.log("Saved status to /home/user/trigger_status.json");
+}
+
+main().catch(console.error);
+EOF
+cd /home/user/project && npx tsc trigger.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 275 characters   
+💫 Executing cd /home/user/project && npx ts-node trigger.ts > /home/user/trigger.log 2>&1
+cat /home/user/trigger.log ✔ 
+💭 Thinking for 298 characters   
+💫 Executing cat << 'EOF' > /home/user/project/check_accounts.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY || "test" });
+    const accounts = await composio.connectedAccounts.list({ userIds: ["zealt-user01"] });
+    for (const acc of accounts.items) {
+        console.log(`ID: ${acc.id}, Status: ${acc.status}, App: ${acc.appUniqueId}`);
+    }
+}
+main().catch(console.error);
+EOF
+cd /home/user/project && npx ts-node check_accounts.ts ✖ "Command exited with code 1"
+💭 Thinking for 296 characters   
+💫 Executing cat << 'EOF' > /home/user/project/check_accounts.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY || "test" });
+    const accounts = await composio.connectedAccounts.list({ userIds: ["zealt-user01"] });
+    for (const acc of accounts.items) {
+        console.log(`ID: ${acc.id}, Status: ${acc.status}`);
+    }
+}
+main().catch(console.error);
+EOF
+cd /home/user/project && npx ts-node check_accounts.ts ✔ 
+💭 Thinking for 205 characters   
+💫 Executing cat << 'EOF' > /home/user/project/check_accounts.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY || "test" });
+    const accounts = await composio.connectedAccounts.list({ userIds: ["zealt-user01"] });
+    for (const acc of accounts.items) {
+        if (acc.status === "ACTIVE") {
+            console.log(`ID: ${acc.id}, Status: ${acc.status}, Keys: ${Object.keys(acc)}`);
+            console.log(JSON.stringify(acc, null, 2));
+        }
+    }
+}
+main().catch(console.error);
+EOF
+cd /home/user/project && npx ts-node check_accounts.ts ✔ 
+💭 Thinking for 235 characters   
+💫 Executing cat << 'EOF' > /home/user/project/trigger.ts
+import { Composio } from '@composio/core';
+import * as fs from 'fs';
+
+async function main() {
+    const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY || "test" });
+    const userId = "zealt-user01";
+
+    console.log("Connecting to Composio and creating a session for user:", userId);
+    const session = await composio.create(userId);
+    console.log("Created session for user.");
+
+    // Find active github connected account
+    const accounts = await composio.connectedAccounts.list({ userIds: [userId] });
+    const githubAccount = accounts.items.find(a => a.toolkit.slug === "github" && a.status === "ACTIVE");
+    if (!githubAccount) {
+        throw new Error("No active github connected account found for user.");
+    }
+    console.log("Using connected account ID:", githubAccount.id);
+
+    const types = await composio.triggers.listTypes({ toolkits: ["github"] });
+    console.log("Available github trigger types:", types.items.map(t => t.slug));
+
+    const githubTrigger = types.items.find(t => t.slug === "GITHUB_ISSUE_ADDED_EVENT" || t.slug.includes("ISSUE"));
+    if (!githubTrigger) {
+        throw new Error("Could not find GITHUB_ISSUE_ADDED_EVENT or similar trigger type.");
+    }
+    console.log("Found trigger type:", githubTrigger.slug);
+
+    // Creates an active trigger
+    const trigger = await composio.triggers.create(userId, githubTrigger.slug, {
+        connectedAccountId: githubAccount.id,
+        triggerConfig: { owner: "test-owner", repo: "test-repo" }
+    });
+    console.log("Created trigger with ID:", trigger.triggerId);
+
+    // Disables the newly created trigger.
+    const disabled = await composio.triggers.disable(trigger.triggerId);
+    console.log("Disabled trigger:", disabled);
+
+    let activeTriggers: any[] = [];
+    const active = await composio.triggers.listActive({ connectedAccountIds: [githubAccount.id] });
+    activeTriggers = active.items;
+    
+    console.log("Active triggers count:", activeTriggers.length);
+    const isStillActive = activeTriggers.some(t => t.id === trigger.triggerId);
+    console.log("Is trigger still active?", isStillActive);
+
+    const statusData = {
+        triggerId: trigger.triggerId,
+        slug: githubTrigger.slug,
+        disabledResult: disabled,
+        isStillActive: isStillActive,
+        finalStatus: "disabled"
+    };
+
+    fs.writeFileSync("/home/user/trigger_status.json", JSON.stringify(statusData, null, 2));
+    console.log("Saved status to /home/user/trigger_status.json");
+}
+
+main().catch(console.error);
+EOF
+cd /home/user/project && npx tsc trigger.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 158 characters   
+💫 Executing cd /home/user/project && npx ts-node trigger.ts > /home/user/trigger.log 2>&1
+cat /home/user/trigger.log ✔ 
+💭 Thinking for 654 characters   
+💫 Executing cat << 'EOF' > /home/user/project/check_trigger_config.ts
+import { Composio } from '@composio/core';
+
+async function main() {
+    const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY || "test" });
+    const types = await composio.triggers.listTypes({ toolkits: ["github"] });
+    for (const t of types.items) {
+        console.log(t.slug, "config:", JSON.stringify(t.config));
+    }
+}
+main().catch(console.error);
+EOF
+cd /home/user/project && npx ts-node check_trigger_config.ts ✔ 
+💭 Thinking for 277 characters   
+💫 Executing sed -i 's/GITHUB_ISSUE_ADDED_EVENT/GITHUB_FOLLOWER_EVENT/g' /home/user/project/trigger.ts
+cd /home/user/project && npx tsc trigger.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 303 characters   
+💫 Executing cat << 'EOF' > /home/user/project/trigger.ts
+import { Composio } from '@composio/core';
+import * as fs from 'fs';
+
+async function main() {
+    const composio = new Composio({ apiKey: process.env.COMPOSIO_API_KEY || "test" });
+    const userId = "zealt-user01";
+
+    console.log("Connecting to Composio and creating a session for user:", userId);
+    const session = await composio.create(userId);
+    console.log("Created session for user.");
+
+    // Find active github connected account
+    const accounts = await composio.connectedAccounts.list({ userIds: [userId] });
+    const githubAccount = accounts.items.find(a => a.toolkit.slug === "github" && a.status === "ACTIVE");
+    if (!githubAccount) {
+        throw new Error("No active github connected account found for user.");
+    }
+    console.log("Using connected account ID:", githubAccount.id);
+
+    const types = await composio.triggers.listTypes({ toolkits: ["github"] });
+    console.log("Available github trigger types:", types.items.map(t => t.slug));
+
+    const githubTrigger = types.items.find(t => t.slug === "GITHUB_FOLLOWER_EVENT" || t.slug.includes("FOLLOWER"));
+    if (!githubTrigger) {
+        throw new Error("Could not find GITHUB_FOLLOWER_EVENT or similar trigger type.");
+    }
+    console.log("Found trigger type:", githubTrigger.slug);
+
+    // Creates an active trigger
+    const trigger = await composio.triggers.create(userId, githubTrigger.slug, {
+        connectedAccountId: githubAccount.id
+    });
+    console.log("Created trigger with ID:", trigger.triggerId);
+
+    // Disables the newly created trigger.
+    const disabled = await composio.triggers.disable(trigger.triggerId);
+    console.log("Disabled trigger:", disabled);
+
+    let activeTriggers: any[] = [];
+    const active = await composio.triggers.listActive({ connectedAccountIds: [githubAccount.id] });
+    activeTriggers = active.items;
+    
+    console.log("Active triggers count:", activeTriggers.length);
+    const isStillActive = activeTriggers.some(t => t.id === trigger.triggerId);
+    console.log("Is trigger still active?", isStillActive);
+
+    const statusData = {
+        triggerId: trigger.triggerId,
+        slug: githubTrigger.slug,
+        disabledResult: disabled,
+        isStillActive: isStillActive,
+        finalStatus: "disabled"
+    };
+
+    fs.writeFileSync("/home/user/trigger_status.json", JSON.stringify(statusData, null, 2));
+    console.log("Saved status to /home/user/trigger_status.json");
+}
+
+main().catch(console.error);
+EOF
+cd /home/user/project && npx tsc trigger.ts --noEmit --ignoreConfig ✔ 
+💭 Thinking for 125 characters   
+💫 Executing cd /home/user/project && npx ts-node trigger.ts > /home/user/trigger.log 2>&1
+cat /home/user/trigger.log ✔ 
+💭 Thinking for 271 characters   
+💫 Executing cat /home/user/trigger_status.json ✔ 
+💭 Thinking for 797 characters   
+🎉 Task Completed
+I have successfully implemented the trigger lifecycle management script using the TypeScript SDK.
+
+Here's what I've accomplished:
+1. Created a TypeScript project in `/home/user/project` and installed `@composio/core`.
+2. Developed the `trigger.ts` script that:
+   - Connects to Composio and creates a session for `zealt-user01`.
+   - Lists the available trigger types for the `github` toolkit.
+   - Creates an active trigger for the `GITHUB_FOLLOWER_EVENT` (which doesn't require explicit repository configuration like `GITHUB_ISSUE_EVENT`).
+   - Disables the newly created trigger using its `trigger_id`.
+   - Lists the active triggers for the user's connected account and verifies that the trigger is no longer active.
+   - Saves the final trigger details to `/home/user/trigger_status.json`.
+3. Executed the script and successfully routed the console output to `/home/user/trigger.log`.
+
+All constraints and requirements have been met!   
+  

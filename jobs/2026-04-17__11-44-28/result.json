@@ -1,0 +1,183 @@
+{
+    "id": "96a27a24-1718-4336-b40a-0962a929b35e",
+    "started_at": "2026-04-17T11:44:28.473998",
+    "finished_at": "2026-04-17T12:53:58.044394",
+    "n_total_trials": 50,
+    "stats": {
+        "n_trials": 50,
+        "n_errors": 14,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 10,
+                "n_errors": 4,
+                "metrics": [
+                    {
+                        "mean": 0.5
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "github_label_commenter_python__7yqEtAY",
+                            "github_repo_description_cli__tpfz89E",
+                            "filter_tools_by_app_cli__p6DjjYG",
+                            "trigger_lifecycle_ts__KzE5w4m",
+                            "connection_status_checker_python__rbe9hd7"
+                        ],
+                        "0.0": [
+                            "slack_channel_topic_python__WDrooQX",
+                            "tool_discovery_agent_python__Ar7HoCo",
+                            "multi_execute_github_slack_pytho__pc35TV5",
+                            "create_slack_channel_cli__kP5XJBC",
+                            "custom_scope_session_ts__6dZJ3bv"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "multi_execute_github_slack_pytho__pc35TV5",
+                        "create_slack_channel_cli__kP5XJBC",
+                        "filter_tools_by_app_cli__p6DjjYG",
+                        "custom_scope_session_ts__6dZJ3bv"
+                    ]
+                }
+            },
+            "pochi__gemini-3-flash__tasks": {
+                "n_trials": 10,
+                "n_errors": 4,
+                "metrics": [
+                    {
+                        "mean": 0.2
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "github_label_commenter_python__4JZYD9s",
+                            "trigger_lifecycle_ts__RbpKws2"
+                        ],
+                        "0.0": [
+                            "slack_channel_topic_python__TMMb3uP",
+                            "github_repo_description_cli__kQNQJWc",
+                            "tool_discovery_agent_python__NUpzf7v",
+                            "multi_execute_github_slack_pytho__F5b4JZd",
+                            "create_slack_channel_cli__yXAGJGe",
+                            "filter_tools_by_app_cli__zVKbait",
+                            "custom_scope_session_ts__YsXMGSN",
+                            "connection_status_checker_python__Cpg5cSA"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "github_repo_description_cli__kQNQJWc",
+                        "create_slack_channel_cli__yXAGJGe",
+                        "filter_tools_by_app_cli__zVKbait",
+                        "custom_scope_session_ts__YsXMGSN"
+                    ]
+                }
+            },
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 10,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.2
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "github_label_commenter_python__5XrzLAH",
+                            "trigger_lifecycle_ts__QoQdR3h"
+                        ],
+                        "0.0": [
+                            "slack_channel_topic_python__UnLeSPR",
+                            "github_repo_description_cli__Hg98JDd",
+                            "tool_discovery_agent_python__6P5jLMv",
+                            "multi_execute_github_slack_pytho__C4uFBmX",
+                            "create_slack_channel_cli__kz5cjah",
+                            "filter_tools_by_app_cli__XZrkQKk",
+                            "custom_scope_session_ts__K7RMzwb",
+                            "connection_status_checker_python__uLoZaiU"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            },
+            "pochi__claude-4-6-sonnet__tasks": {
+                "n_trials": 10,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.5
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "github_label_commenter_python__yRGLvjM",
+                            "github_repo_description_cli__HQSoD4J",
+                            "filter_tools_by_app_cli__w9iLdBe",
+                            "trigger_lifecycle_ts__g9aGiiv",
+                            "connection_status_checker_python__i2GkWPh"
+                        ],
+                        "0.0": [
+                            "slack_channel_topic_python__DQELbkY",
+                            "tool_discovery_agent_python__CzVbMEX",
+                            "multi_execute_github_slack_pytho__EeC8KSr",
+                            "create_slack_channel_cli__tQcnhJm",
+                            "custom_scope_session_ts__RnSZy3h"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "github_repo_description_cli__HQSoD4J"
+                    ]
+                }
+            },
+            "pochi__glm-4.7__tasks": {
+                "n_trials": 10,
+                "n_errors": 5,
+                "metrics": [
+                    {
+                        "mean": 0.4
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "github_label_commenter_python__R8htS4h",
+                            "slack_channel_topic_python__YEnrHQC",
+                            "tool_discovery_agent_python__YJBsxwa",
+                            "multi_execute_github_slack_pytho__vAV7iHT",
+                            "create_slack_channel_cli__8vLv4LN",
+                            "filter_tools_by_app_cli__STHQpdd"
+                        ],
+                        "1.0": [
+                            "github_repo_description_cli__UX3iupv",
+                            "trigger_lifecycle_ts__4mqd7NT",
+                            "custom_scope_session_ts__HZLtN77",
+                            "connection_status_checker_python__k8t7pU2"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "github_label_commenter_python__R8htS4h",
+                        "slack_channel_topic_python__YEnrHQC",
+                        "tool_discovery_agent_python__YJBsxwa",
+                        "multi_execute_github_slack_pytho__vAV7iHT",
+                        "trigger_lifecycle_ts__4mqd7NT"
+                    ]
+                }
+            }
+        }
+    }
+}

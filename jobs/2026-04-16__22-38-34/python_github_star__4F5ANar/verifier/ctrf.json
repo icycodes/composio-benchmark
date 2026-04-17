@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776351762.2496653,
+            "stop": 1776351762.7022836
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_repo_is_created_and_starred",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.4333633330024895,
+                "start": 1776351762.2536583,
+                "stop": 1776351762.7017472,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_repo_is_created_and_starred():\n        \"\"\"Priority 1: Use GitHub CLI to verify the repository state.\"\"\"\n        trial_id = get_trial_id()\n        repo_name = f\"harbor-gh-star-{trial_id}\"\n        username = \"zealt-user01\"\n    \n        # 1. Verify repository exists\n        result = subprocess.run(\n            [\"gh\", \"repo\", \"view\", f\"{username}/{repo_name}\", \"--json\", \"name\"],\n            capture_output=True, text=True\n        )\n>       assert result.returncode == 0, \\\n            f\"gh repo view failed: {result.stderr}\"\nE       AssertionError: gh repo view failed: GraphQL: Could not resolve to a Repository with the name 'zealt-user01/harbor-gh-star-python_github_star__4F5ANar'. (repository)\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['gh', 'repo', 'view', 'zealt-user01/harbor-gh-star-python_github_star__4F5ANar', '--json', 'nam...d not resolve to a Repository with the name 'zealt-user01/harbor-gh-star-python_github_star__4F5ANar'. (repository)\\n\").returncode\n\ntests/test_final_state.py:23: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_python_script_exists",
+                "status": "passed",
+                "duration": 0.0002128570049535483,
+                "start": 1776351762.7018938,
+                "stop": 1776351762.7021904,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

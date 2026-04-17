@@ -1,0 +1,87 @@
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo trigger_lifecycle_ts__4mqd7NT > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Trigger Lifecycle Management with TS SDK
+
+## Background
+Composio allows you to manage the lifecycle of triggers programmatically. In this task, you will create, list, and disable a trigger using the TypeScript SDK.
+
+## Requirements
+- Create a TypeScript project in `/home/user/project`.
+- Install `@composio/core`.
+- Write a script `trigger.ts` that:
+    1. Connects to Composio and creates a session for `zealt-user01`.
+    2. Lists the available trigger types for the `github` toolkit.
+    3. Creates an active trigger for the `GITHUB_ISSUE_EVENT` (or similar available).
+    4. Disables the newly created trigger.
+    5. Lists the active triggers for the user and verifies that the trigger is no longer active.
+    6. Saves the trigger details and its final status to `/home/user/trigger_status.json`.
+- Run the script and log the output to `/home/user/trigger.log`.
+
+## Implementation Guide
+1. Use `session.triggers.list_types('github')` to find the correct trigger type.
+2. Use `session.triggers.create(trigger_type_slug)` to activate it.
+3. Use `session.triggers.disable(trigger_id)` or similar to deactivate it.
+4. Ensure you capture the `trigger_id` after creation.
+
+## Constraints
+- Project path: /home/user/project
+- Output file: /home/user/trigger_status.json
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

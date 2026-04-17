@@ -1,0 +1,38 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 7ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py FF                                             [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_github_tools_log _____________________________
+
+    def test_github_tools_log():
+        assert os.path.isfile(GITHUB_LOG), "GitHub tools log not found."
+        with open(GITHUB_LOG, "r") as f:
+            content = f.read().lower()
+>       assert "github" in content, "GitHub tools log doesn't seem to contain GitHub tools."
+E       AssertionError: GitHub tools log doesn't seem to contain GitHub tools.
+E       assert 'github' in ''
+
+tests/test_final_state.py:11: AssertionError
+_____________________________ test_slack_tools_log _____________________________
+
+    def test_slack_tools_log():
+        assert os.path.isfile(SLACK_LOG), "Slack tools log not found."
+        with open(SLACK_LOG, "r") as f:
+            content = f.read().lower()
+>       assert "slack" in content, "Slack tools log doesn't seem to contain Slack tools."
+E       AssertionError: Slack tools log doesn't seem to contain Slack tools.
+E       assert 'slack' in ''
+
+tests/test_final_state.py:18: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_github_tools_log - AssertionError: Git...
+FAILED tests/test_final_state.py::test_slack_tools_log - AssertionError: Slac...
+============================== 2 failed in 0.01s ===============================

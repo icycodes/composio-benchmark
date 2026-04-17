@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776401394.8868725,
+            "stop": 1776401394.8964658
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_github_status_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002752109994617058,
+                "start": 1776401394.8903666,
+                "stop": 1776401394.8955438,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_github_status_exists():\n>       assert os.path.isfile(\"/home/user/github_status.json\"), \"GitHub status file not found.\"\nE       AssertionError: GitHub status file not found.\nE       assert False\nE        +  where False = <function isfile at 0x7fcef9e00220>('/home/user/github_status.json')\nE        +    where <function isfile at 0x7fcef9e00220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:6: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_github_is_connected",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00018151199947169516,
+                "start": 1776401394.8956459,
+                "stop": 1776401394.8963907,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_github_is_connected():\n>       with open(\"/home/user/github_status.json\", \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/github_status.json'\n\ntests/test_final_state.py:9: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

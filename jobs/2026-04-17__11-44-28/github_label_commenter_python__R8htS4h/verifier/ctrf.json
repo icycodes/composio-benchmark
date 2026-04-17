@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776398076.4189374,
+            "stop": 1776398077.758414
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_github_issue_comment",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1.3290589259986518,
+                "start": 1776398076.4233892,
+                "stop": 1776398077.7583177,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_github_issue_comment():\n        trial_id = get_trial_id()\n        repo_name = f\"zealt-user01/issue-test-{trial_id}\"\n    \n        # 1. Get issues with label 'bug'\n        result = subprocess.run([\n            \"gh\", \"issue\", \"list\", \"--repo\", repo_name, \"--label\", \"bug\", \"--json\", \"number\"\n        ], capture_output=True, text=True)\n        assert result.returncode == 0\n        issues = json.loads(result.stdout)\n        assert len(issues) > 0, \"No issues with label 'bug' found.\"\n    \n        issue_number = issues[0][\"number\"]\n    \n        # 2. Verify comment on the issue\n        result = subprocess.run([\n            \"gh\", \"issue\", \"view\", str(issue_number), \"--repo\", repo_name, \"--json\", \"comments\"\n        ], capture_output=True, text=True)\n        assert result.returncode == 0\n        data = json.loads(result.stdout)\n        comments = data.get(\"comments\", [])\n        expected_comment = f\"Fixed in trial {trial_id}\"\n        comment_bodies = [c.get(\"body\") for c in comments]\n>       assert any(expected_comment in body for body in comment_bodies), f\"Expected comment '{expected_comment}' not found on issue {issue_number}.\"\nE       AssertionError: Expected comment 'Fixed in trial github_label_commenter_python__R8htS4h' not found on issue 1.\nE       assert False\nE        +  where False = any(<generator object test_github_issue_comment.<locals>.<genexpr> at 0x7ff0ca873c60>)\n\ntests/test_final_state.py:33: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

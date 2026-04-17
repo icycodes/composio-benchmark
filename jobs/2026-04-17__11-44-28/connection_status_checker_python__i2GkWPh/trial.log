@@ -1,0 +1,85 @@
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; if command -v pochi >/dev/null 2>&1; then installed_version="$(pochi --version | tr -d '\r')"; printf "Found pochi version: %s\n" "$installed_version"; printf "__POCHI_INSTALLED_VERSION__=%s\n" "$installed_version"; else echo "Pochi is not installed"; echo "__POCHI_INSTALLED_VERSION__="; fi
+Command outputs captured
+Running command: set -euo pipefail; export PATH="$HOME/.pochi/bin:$PATH"; pochi --version; mkdir -p /logs/agent/pochi
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo connection_status_checker_python__i2GkWPh > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Connection Status Checker with Python SDK
+
+## Background
+Composio's `COMPOSIO_MANAGE_CONNECTIONS` meta tool allows you to manage user connections programmatically. In this task, you will check the status of a user's GitHub connection.
+
+## Requirements
+- Write a Python script `/home/user/check_github_connection.py` that:
+    1. Connects to Composio and creates a session for `zealt-user01`.
+    2. Uses the `COMPOSIO_MANAGE_CONNECTIONS` meta tool to list the user's connections.
+    3. Finds the connection for the `github` toolkit.
+    4. Checks if the connection status is `CONNECTED`.
+    5. Saves the full connection object to `/home/user/github_status.json`.
+    6. Prints "GitHub is connected" to the console if it is connected.
+- Run the script and log the output to `/home/user/connection.log`.
+
+## Implementation Guide
+1. Use the `composio` Python SDK with `OpenAIProvider` to provide access to meta tools if needed, or call the meta tool directly if the SDK supports it.
+2. In the script, execute `COMPOSIO_MANAGE_CONNECTIONS` with the correct parameters to list connections for `zealt-user01`.
+3. Filter the results for `github`.
+
+## Constraints
+- Project path: /home/user
+- Output file: /home/user/github_status.json
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

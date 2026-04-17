@@ -1,0 +1,38 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 6ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py F.                                             [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_repo_is_created_and_starred _______________________
+
+    def test_repo_is_created_and_starred():
+        """Priority 1: Use GitHub CLI to verify the repository state."""
+        trial_id = get_trial_id()
+        repo_name = f"harbor-gh-star-{trial_id}"
+        username = "zealt-user01"
+    
+        # 1. Verify repository exists
+        result = subprocess.run(
+            ["gh", "repo", "view", f"{username}/{repo_name}", "--json", "name"],
+            capture_output=True, text=True
+        )
+>       assert result.returncode == 0, \
+            f"gh repo view failed: {result.stderr}"
+E       AssertionError: gh repo view failed: GraphQL: Could not resolve to a Repository with the name 'zealt-user01/harbor-gh-star-python_github_star__STCT9bF'. (repository)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['gh', 'repo', 'view', 'zealt-user01/harbor-gh-star-python_github_star__STCT9bF', '--json', 'nam...d not resolve to a Repository with the name 'zealt-user01/harbor-gh-star-python_github_star__STCT9bF'. (repository)\n").returncode
+
+tests/test_final_state.py:23: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_python_script_exists
+FAILED tests/test_final_state.py::test_repo_is_created_and_starred - Assertio...
+========================= 1 failed, 1 passed in 0.40s ==========================
