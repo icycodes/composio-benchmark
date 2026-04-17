@@ -1,0 +1,149 @@
+1:"$Sreact.fragment"
+2:I[42654,["/composio-benchmark/pr-preview/pr-4/_next/static/chunks/ca023ad85cd7aeee.js","/composio-benchmark/pr-preview/pr-4/_next/static/chunks/2ad5122eae704b1a.js","/composio-benchmark/pr-preview/pr-4/_next/static/chunks/ce5819ce033db0eb.js","/composio-benchmark/pr-preview/pr-4/_next/static/chunks/be08138953094657.js"],"TasksPageClient"]
+b:I[75049,["/composio-benchmark/pr-preview/pr-4/_next/static/chunks/d2c13bb33c4fcd54.js","/composio-benchmark/pr-preview/pr-4/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+c:"$Sreact.suspense"
+3:T4b7,# Set up GitHub Issue Trigger
+
+## Background
+Composio Triggers allow your application to react to external events. In this task, you will set up a trigger that listens for new GitHub issues.
+
+## Requirements
+- Use the user `zealt-user01`.
+- Create a Python script `/home/user/setup_trigger.py`.
+- The script should:
+    1. Create an active trigger for the `GITHUB_ISSUE_EVENT` (or similar) on a specific repository `star-test-${trial_id}` (create it if it doesn't exist).
+    2. Configure the trigger to send events to a local webhook listener (mocked or just configured).
+- Since we cannot easily test a real webhook in this environment, you should use the Composio SDK to list active triggers and verify that your trigger is correctly created and active.
+- Save the list of active triggers to `/home/user/triggers.log`.
+
+## Implementation Guide
+1. Read `trial_id` from `/logs/trial_id`.
+2. Create the repository if needed.
+3. Use `session.triggers.create()` to create the trigger.
+4. Use `session.triggers.list()` to verify.
+
+## Constraints
+- Project path: /home/user
+- Log file: /home/user/triggers.log
+- User ID: `zealt-user01`
+- Repository: `star-test-${trial_id}`
+
+## Integrations
+- Composio
+- GitHub
+4:T500,# Morning Sweep Agent with Multiple Accounts
+
+## Background
+Composio allows you to manage multiple connected accounts for a single user (e.g., work vs. personal). In this task, you will implement a "Morning Sweep" agent that fetches data from two different GitHub accounts for the same user.
+
+## Requirements
+- Use the user `zealt-user01`.
+- The user has two GitHub accounts connected (account IDs: `work-github` and `personal-github` - assume these or create them if needed, but for the task, the agent should handle two accounts).
+- The agent should:
+    1. Use the `Composio` SDK to list all connected accounts for GitHub for `zealt-user01`.
+    2. For each account, fetch the last 3 issues from any repository.
+    3. Combine the results into a single summary report.
+- Save the report to `/home/user/morning_sweep.txt`.
+
+## Implementation Guide
+1. Use `session.connected_accounts()` or similar to list accounts.
+2. When creating a session or executing a tool, specify the `connected_account_id` to differentiate between them.
+3. The agent should be able to handle the case where multiple accounts exist for the same toolkit.
+
+## Constraints
+- Project path: /home/user
+- Report file: /home/user/morning_sweep.txt
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+- GitHub
+5:T507,# GitHub Star Automation with Composio Python SDK
+
+## Background
+Composio allows AI agents to perform authenticated actions on GitHub. In this task, you will build a Python script that uses an AI agent to create a new repository and then star it.
+
+## Requirements
+1. Create a Python script `star_repo.py` in `/home/user/star-task`.
+2. The script must use the Composio Python SDK and the OpenAI Agents SDK.
+3. The script must create a new public repository named `harbor-gh-star-${trial_id}` (where `${trial_id}` is read from `/logs/trial_id`) under the `zealt-user01` account.
+4. After creating the repository, the script must star it.
+5. The script must use a Composio session for the user `zealt-user01`.
+
+## Implementation Guide
+1. Read the `trial_id` from `/logs/trial_id`.
+2. Initialize Composio with `OpenAIAgentsProvider`.
+3. Create a session for `user_id='zealt-user01'`.
+4. Get tools from the session.
+5. Initialize an OpenAI Agent with these tools.
+6. Prompt the agent to: "Create a public repository named 'harbor-gh-star-<trial_id>' for user 'zealt-user01' and then star it."
+
+## Constraints
+- Project path: /home/user/star-task
+- Use the test user `zealt-user01`.
+- Read `trial_id` from `/logs/trial_id` to name the repository.
+
+## Integrations
+- Composio
+- GitHub
+- OpenAI
+6:T4ce,# Use Schema Modifiers in TS SDK
+
+## Background
+Composio allows you to modify tool schemas before passing them to an agent. This is useful for hiding sensitive arguments or simplifying the interface. In this task, you will use a Schema Modifier to hide the `body` argument from the `SLACK_CHAT_POST_MESSAGE` tool.
+
+## Requirements
+- Create a TypeScript project in `/home/user/project`.
+- Install `@composio/core`.
+- Create a script `modify.ts`.
+- Create a session for `zealt-user01`.
+- Use a `SchemaModifier` to hide the `text` (or `body`) argument from the Slack post message tool.
+- Retrieve the tools from the session and find the modified tool.
+- Print the modified tool's schema to `/home/user/schema.json`.
+
+## Implementation Guide
+1. Import `Composio` and `SchemaModifier` from `@composio/core`.
+2. Create a modifier: `new SchemaModifier().hide('slack', 'chat_post_message', ['text'])`.
+3. Create a session with the modifier: `composio.create('zealt-user01', { modifiers: [modifier] })`.
+4. Get tools and find the one for Slack post message.
+5. Write its `inputSchema` to a file.
+
+## Constraints
+- Project path: /home/user/project
+- Output file: /home/user/schema.json
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+7:T4a5,# Migrate Composio Script from v2 to v3
+
+## Background
+Composio v3 introduced significant changes, including renaming "Actions" to "Tools" and making sessions immutable. In this task, you will refactor an old v2 script to work with v3.
+
+## Requirements
+- You have an old script `/home/user/old_script.py` that uses v2 syntax (e.g., `session.actions()`, `session.update_toolkits()`).
+- Refactor this script into `/home/user/new_script.py` using v3 syntax.
+- The new script should:
+    1. Use `session.tools()` instead of `session.actions()`.
+    2. Handle session immutability (if toolkits need to change, create a new session instead of updating).
+    3. Successfully list tools for the user `zealt-user01`.
+- Save the tool list to `/home/user/tools_v3.log`.
+
+## Implementation Guide
+1. Review the migration guide in the research plan (Friction Points section).
+2. Replace `actions()` with `tools()`.
+3. If the old script tried to `update()` a session, change it to `create()` a new one with the desired toolkits.
+
+## Constraints
+- Project path: /home/user
+- Old script: /home/user/old_script.py
+- New script: /home/user/new_script.py
+- User ID: `zealt-user01`
+
+## Integrations
+- Composio
+0:{"buildId":"tWA8UYRew8tQRGrWT1tJE","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$L2",null,{"tasksData":[{"taskName":"github_auth_redirect","instruction":"# GitHub Auth Redirect using TS SDK\n\n## Background\nComposio's TypeScript SDK allows you to initiate OAuth flows for users. In this task, you will create a session and get the redirect URL for GitHub authentication.\n\n## Requirements\n- Create a TypeScript project in `/home/user/project`.\n- Install `@composio/core`.\n- Create a script `auth.ts` that uses the `Composio` class.\n- Create a session for the user `zealt-user01`.\n- Call `session.authorize('github')` to get a `connectionRequest`.\n- Print the `redirectUrl` to the console.\n- Compile and run the script, and redirect the output to `/home/user/auth_url.log`.\n\n## Implementation Guide\n1. Initialize a Node.js project: `npm init -y`.\n2. Install `@composio/core` and `ts-node` (for easier execution).\n3. Write the script using `await session.authorize('github')`.\n4. Log the `redirectUrl` property.\n\n## Constraints\n- Project path: /home/user/project\n- Log file: /home/user/auth_url.log\n- User ID: `zealt-user01`\n\n## Integrations\n- Composio\n","trials":[{"job_name":"2026-04-16__23-59-48","trial_name":"github_auth_redirect__svLYDSj","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":615.334,"latency_breakdown":{"env_setup":1.465,"agent_setup":1.514,"agent_exec":600.091,"verifier":1.295},"taskName":"github_auth_redirect","jobId":"svLYDSj","exec_duration":600.091},{"job_name":"2026-04-16__23-59-48","trial_name":"github_auth_redirect__UTGLYyd","model":"gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":473.417,"latency_breakdown":{"env_setup":1.481,"agent_setup":1.578,"agent_exec":458.159,"verifier":1.387},"taskName":"github_auth_redirect","jobId":"UTGLYyd","exec_duration":458.159},{"job_name":"2026-04-16__23-59-48","trial_name":"github_auth_redirect__5p9KFeV","model":"glm-4.7","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":441.772,"latency_breakdown":{"env_setup":1.849,"agent_setup":1.448,"agent_exec":426.338,"verifier":1.359},"taskName":"github_auth_redirect","jobId":"5p9KFeV","exec_duration":426.338},{"job_name":"2026-04-16__23-59-48","trial_name":"github_auth_redirect__48P9hB2","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":138.456,"latency_breakdown":{"env_setup":1.612,"agent_setup":1.499,"agent_exec":123.364,"verifier":1.155},"taskName":"github_auth_redirect","jobId":"48P9hB2","exec_duration":123.364},{"job_name":"2026-04-16__23-59-48","trial_name":"github_auth_redirect__xkwQ9aw","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":164.945,"latency_breakdown":{"env_setup":1.645,"agent_setup":1.5,"agent_exec":149.988,"verifier":1.009},"taskName":"github_auth_redirect","jobId":"xkwQ9aw","exec_duration":149.988}]},{"taskName":"github_issue_trigger","instruction":"$3","trials":[{"job_name":"2026-04-16__23-59-48","trial_name":"github_issue_trigger__5cDpqax","model":"glm-4.7","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":615.232,"latency_breakdown":{"env_setup":1.4,"agent_setup":1.468,"agent_exec":600.109,"verifier":1.405},"taskName":"github_issue_trigger","jobId":"5cDpqax","exec_duration":600.109},{"job_name":"2026-04-16__23-59-48","trial_name":"github_issue_trigger__nyNePo2","model":"gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":615.334,"latency_breakdown":{"env_setup":1.68,"agent_setup":1.483,"agent_exec":600.05,"verifier":1.294},"taskName":"github_issue_trigger","jobId":"nyNePo2","exec_duration":600.05},{"job_name":"2026-04-16__23-59-48","trial_name":"github_issue_trigger__FfTekCp","model":"claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":202.857,"latency_breakdown":{"env_setup":1.457,"agent_setup":1.528,"agent_exec":187.559,"verifier":1.477},"taskName":"github_issue_trigger","jobId":"FfTekCp","exec_duration":187.559},{"job_name":"2026-04-16__23-59-48","trial_name":"github_issue_trigger__uQ6KkYX","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":144.117,"latency_breakdown":{"env_setup":1.678,"agent_setup":1.495,"agent_exec":129.042,"verifier":1.223},"taskName":"github_issue_trigger","jobId":"uQ6KkYX","exec_duration":129.042},{"job_name":"2026-04-16__23-59-48","trial_name":"github_issue_trigger__MozjcKh","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":96.311,"latency_breakdown":{"env_setup":1.577,"agent_setup":1.546,"agent_exec":81.013,"verifier":1.375},"taskName":"github_issue_trigger","jobId":"MozjcKh","exec_duration":81.013}]},{"taskName":"gmail_summary_agent","instruction":"# Summarize Slack Messages with AI Agent\n\n## Background\nComposio allows agents to read and process data from Slack. In this task, you will use an AI agent to fetch recent messages from a Slack channel and summarize them.\n\n## Requirements\n- Use the user `zealt-user01`.\n- Use OpenAI with Composio tools.\n- The agent should:\n    1. Find a Slack channel named `general` (or similar available).\n    2. Fetch the last 5 messages from that channel.\n    3. Summarize the messages into a single paragraph.\n    4. Post the summary back to the same channel.\n- Save the summary to `/home/user/summary.txt`.\n\n## Implementation Guide\n1. Initialize Composio and OpenAI.\n2. Create a session for `zealt-user01`.\n3. Get tools and pass them to the agent.\n4. The agent should use `SLACK_CONVERSATIONS_HISTORY` and `SLACK_CHAT_POST_MESSAGE` (or similar tools found via `SEARCH_TOOLS`). \n\n## Constraints\n- Project path: /home/user\n- Summary file: /home/user/summary.txt\n- User ID: `zealt-user01`\n\n## Integrations\n- Composio\n- Slack\n- OpenAI\n","trials":[{"job_name":"2026-04-16__23-59-48","trial_name":"gmail_summary_agent__5C3uFFZ","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":289.863,"latency_breakdown":{"env_setup":1.687,"agent_setup":1.483,"agent_exec":273.969,"verifier":1.9},"taskName":"gmail_summary_agent","jobId":"5C3uFFZ","exec_duration":273.969},{"job_name":"2026-04-16__23-59-48","trial_name":"gmail_summary_agent__tyXcKGv","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":615.844,"latency_breakdown":{"env_setup":1.715,"agent_setup":1.481,"agent_exec":600.059,"verifier":1.815},"taskName":"gmail_summary_agent","jobId":"tyXcKGv","exec_duration":600.059},{"job_name":"2026-04-16__23-59-48","trial_name":"gmail_summary_agent__3EfxY6w","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":true,"latency_sec":615.994,"latency_breakdown":{"env_setup":1.677,"agent_setup":1.516,"agent_exec":600.107,"verifier":1.889},"taskName":"gmail_summary_agent","jobId":"3EfxY6w","exec_duration":600.107},{"job_name":"2026-04-16__23-59-48","trial_name":"gmail_summary_agent__FNLdCd2","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":186.005,"latency_breakdown":{"env_setup":1.682,"agent_setup":1.494,"agent_exec":169.96,"verifier":1.957},"taskName":"gmail_summary_agent","jobId":"FNLdCd2","exec_duration":169.96},{"job_name":"2026-04-16__23-59-48","trial_name":"gmail_summary_agent__pqLdTNA","model":"glm-4.7","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":276.651,"latency_breakdown":{"env_setup":1.561,"agent_setup":1.421,"agent_exec":260.366,"verifier":1.725},"taskName":"gmail_summary_agent","jobId":"pqLdTNA","exec_duration":260.366}]},{"taskName":"list_tools_python","instruction":"# List Tools using Python SDK\n\n## Background\nComposio's Python SDK allows you to programmatically interact with tools and sessions. In this task, you will create a session and list available tools.\n\n## Requirements\n- Create a Python script `/home/user/list_tools.py`.\n- Use the `Composio` class from the `composio` package.\n- Create a session for the user `zealt-user01`.\n- Retrieve the list of tools available in that session.\n- Print the tool names to the console.\n- Run the script and redirect the output to `/home/user/output.log`.\n\n## Implementation Guide\n1. Install `composio` and `composio-openai` (optional but recommended for provider support).\n2. Write the script using `composio.create(user_id='zealt-user01')`.\n3. Call `session.tools()` to get the tool list.\n4. Iterate through the tools and print their names.\n\n## Constraints\n- Project path: /home/user\n- Log file: /home/user/output.log\n- User ID: `zealt-user01`\n\n## Integrations\n- Composio\n","trials":[{"job_name":"2026-04-16__23-59-48","trial_name":"list_tools_python__3BbSMZg","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":615.33,"latency_breakdown":{"env_setup":1.443,"agent_setup":1.433,"agent_exec":600.043,"verifier":1.527},"taskName":"list_tools_python","jobId":"3BbSMZg","exec_duration":600.043},{"job_name":"2026-04-16__23-59-48","trial_name":"list_tools_python__ttcpbf8","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":118.046,"latency_breakdown":{"env_setup":1.264,"agent_setup":1.432,"agent_exec":103.354,"verifier":1.179},"taskName":"list_tools_python","jobId":"ttcpbf8","exec_duration":103.354},{"job_name":"2026-04-16__23-59-48","trial_name":"list_tools_python__5kuhAeJ","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":602.584,"latency_breakdown":{"env_setup":1.75,"agent_setup":1.502,"agent_exec":587.056,"verifier":1.499},"taskName":"list_tools_python","jobId":"5kuhAeJ","exec_duration":587.056},{"job_name":"2026-04-16__23-59-48","trial_name":"list_tools_python__sLRbtgp","model":"glm-4.7","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":291.487,"latency_breakdown":{"env_setup":1.537,"agent_setup":1.538,"agent_exec":276.172,"verifier":1.547},"taskName":"list_tools_python","jobId":"sLRbtgp","exec_duration":276.172},{"job_name":"2026-04-16__23-59-48","trial_name":"list_tools_python__HyGEudc","model":"gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":228.29,"latency_breakdown":{"env_setup":1.232,"agent_setup":1.43,"agent_exec":213.712,"verifier":1.196},"taskName":"list_tools_python","jobId":"HyGEudc","exec_duration":213.712}]},{"taskName":"morning_sweep_agent","instruction":"$4","trials":[{"job_name":"2026-04-16__23-59-48","trial_name":"morning_sweep_agent__sguPNJM","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":456.637,"latency_breakdown":{"env_setup":1.321,"agent_setup":1.44,"agent_exec":441.712,"verifier":1.366},"taskName":"morning_sweep_agent","jobId":"sguPNJM","exec_duration":441.712},{"job_name":"2026-04-16__23-59-48","trial_name":"morning_sweep_agent__pqnukiT","model":"gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":615.492,"latency_breakdown":{"env_setup":1.663,"agent_setup":1.554,"agent_exec":600.107,"verifier":1.41},"taskName":"morning_sweep_agent","jobId":"pqnukiT","exec_duration":600.107},{"job_name":"2026-04-16__23-59-48","trial_name":"morning_sweep_agent__Rjx3HgX","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":251.3,"latency_breakdown":{"env_setup":1.649,"agent_setup":1.453,"agent_exec":236.211,"verifier":1.17},"taskName":"morning_sweep_agent","jobId":"Rjx3HgX","exec_duration":236.211},{"job_name":"2026-04-16__23-59-48","trial_name":"morning_sweep_agent__tumX5Jm","model":"gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":408.067,"latency_breakdown":{"env_setup":1.482,"agent_setup":1.545,"agent_exec":393.004,"verifier":1.355},"taskName":"morning_sweep_agent","jobId":"tumX5Jm","exec_duration":393.004},{"job_name":"2026-04-16__23-59-48","trial_name":"morning_sweep_agent__afTXrjH","model":"glm-4.7","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":597.747,"latency_breakdown":{"env_setup":1.534,"agent_setup":1.475,"agent_exec":582.7,"verifier":1.289},"taskName":"morning_sweep_agent","jobId":"afTXrjH","exec_duration":582.7}]},{"taskName":"python_github_star","instruction":"$5","trials":[{"job_name":"2026-04-16__22-38-34","trial_name":"python_github_star__D5RFMTv","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":284.039,"latency_breakdown":{"env_setup":1.337,"agent_setup":1.54,"agent_exec":268.113,"verifier":2.239},"taskName":"python_github_star","jobId":"D5RFMTv","exec_duration":268.113},{"job_name":"2026-04-16__22-38-34","trial_name":"python_github_star__KLDdVHa","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":157.819,"latency_breakdown":{"env_setup":1.427,"agent_setup":1.455,"agent_exec":141.461,"verifier":2.449},"taskName":"python_github_star","jobId":"KLDdVHa","exec_duration":141.461},{"job_name":"2026-04-16__22-38-34","trial_name":"python_github_star__JrFriCF","model":"gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":616.167,"latency_breakdown":{"env_setup":1.606,"agent_setup":1.451,"agent_exec":600.093,"verifier":2.209},"taskName":"python_github_star","jobId":"JrFriCF","exec_duration":600.093},{"job_name":"2026-04-16__22-38-34","trial_name":"python_github_star__4F5ANar","model":"glm-4.7","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":287.027,"latency_breakdown":{"env_setup":1.577,"agent_setup":1.517,"agent_exec":271.202,"verifier":1.925},"taskName":"python_github_star","jobId":"4F5ANar","exec_duration":271.202},{"job_name":"2026-04-16__22-38-34","trial_name":"python_github_star__STCT9bF","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":84.519,"latency_breakdown":{"env_setup":1.624,"agent_setup":1.509,"agent_exec":69.023,"verifier":1.62},"taskName":"python_github_star","jobId":"STCT9bF","exec_duration":69.023}]},{"taskName":"schema_modifier_ts","instruction":"$6","trials":[{"job_name":"2026-04-16__23-59-48","trial_name":"schema_modifier_ts__V7VosHQ","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":153.095,"latency_breakdown":{"env_setup":1.622,"agent_setup":1.515,"agent_exec":137.896,"verifier":1.201},"taskName":"schema_modifier_ts","jobId":"V7VosHQ","exec_duration":137.896},{"job_name":"2026-04-16__23-59-48","trial_name":"schema_modifier_ts__a2xGw3M","model":"gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":533.545,"latency_breakdown":{"env_setup":1.608,"agent_setup":1.514,"agent_exec":518.246,"verifier":1.285},"taskName":"schema_modifier_ts","jobId":"a2xGw3M","exec_duration":518.246},{"job_name":"2026-04-16__23-59-48","trial_name":"schema_modifier_ts__zt3wT4m","model":"glm-4.7","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":334.22,"latency_breakdown":{"env_setup":1.432,"agent_setup":1.477,"agent_exec":319.218,"verifier":1.331},"taskName":"schema_modifier_ts","jobId":"zt3wT4m","exec_duration":319.218},{"job_name":"2026-04-16__23-59-48","trial_name":"schema_modifier_ts__APSBPSa","model":"gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":615.405,"latency_breakdown":{"env_setup":1.673,"agent_setup":1.499,"agent_exec":600.065,"verifier":1.289},"taskName":"schema_modifier_ts","jobId":"APSBPSa","exec_duration":600.065},{"job_name":"2026-04-16__23-59-48","trial_name":"schema_modifier_ts__kPTTiTV","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":419.827,"latency_breakdown":{"env_setup":1.412,"agent_setup":1.448,"agent_exec":404.782,"verifier":1.408},"taskName":"schema_modifier_ts","jobId":"kPTTiTV","exec_duration":404.782}]},{"taskName":"v2_to_v3_migration","instruction":"$7","trials":[{"job_name":"2026-04-16__23-59-48","trial_name":"v2_to_v3_migration__hGTNM8S","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":53.485,"latency_breakdown":{"env_setup":1.568,"agent_setup":1.452,"agent_exec":38.4,"verifier":1.279},"taskName":"v2_to_v3_migration","jobId":"hGTNM8S","exec_duration":38.4},{"job_name":"2026-04-16__23-59-48","trial_name":"v2_to_v3_migration__aWfghgi","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":211.966,"latency_breakdown":{"env_setup":1.509,"agent_setup":1.49,"agent_exec":196.996,"verifier":1.221},"taskName":"v2_to_v3_migration","jobId":"aWfghgi","exec_duration":196.996},{"job_name":"2026-04-16__23-59-48","trial_name":"v2_to_v3_migration__c4Eu4q6","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":482.379,"latency_breakdown":{"env_setup":1.743,"agent_setup":1.441,"agent_exec":466.904,"verifier":1.468},"taskName":"v2_to_v3_migration","jobId":"c4Eu4q6","exec_duration":466.904},{"job_name":"2026-04-16__23-59-48","trial_name":"v2_to_v3_migration__6pYFX9S","model":"glm-4.7","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":127.766,"latency_breakdown":{"env_setup":1.673,"agent_setup":1.559,"agent_exec":112.169,"verifier":1.522},"taskName":"v2_to_v3_migration","jobId":"6pYFX9S","exec_duration":112.169},{"job_name":"2026-04-16__23-59-48","trial_name":"v2_to_v3_migration__ryTNYiB","model":"claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":103.345,"latency_breakdown":{"env_setup":1.638,"agent_setup":1.482,"agent_exec":88.292,"verifier":1.172},"taskName":"v2_to_v3_migration","jobId":"ryTNYiB","exec_duration":88.292}]}]}]]}],["$L8","$L9"],"$La"]}],"loading":null,"isPartial":false}
+8:["$","script","script-0",{"src":"/composio-benchmark/pr-preview/pr-4/_next/static/chunks/ce5819ce033db0eb.js","async":true}]
+9:["$","script","script-1",{"src":"/composio-benchmark/pr-preview/pr-4/_next/static/chunks/be08138953094657.js","async":true}]
+a:["$","$Lb",null,{"children":["$","$c",null,{"name":"Next.MetadataOutlet","children":"$@d"}]}]
+d:null
