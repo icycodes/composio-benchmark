@@ -1,0 +1,60 @@
+- Initializing MCP connections...
+You
+# Use Schema Modifiers in TS SDK ## Background Composio allows you to modify tool schemas before passing them to an agent. This is useful for hiding sensitive arguments or simplifying the interface. In this task, you will use a Schema Modifier to hide the `body` argument from the `SLACK_CHAT_POST_MESSAGE` tool. ## Requirements * Create a TypeScript project in `/home/user/project`. * Install `@composio/core`. * Create a script `modify.ts`. * Create a session for `zealt-user01`. * Use a `SchemaModifier` to hide the `text` (or `body`) argument from the Slack post message tool. * Retrieve the tools from the session and find the modified tool. * Print the modified tool's schema to `/home/user/schema.json`. ## Implementation Guide 1. Import `Composio` and `SchemaModifier` from `@composio/core`. 2. Create a modifier: `new SchemaModifier().hide('slack', 'chat_post_message', ['text'])`. 3. Create a session with the modifier: `composio.create('zealt-user01', { modifiers: [modifier] })`. 4. Get tools and find the one for Slack post message. 5. Write its `inputSchema` to a file. ## Constraints * Project path: /home/user/project * Output file: /home/user/schema.json * User ID: `zealt-user01` ## Integrations * Composio   
+
+Pochi
+💫 Executing mkdir -p /home/user/project && cd /home/user/project && npm init -y && npm install @composio/core typescript ts-node && npx tsc --init ✔ 
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/project/modify.ts ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/project && npx ts-node modify.ts ✖ "Command exited with code 1"
+💫 Executing npm list @composio/core ✖ "Command exited with code 1"
+💫 Executing cd /home/user/project && npm list @composio/core ✔ 
+💫 Executing cd /home/user/project && grep -r "SchemaModifier" node_modules/@composio/core ✔ 
+💫 Executing curl -L https://docs.getpochi.com/llms.txt ✔ 
+💫 Executing cd /home/user/project && grep -r "SchemaModifier" node_modules/@composio/core/dist | grep "export" ✔ 
+💫 Executing cd /home/user/project && npm install @composio/core@latest ✔ 
+💫 Executing cd /home/user/project && grep -r "SchemaModifier" node_modules/@composio/core/dist | grep "class" ✖ "Command exited with code 1"
+✏️  Writing /home/user/project/modify.ts ✔ 
+💫 Executing cd /home/user/project && npx ts-node modify.ts ✖ "Command exited with code 1"
+✏️  Writing /home/user/project/package.json ✔ 
+✏️  Writing /home/user/project/tsconfig.json ✔ 
+✏️  Writing /home/user/project/modify.ts ✔ 
+💫 Executing cd /home/user/project && node --loader ts-node/esm modify.ts ✖ "Command exited with code 1"
+✏️  Writing /home/user/project/modify.ts ✔ 
+💫 Executing cd /home/user/project && node --loader ts-node/esm modify.ts ✖ "Command exited with code 1"
+✏️  Writing /home/user/project/modify.ts ✔ 
+💫 Executing cd /home/user/project && node --loader ts-node/esm modify.ts ✖ "Command exited with code 1"
+✏️  Writing /home/user/project/modify.ts ✔ 
+💫 Executing cd /home/user/project && node --loader ts-node/esm modify.ts ✔ 
+📖 Reading /home/user/schema.json ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+I have successfully used Schema Modifiers in the Composio TypeScript SDK to hide the `text` argument from the Slack `chat_post_message` tool.
+
+### Accomplishments:
+1.  **Project Initialization**: Set up a TypeScript project in `/home/user/project` and installed `@composio/core`.
+2.  **Script Creation**: Developed `modify.ts` which:
+    *   Imports `Composio` and utilizes a `SchemaModifier` to target the `slack:chat_post_message` action.
+    *   Hides the `text` parameter from the tool's input schema.
+    *   Creates a session for `zealt-user01` with the specified modifier.
+3.  **Schema Export**: Successfully retrieved the modified tool's schema and saved it to `/home/user/schema.json`.
+
+### Output Schema:
+The generated `/home/user/schema.json` confirms that the `text` property has been removed from both the `properties` and the `required` fields:
+```json
+{
+  "type": "object",
+  "properties": {
+    "channel": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "channel"
+  ]
+}
+```
+
+The project is ready for use at `/home/user/project`.   
+  

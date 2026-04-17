@@ -1,0 +1,50 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776355965.0426462,
+            "stop": 1776355965.0531867
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_new_script_exists",
+                "status": "passed",
+                "duration": 0.00021861499408259988,
+                "start": 1776355965.0470994,
+                "stop": 1776355965.0474255,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_new_script_v3_syntax",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003373830040800385,
+                "start": 1776355965.0475166,
+                "stop": 1776355965.0528047,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_new_script_v3_syntax():\n        with open(NEW_SCRIPT, \"r\") as f:\n            content = f.read()\n>       assert \"actions()\" not in content, \"The new script still contains 'actions()'.\"\nE       AssertionError: The new script still contains 'actions()'.\nE       assert 'actions()' not in 'from compos...og_path}\")\\n'\nE         \nE         'actions()' is contained here:\nE           f session.actions()\nE           # 2. Sessions are immutable in v3. Instead of update_toolkits(), \nE           #    create a new session with the desired toolkits.\nE           \nE           print(f\"Listing tools for user: {user_id}\")...\nE         \nE         ...Full output truncated (25 lines hidden), use '-vv' to show\n\ntests/test_final_state.py:13: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "passed",
+                "duration": 0.00016161499661393464,
+                "start": 1776355965.052899,
+                "stop": 1776355965.05312,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

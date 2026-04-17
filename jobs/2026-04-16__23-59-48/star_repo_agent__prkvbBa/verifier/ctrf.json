@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776355797.2726374,
+            "stop": 1776355797.2980638
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_repo_exists_and_starred",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.016236790994298644,
+                "start": 1776355797.276286,
+                "stop": 1776355797.2979708,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_repo_exists_and_starred():\n        trial_id = get_trial_id()\n        repo_name = f\"zealt-user01/star-test-{trial_id}\"\n    \n        # Check if repo exists\n        result = subprocess.run(\n            [\"gh\", \"repo\", \"view\", repo_name, \"--json\", \"isStargazer\"],\n            capture_output=True, text=True\n        )\n>       assert result.returncode == 0, f\"gh repo view failed: {result.stderr}\"\nE       AssertionError: gh repo view failed: Unknown JSON field: \"isStargazer\"\nE         Available fields:\nE           archivedAt\nE           assignableUsers\nE           codeOfConduct\nE           contactLinks\nE           createdAt\nE           defaultBranchRef\nE           deleteBranchOnMerge\nE           description\nE           diskUsage\nE           forkCount\nE           fundingLinks\nE           hasDiscussionsEnabled\nE           hasIssuesEnabled\nE           hasProjectsEnabled\nE           hasWikiEnabled\nE           homepageUrl\nE           id\nE           isArchived\nE           isBlankIssuesEnabled\nE           isEmpty\nE           isFork\nE           isInOrganization\nE           isMirror\nE           isPrivate\nE           isSecurityPolicyEnabled\nE           isTemplate\nE           isUserConfigurationRepository\nE           issueTemplates\nE           issues\nE           labels\nE           languages\nE           latestRelease\nE           licenseInfo\nE           mentionableUsers\nE           mergeCommitAllowed\nE           milestones\nE           mirrorUrl\nE           name\nE           nameWithOwner\nE           openGraphImageUrl\nE           owner\nE           parent\nE           primaryLanguage\nE           projects\nE           projectsV2\nE           pullRequestTemplates\nE           pullRequests\nE           pushedAt\nE           rebaseMergeAllowed\nE           repositoryTopics\nE           securityPolicyUrl\nE           squashMergeAllowed\nE           sshUrl\nE           stargazerCount\nE           templateRepository\nE           updatedAt\nE           url\nE           usesCustomOpenGraphImage\nE           viewerCanAdminister\nE           viewerDefaultCommitEmail\nE           viewerDefaultMergeMethod\nE           viewerHasStarred\nE           viewerPermission\nE           viewerPossibleCommitEmails\nE           viewerSubscription\nE           visibility\nE           watchers\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['gh', 'repo', 'view', 'zealt-user01/star-test-star_repo_agent__prkvbBa', '--json', 'isStargazer... viewerHasStarred\\n  viewerPermission\\n  viewerPossibleCommitEmails\\n  viewerSubscription\\n  visibility\\n  watchers\\n').returncode\n\ntests/test_final_state.py:19: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

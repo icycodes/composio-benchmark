@@ -1,0 +1,50 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776355711.1310253,
+            "stop": 1776355711.1417987
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_new_script_exists",
+                "status": "passed",
+                "duration": 0.0001939369976753369,
+                "start": 1776355711.1355288,
+                "stop": 1776355711.1358232,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_new_script_v3_syntax",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003487359863356687,
+                "start": 1776355711.1359136,
+                "stop": 1776355711.141368,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_new_script_v3_syntax():\n        with open(NEW_SCRIPT, \"r\") as f:\n            content = f.read()\n>       assert \"actions()\" not in content, \"The new script still contains 'actions()'.\"\nE       AssertionError: The new script still contains 'actions()'.\nE       assert 'actions()' not in 'from compos...s_v3.log\")\\n'\nE         \nE         'actions()' is contained here:\nE           nstead of actions()\nE           tools = session.tools()\nE           print(f\"Tools: {len(tools)}\")\nE           \nE           # v3: Sessions are immutable \u2014 create a new session instead of update_toolkits()...\nE         \nE         ...Full output truncated (10 lines hidden), use '-vv' to show\n\ntests/test_final_state.py:13: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_log_file_exists",
+                "status": "passed",
+                "duration": 0.00018952699610963464,
+                "start": 1776355711.1414611,
+                "stop": 1776355711.1417158,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

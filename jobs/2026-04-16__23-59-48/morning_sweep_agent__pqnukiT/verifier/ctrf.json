@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776357285.0233357,
+            "stop": 1776357285.0337944
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_report_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00030308101122500375,
+                "start": 1776357285.0274181,
+                "stop": 1776357285.0328403,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_report_file_exists():\n>       assert os.path.isfile(REPORT_FILE), \"Morning sweep report not found.\"\nE       AssertionError: Morning sweep report not found.\nE       assert False\nE        +  where False = <function isfile at 0x7fcaf5050220>('/home/user/morning_sweep.txt')\nE        +    where <function isfile at 0x7fcaf5050220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:7: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_report_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0001885739911813289,
+                "start": 1776357285.0329442,
+                "stop": 1776357285.0337179,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_report_content():\n>       with open(REPORT_FILE, \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/morning_sweep.txt'\n\ntests/test_final_state.py:10: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

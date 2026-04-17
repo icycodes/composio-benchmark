@@ -1,0 +1,153 @@
+- Initializing MCP connections...
+You
+# Star a GitHub Repository with AI Agent ## Background Composio enables AI agents to perform actions on GitHub. In this task, you will use an AI agent (OpenAI) with Composio tools to create a repository and then star it. ## Requirements * Read the `trial_id` from `/logs/trial_id`. * Repository name: `star-test-${trial_id}`. * Use the user `zealt-user01`. * Use OpenAI with Composio tools. * The agent should: 1. Create a public repository named `star-test-${trial_id}` under `zealt-user01`. 2. Star the newly created repository. * Save the execution log to `/home/user/agent.log`. ## Implementation Guide 1. Initialize Composio with `OpenAIProvider`. 2. Create a session for `zealt-user01`. 3. Get tools using `session.tools()`. 4. Use OpenAI's tool calling feature to execute the tasks. 5. Ensure you use the `trial_id` correctly to avoid conflicts. ## Constraints * Project path: /home/user * Log file: /home/user/agent.log * User ID: `zealt-user01` * Repository: `star-test-${trial_id}` ## Integrations * Composio * GitHub * OpenAI   
+
+Pochi
+💫 Executing cat /logs/trial_id ✔ 
+💫 Executing pip list | grep -E "composio|openai" ✔ 
+✏️  Writing /home/user/test.py ✔ 
+💫 Executing cat << 'EOF' > /home/user/script.py
+import os
+import sys
+
+with open('/logs/trial_id', 'r') as f:
+    trial_id = f.read().strip()
+
+repo_name = f"star-test-{trial_id}"
+user_id = "zealt-user01"
+
+from composio_openai import ComposioToolSet, App
+from openai import OpenAI
+import json
+
+client = OpenAI()
+toolset = ComposioToolSet(entity_id=user_id)
+
+tools = toolset.get_tools(apps=[App.GITHUB])
+
+messages = [
+    {"role": "system", "content": "You are a helpful assistant that creates and stars GitHub repositories."},
+    {"role": "user", "content": f"Create a public repository named '{repo_name}' under the user '{user_id}'. Then, star the newly created repository."}
+]
+
+with open('/home/user/agent.log', 'w') as log_file:
+    log_file.write(f"Starting agent task for repo: {repo_name} with user {user_id}\n")
+    
+    while True:
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=messages,
+            tools=tools,
+            tool_choice="auto",
+        )
+        
+        message = response.choices[0].message
+        messages.append(message)
+        
+        if message.tool_calls:
+            log_file.write(f"Tool calls: {[tc.function.name for tc in message.tool_calls]}\n")
+            tool_responses = toolset.execute_tool_calls(message.tool_calls, entity_id=user_id)
+            for tool_call, tool_response in zip(message.tool_calls, tool_responses):
+                messages.append(
+                    {
+                        "role": "tool",
+                        "tool_call_id": tool_call.id,
+                        "name": tool_call.function.name,
+                        "content": str(tool_response),
+                    }
+                )
+                log_file.write(f"Tool response for {tool_call.function.name}: {tool_response}\n")
+        else:
+            log_file.write(f"Agent response: {message.content}\n")
+            break
+EOF
+python3 /home/user/script.py
+ ✖ "Command exited with code 1"
+💫 Executing python3 -c "import composio_openai; print(dir(composio_openai))" ✔ 
+💫 Executing python3 -c "import composio; print(dir(composio))" ✔ 
+💫 Executing python3 -c "from composio_openai import OpenAIProvider; help(OpenAIProvider)" ✔ 
+💭 Thinking for 317 characters   
+💫 Executing python3 -c "from composio import Composio; help(Composio)" ✔ 
+💫 Executing python3 -c "from composio import Composio; c = Composio(); print(dir(c))" ✔ 
+💫 Executing python3 -c "from composio import Composio; c = Composio(); print(dir(c.tools))" ✔ 
+💫 Executing python3 -c "from composio import Composio; c = Composio(); print(c.tools.get(apps=['github']))" ✖ "Command exited with code 1"
+💭 Thinking for 281 characters   
+💫 Executing python3 -c "from composio import Composio; c = Composio(); help(c.tools.get)" ✔ 
+💫 Executing python3 -c "from composio import Composio; c = Composio(); print(len(c.tools.get('zealt-user01', toolkits=['github'])))" ✔ 
+💫 Executing python3 -c "from composio import Composio; c = Composio(); help(c.tools.execute)" ✔ 
+💫 Executing python3 -c "from composio import Composio; from composio_openai import OpenAIProvider; p = OpenAIProvider(); help(p.handle_tool_calls)" ✔ 
+💫 Executing python3 -c "import composio; help(composio.core.models.tool_execution_response.ToolExecutionResponse)" ✖ "Command exited with code 1"
+💫 Executing python3 -c "from composio.core.models.tools import ToolExecutionResponse; help(ToolExecutionResponse)" ✔ 
+💫 Executing cat << 'EOF' > /home/user/script.py
+import os
+import json
+from composio import Composio
+from composio_openai import OpenAIProvider
+from openai import OpenAI
+
+with open('/logs/trial_id', 'r') as f:
+    trial_id = f.read().strip()
+
+repo_name = f"star-test-{trial_id}"
+user_id = "zealt-user01"
+
+provider = OpenAIProvider()
+composio_client = Composio(provider=provider)
+openai_client = OpenAI()
+
+tools = composio_client.tools.get(user_id=user_id, toolkits=["github"])
+
+messages = [
+    {"role": "system", "content": "You are a helpful assistant that creates and stars GitHub repositories."},
+    {"role": "user", "content": f"Create a public repository named '{repo_name}' under the user '{user_id}'. Then, star the newly created repository."}
+]
+
+with open('/home/user/agent.log', 'w') as log_file:
+    log_file.write(f"Starting agent task for repo: {repo_name} with user {user_id}\n")
+    
+    while True:
+        response = openai_client.chat.completions.create(
+            model="gpt-4o",
+            messages=messages,
+            tools=tools,
+            tool_choice="auto",
+        )
+        
+        message = response.choices[0].message
+        messages.append(message)
+        
+        if message.tool_calls:
+            log_file.write(f"Tool calls: {[tc.function.name for tc in message.tool_calls]}\n")
+            tool_responses = provider.handle_tool_calls(user_id=user_id, response=response)
+            for tool_call, tool_response in zip(message.tool_calls, tool_responses):
+                messages.append(
+                    {
+                        "role": "tool",
+                        "tool_call_id": tool_call.id,
+                        "name": tool_call.function.name,
+                        "content": json.dumps(tool_response),
+                    }
+                )
+                log_file.write(f"Tool response for {tool_call.function.name}: {tool_response}\n")
+        else:
+            log_file.write(f"Agent response: {message.content}\n")
+            break
+EOF
+python3 /home/user/script.py
+ ✔ 
+💫 Executing cat /home/user/agent.log ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+c = Composio(provider=OpenAIProvider())
+tools = c.tools.get(user_id='zealt-user01', toolkits=['github'])
+print(len(tools))
+" ✔ 
+💭 Thinking for 330 characters   
+💫 Executing python3 -c "
+from composio import Composio
+from composio_openai import OpenAIProvider
+c = Composio(provider=OpenAIProvider())
+tools = c.tools.get(user_id='zealt-user01', toolkits=['github'])
+print([t['function']['name'] for t in tools])
+" ✔ 

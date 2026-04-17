@@ -1,0 +1,53 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 1,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776358868.6627223,
+            "stop": 1776358868.6736178
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_data_file_exists",
+                "status": "passed",
+                "duration": 0.000192196988791693,
+                "start": 1776358868.6668303,
+                "stop": 1776358868.6671207,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002418509902781807,
+                "start": 1776358868.6672165,
+                "stop": 1776358868.6725652,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_file_exists():\n>       assert os.path.isfile(RESULT_FILE), \"Result file not found.\"\nE       AssertionError: Result file not found.\nE       assert False\nE        +  where False = <function isfile at 0x7effd898c220>('/home/user/result.txt')\nE        +    where <function isfile at 0x7effd898c220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:11: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_correct",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002599279978312552,
+                "start": 1776358868.672661,
+                "stop": 1776358868.6735392,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_is_correct():\n        # Read data and calculate expected avg age\n>       import pandas as pd\nE       ModuleNotFoundError: No module named 'pandas'\n\ntests/test_final_state.py:15: ModuleNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

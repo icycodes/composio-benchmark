@@ -1,0 +1,27 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 7ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py Fs                                             [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_summary_file_exists ___________________________
+
+    def test_summary_file_exists():
+>       assert os.path.isfile("/home/user/summary.txt"), "Summary file not found."
+E       AssertionError: Summary file not found.
+E       assert False
+E        +  where False = <function isfile at 0x7fc73799c220>('/home/user/summary.txt')
+E        +    where <function isfile at 0x7fc73799c220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:7: AssertionError
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_final_state.py:27: General channel not found, skipping message verification.
+FAILED tests/test_final_state.py::test_summary_file_exists - AssertionError: ...
+========================= 1 failed, 1 skipped in 0.43s =========================

@@ -1,0 +1,109 @@
+- Initializing MCP connections...
+You
+# Morning Sweep Agent with Multiple Accounts ## Background Composio allows you to manage multiple connected accounts for a single user (e.g., work vs. personal). In this task, you will implement a "Morning Sweep" agent that fetches data from two different GitHub accounts for the same user. ## Requirements * Use the user `zealt-user01`. * The user has two GitHub accounts connected (account IDs: `work-github` and `personal-github` - assume these or create them if needed, but for the task, the agent should handle two accounts). * The agent should: 1. Use the `Composio` SDK to list all connected accounts for GitHub for `zealt-user01`. 2. For each account, fetch the last 3 issues from any repository. 3. Combine the results into a single summary report. * Save the report to `/home/user/morning_sweep.txt`. ## Implementation Guide 1. Use `session.connected_accounts()` or similar to list accounts. 2. When creating a session or executing a tool, specify the `connected_account_id` to differentiate between them. 3. The agent should be able to handle the case where multiple accounts exist for the same toolkit. ## Constraints * Project path: /home/user * Report file: /home/user/morning\_sweep.txt * User ID: `zealt-user01` ## Integrations * Composio * GitHub   
+
+Pochi
+💭 Thinking for 385 characters   
+💫 Executing mkdir -p /home/user && cd /home/user && ls -la ✔ 
+💭 Thinking for 295 characters   
+💫 Executing pip show composio-core || pip show composio-langchain || pip show composio-openai ✔ 
+💫 Executing cat << 'EOF' > /home/user/test.py
+from composio import ComposioToolSet, Action
+print(dir(ComposioToolSet))
+EOF
+python3 /home/user/test.py ✖ "Command exited with code 1"
+💫 Executing python3 -c "import composio; print(dir(composio))" ✔ 
+💫 Executing python3 -c "import composio_openai; print(dir(composio_openai))" ✔ 
+💫 Executing python3 -c "import composio; print(dir(composio.Composio))" ✔ 
+💫 Executing pip show composio ✔ 
+💭 Thinking for 270 characters   
+💫 Executing cat /usr/local/lib/python3.12/dist-packages/composio/__init__.py ✔ 
+💫 Executing cat /usr/local/lib/python3.12/dist-packages/composio/sdk.py ✔ 
+💫 Executing cat /usr/local/lib/python3.12/dist-packages/composio/core/models/connected_accounts.py ✔ 
+💫 Executing cat << 'EOF' > /home/user/test_accounts.py
+import json
+from composio import Composio
+
+client = Composio()
+accounts = client.connected_accounts.list(user_ids=["zealt-user01"])
+print("Total accounts:", len(accounts.items))
+for acc in accounts.items:
+    print(acc.id, getattr(acc, "app_id", None), getattr(acc, "appUniqueId", None), getattr(acc, "alias", None))
+EOF
+python3 /home/user/test_accounts.py ✔ 
+💫 Executing cat << 'EOF' > /home/user/test_accounts2.py
+from composio import Composio
+
+client = Composio()
+accounts = client.connected_accounts.list(user_ids=["zealt-user01"])
+for acc in accounts.items:
+    print(dir(acc))
+    print(acc.model_dump())
+EOF
+python3 /home/user/test_accounts2.py ✔ 
+💭 Thinking for 1139 characters   
+💫 Executing cat << 'EOF' > /home/user/test_actions.py
+from composio import Action, Composio
+
+client = Composio()
+for action in Action:
+    if "GITHUB" in action.name and "ISSUE" in action.name:
+        print(action.name)
+EOF
+python3 /home/user/test_actions.py ✖ "Command exited with code 1"
+💫 Executing python3 -c "import composio; print(dir(composio))" ✔ 
+💫 Executing cat /usr/local/lib/python3.12/dist-packages/composio/core/models/tools.py | grep -A 10 "class Tools" ✔ 
+💫 Executing cat /usr/local/lib/python3.12/dist-packages/composio/core/models/tools.py | grep -E "def (execute|get|list)" ✔ 
+💭 Thinking for 236 characters   
+💫 Executing cat /usr/local/lib/python3.12/dist-packages/composio/core/models/tools.py | grep -A 10 "def execute" ✔ 
+💫 Executing cat << 'EOF' > /home/user/test_github_tools.py
+from composio import Composio
+
+client = Composio()
+tools = client.tools.get_raw_composio_tools(apps=["github"])
+for t in tools:
+    if "issue" in t.name.lower():
+        print(t.name)
+EOF
+python3 /home/user/test_github_tools.py ✖ "Command exited with code 1"
+💫 Executing cat /usr/local/lib/python3.12/dist-packages/composio/core/models/tools.py | grep -A 10 "def get_raw_composio_tools" ✔ 
+💫 Executing cat << 'EOF' > /home/user/test_github_tools2.py
+from composio import Composio
+
+client = Composio()
+tools = client.tools.get_raw_composio_tools(toolkits=["github"])
+for t in tools:
+    if "issue" in t.name.lower():
+        print(t.name)
+EOF
+python3 /home/user/test_github_tools2.py ✔ 
+💫 Executing cat << 'EOF' > /home/user/test_github_tools3.py
+from composio import Composio
+
+client = Composio()
+tools = client.tools.get_raw_composio_tools(toolkits=["github"])
+for t in tools:
+    print(t.name)
+EOF
+python3 /home/user/test_github_tools3.py ✔ 
+💫 Executing cat << 'EOF' > /home/user/test_github_tools4.py
+from composio import Composio
+
+client = Composio()
+tools = client.tools.get_raw_composio_tools(toolkits=["github"], limit=1000)
+for t in tools:
+    if "issue" in t.name.lower():
+        print(t.name)
+EOF
+python3 /home/user/test_github_tools4.py ✔ 
+💫 Executing cat << 'EOF' > /home/user/test_github_tools5.py
+from composio import Composio
+
+client = Composio()
+tools = client.tools.get_raw_composio_tools(toolkits=["github"], limit=1000)
+for t in tools:
+    if "List issues for user".lower() in t.name.lower():
+        print(t.name, t.slug, t.parameters)
+EOF
+python3 /home/user/test_github_tools5.py ✖ "Command exited with code 1"
+💫 Executing python3 -c "from composio import Composio; client = Composio(); tools = client.tools.get_raw_composio_tools(toolkits=['github'], limit=100); print(dir(tools[0]))" ✔ 

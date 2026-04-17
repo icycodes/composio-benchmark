@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776357335.2315814,
+            "stop": 1776357335.240675
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_auth_url_log_exists",
+                "status": "passed",
+                "duration": 0.00021258799824863672,
+                "start": 1776357335.2349536,
+                "stop": 1776357335.2352724,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_auth_url_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002549010023358278,
+                "start": 1776357335.235367,
+                "stop": 1776357335.2405937,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_auth_url_content():\n        with open(LOG_FILE, \"r\") as f:\n            content = f.read()\n>       assert \"https://\" in content, \"The log file does not contain a valid redirect URL.\"\nE       AssertionError: The log file does not contain a valid redirect URL.\nE       assert 'https://' in 'Error: BadRequestError: 400 {\"error\":{\"message\":\"Auth config not found\",\"code\":302,\"slug\":\"Auth_Config_NotFound\",\"sta...87d1-6422a8669f84\\',\\n      suggested_fix: \\'\\'\\n    }\\n  },\\n  errorId: \\'9e9f8244-f454-496e-a882-28ad1f852c18\\'\\n}\\n'\n\ntests/test_final_state.py:13: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}
