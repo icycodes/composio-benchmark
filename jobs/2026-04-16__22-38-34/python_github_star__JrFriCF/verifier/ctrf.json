@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776351813.65688,
+            "stop": 1776351814.514344
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_repo_is_created_and_starred",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.8426637460070197,
+                "start": 1776351813.6607237,
+                "stop": 1776351814.5139084,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_repo_is_created_and_starred():\n        \"\"\"Priority 1: Use GitHub CLI to verify the repository state.\"\"\"\n        trial_id = get_trial_id()\n        repo_name = f\"harbor-gh-star-{trial_id}\"\n        username = \"zealt-user01\"\n    \n        # 1. Verify repository exists\n        result = subprocess.run(\n            [\"gh\", \"repo\", \"view\", f\"{username}/{repo_name}\", \"--json\", \"name\"],\n            capture_output=True, text=True\n        )\n        assert result.returncode == 0, \\\n            f\"gh repo view failed: {result.stderr}\"\n    \n        # 2. Verify repository is starred by zealt-user01\n        # Check if the repo is in the starred list of the user\n        # Or use the specific API endpoint for starring\n        # GH API check: GET /user/starred/:owner/:repo returns 204 if starred, 404 if not\n        result = subprocess.run(\n            [\"gh\", \"api\", f\"user/starred/{username}/{repo_name}\", \"--silent\"],\n            capture_output=True, text=True\n        )\n>       assert result.returncode == 0, \\\n            f\"Expected repository '{repo_name}' to be starred by user, but it's not. Error: {result.stderr}\"\nE       AssertionError: Expected repository 'harbor-gh-star-python_github_star__JrFriCF' to be starred by user, but it's not. Error: gh: Not Found (HTTP 404)\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['gh', 'api', 'user/starred/zealt-user01/harbor-gh-star-python_github_star__JrFriCF', '--silent'], returncode=1, stdout='', stderr='gh: Not Found (HTTP 404)\\n').returncode\n\ntests/test_final_state.py:34: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_python_script_exists",
+                "status": "passed",
+                "duration": 0.00017144000594271347,
+                "start": 1776351814.5140328,
+                "stop": 1776351814.514268,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}
