@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776398426.3671756,
+            "stop": 1776398426.796355
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_github_repo_description",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.4081853170009708,
+                "start": 1776398426.3708496,
+                "stop": 1776398426.7962453,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_github_repo_description():\n        trial_id = get_trial_id()\n        repo_name = f\"zealt-user01/desc-test-{trial_id}\"\n    \n        result = subprocess.run([\n            \"gh\", \"repo\", \"view\", repo_name, \"--json\", \"description\"\n        ], capture_output=True, text=True)\n        assert result.returncode == 0\n        data = json.loads(result.stdout)\n        expected_description = f\"Harbor trial {trial_id} repo\"\n>       assert data.get(\"description\") == expected_description\nE       AssertionError: assert '' == 'Harbor trial..._Hg98JDd repo'\nE         \nE         - Harbor trial github_repo_description_cli__Hg98JDd repo\n\ntests/test_final_state.py:20: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

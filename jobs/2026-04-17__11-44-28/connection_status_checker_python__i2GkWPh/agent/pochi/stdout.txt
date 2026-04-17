@@ -1,0 +1,236 @@
+- Initializing MCP connections...
+You
+# Connection Status Checker with Python SDK ## Background Composio's `COMPOSIO_MANAGE_CONNECTIONS` meta tool allows you to manage user connections programmatically. In this task, you will check the status of a user's GitHub connection. ## Requirements * Write a Python script `/home/user/check_github_connection.py` that: 1. Connects to Composio and creates a session for `zealt-user01`. 2. Uses the `COMPOSIO_MANAGE_CONNECTIONS` meta tool to list the user's connections. 3. Finds the connection for the `github` toolkit. 4. Checks if the connection status is `CONNECTED`. 5. Saves the full connection object to `/home/user/github_status.json`. 6. Prints "GitHub is connected" to the console if it is connected. * Run the script and log the output to `/home/user/connection.log`. ## Implementation Guide 1. Use the `composio` Python SDK with `OpenAIProvider` to provide access to meta tools if needed, or call the meta tool directly if the SDK supports it. 2. In the script, execute `COMPOSIO_MANAGE_CONNECTIONS` with the correct parameters to list connections for `zealt-user01`. 3. Filter the results for `github`. ## Constraints * Project path: /home/user * Output file: /home/user/github\_status.json * User ID: `zealt-user01` ## Integrations * Composio * GitHub   
+
+Pochi
+💭 Thinking for 100 characters   
+📂 Listing files in /home/user ✔ 
+💫 Executing pip show composio-core composio-openai 2>/dev/null; python3 -c "import composio; print(composio.__version__)" 2>/dev/null; pip list 2>/dev/null | grep -i composio ✔ 
+💫 Executing python3 -c "import composio; help(composio)" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "from composio import ComposioToolSet; ts = ComposioToolSet(); print(dir(ts))" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "from composio import Composio; c = Composio(); print(dir(c))" 2>&1 ✔ 
+💫 Executing python3 -c "from composio.sdk import Composio; help(Composio)" 2>&1 | head -100 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+print('tool_router:', dir(c.tool_router))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Check create_session / sessions
+tr = c.tool_router
+print(dir(tr))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# inspect create and use methods of tool_router
+import inspect
+print('create sig:', inspect.signature(c.tool_router.create))
+print('use sig:', inspect.signature(c.tool_router.use))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+import inspect
+# check connected_accounts
+print(dir(c.connected_accounts))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+import inspect
+# Check ToolRouterSession methods
+session = c.tool_router.create(user_id='zealt-user01', manage_connections=True)
+print(type(session))
+print(dir(session))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+import inspect
+session = c.tool_router.create(user_id='zealt-user01', manage_connections=True)
+# Check execute method signature
+print('execute sig:', inspect.signature(session.execute))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+session = c.tool_router.create(user_id='zealt-user01', manage_connections=True)
+# Try calling COMPOSIO_MANAGE_CONNECTIONS to list connections
+result = session.execute('COMPOSIO_MANAGE_CONNECTIONS', arguments={'action': 'LIST_CONNECTIONS'})
+print(result)
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+import inspect
+# Check connected_accounts.list signature
+print('list sig:', inspect.signature(c.connected_accounts.list))
+print('get sig:', inspect.signature(c.connected_accounts.get))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# Explore what tools session offers for manage_connections
+session = c.tool_router.create(user_id='zealt-user01', manage_connections=True)
+# Try fetching tools available
+tools = session.tools(toolkits=['composio_manage_connections'])
+print(type(tools))
+print(tools)
+" 2>&1 ✖ "Command exited with code 1"
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+# List connections using the SDK directly
+result = c.connected_accounts.list(user_ids=['zealt-user01'])
+print(type(result))
+print(dir(result))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+result = c.connected_accounts.list(user_ids=['zealt-user01'])
+print('items:', result.items)
+print('total:', result.total_items)
+" 2>&1 ✔ 
+Now I have a clear picture of the data. I can see there are GitHub connections for `zealt-user01`, with some `ACTIVE` and some `EXPIRED`. Let me now understand the expected approach - using `COMPOSIO_MANAGE_CONNECTIONS` meta tool via an LLM-based session. Let me look at how to properly invoke it through the tool router with an LLM.   
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+session = c.tool_router.create(user_id='zealt-user01', manage_connections=True)
+# List the tools available in the session
+import inspect
+print('tools sig:', inspect.signature(session.tools))
+tools = session.tools()
+print(type(tools))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+c = Composio()
+session = c.tool_router.create(user_id='zealt-user01', manage_connections=True)
+# List the tools available
+tools = session.tools()
+for t in tools:
+    print(t.get('function', {}).get('name',''))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+import json
+c = Composio()
+session = c.tool_router.create(user_id='zealt-user01', manage_connections=True)
+tools = session.tools()
+for t in tools:
+    if t.get('function', {}).get('name','') == 'COMPOSIO_MANAGE_CONNECTIONS':
+        print(json.dumps(t, indent=2))
+        break
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+import json
+c = Composio()
+session = c.tool_router.create(user_id='zealt-user01', manage_connections=True)
+# Try proxy_execute for COMPOSIO_MANAGE_CONNECTIONS
+import inspect
+print('proxy_execute sig:', inspect.signature(session.proxy_execute))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+import json
+c = Composio()
+session = c.tool_router.create(user_id='zealt-user01', manage_connections=True)
+# Try the authorize method to get manage connections context
+import inspect
+print('authorize sig:', inspect.signature(session.authorize))
+" 2>&1 ✔ 
+Now I have enough information. The `COMPOSIO_MANAGE_CONNECTIONS` meta tool can't be executed directly — it must be used via an LLM. The proper way to retrieve connection status is via `c.connected_accounts.list()`. I'll write the script to use the `COMPOSIO_MANAGE_CONNECTIONS` tool through an OpenAI-backed agent call, which is the intended SDK pattern, while falling back gracefully to directly call the API.   
+📋 Updating todo list (2 items) ✔ 
+💫 Executing python3 -c "
+import openai, os
+print('openai version:', openai.__version__)
+print('OPENAI_API_KEY set:', bool(os.environ.get('OPENAI_API_KEY')))
+print('COMPOSIO_API_KEY set:', bool(os.environ.get('COMPOSIO_API_KEY')))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+import json
+c = Composio()
+# Understand what execute returns for a meta tool - look at internal client
+import inspect
+# check the session_context
+session = c.tool_router.create(user_id='zealt-user01', manage_connections=True)
+print('session_id:', session.session_id)
+# Look at _client.tool_router to see available methods
+print(dir(c._client.tool_router))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+import json, inspect
+c = Composio()
+# Look at session resource methods
+print(dir(c._client.tool_router.session))
+print('execute sig:', inspect.signature(c._client.tool_router.session.execute))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+from composio import Composio
+import json, inspect
+c = Composio()
+# execute_meta exists!
+print('execute_meta sig:', inspect.signature(c._client.tool_router.session.execute_meta))
+" 2>&1 ✔ 
+`execute_meta` is exactly what we need. Now let me write the complete script:   
+✏️  Writing /home/user/check_github_connection.py ✔ 
+📋 Updating todo list (2 items) ✔ 
+💫 Executing cd /home/user && python3 check_github_connection.py 2>&1 | tee connection.log ✔ 
+The script ran successfully. Let me verify the output files:   
+💫 Executing cat /home/user/connection.log ✔ 
+💫 Executing python3 -c "
+import json
+with open('/home/user/github_status.json') as f:
+    data = json.load(f)
+print('user_id:', data['user_id'])
+print('toolkit:', data['toolkit'])
+conn = data.get('connection', {})
+print('connection id:', conn.get('id'))
+print('connection status:', conn.get('status'))
+print('connection alias:', conn.get('alias'))
+print('auth_scheme:', conn.get('authScheme'))
+print('JSON file size:', len(json.dumps(data)), 'chars')
+" ✔ 
+📋 Updating todo list (2 items) ✔ 
+🎉 Task Completed
+The script `/home/user/check_github_connection.py` has been written and executed successfully. Here's a summary of what was implemented:
+
+## Script: `/home/user/check_github_connection.py`
+
+**Flow:**
+1. **Creates a Composio session** for `zealt-user01` with `manage_connections=True` enabled on the tool router.
+2. **Calls `COMPOSIO_MANAGE_CONNECTIONS`** meta tool via `execute_meta()` (the correct internal SDK method for meta tools — direct `session.execute()` of meta tools is blocked by the API) with `toolkits: ["github"]`.
+3. **Lists all GitHub connections** for `zealt-user01` using `composio.connected_accounts.list()` and finds the first `ACTIVE` one.
+4. **Saves the full connection object** (plus the meta tool response) to `/home/user/github_status.json`.
+5. **Prints `"GitHub is connected"`** if the status is `ACTIVE`.
+
+## Results
+
+- **Console output / `/home/user/connection.log`:**
+  ```
+  Connecting to Composio for user: zealt-user01
+  Session created: trs_s6lpdYrO_fqK
+  Calling COMPOSIO_MANAGE_CONNECTIONS to list GitHub connections...
+  COMPOSIO_MANAGE_CONNECTIONS response received.
+  Connection details saved to /home/user/github_status.json
+  GitHub is connected
+  ```
+
+- **`/home/user/github_status.json`** contains:
+  - `user_id`: `zealt-user01`
+  - `toolkit`: `github`
+  - `connection.id`: `ca_go-dp4K5dOcl`
+  - `connection.status`: `ACTIVE`
+  - `connection.alias`: `personal-github`
+  - `connection.authScheme`: `BEARER_TOKEN`
+  - Full `manage_connections_response` from the meta tool
+
+The GitHub connection for `zealt-user01` is **ACTIVE** (alias: `personal-github`, BEARER_TOKEN auth scheme).   
+  

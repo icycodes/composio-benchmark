@@ -1,0 +1,46 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 8ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_github_issue_comment ___________________________
+
+    def test_github_issue_comment():
+        trial_id = get_trial_id()
+        repo_name = f"zealt-user01/issue-test-{trial_id}"
+    
+        # 1. Get issues with label 'bug'
+        result = subprocess.run([
+            "gh", "issue", "list", "--repo", repo_name, "--label", "bug", "--json", "number"
+        ], capture_output=True, text=True)
+        assert result.returncode == 0
+        issues = json.loads(result.stdout)
+        assert len(issues) > 0, "No issues with label 'bug' found."
+    
+        issue_number = issues[0]["number"]
+    
+        # 2. Verify comment on the issue
+        result = subprocess.run([
+            "gh", "issue", "view", str(issue_number), "--repo", repo_name, "--json", "comments"
+        ], capture_output=True, text=True)
+        assert result.returncode == 0
+        data = json.loads(result.stdout)
+        comments = data.get("comments", [])
+        expected_comment = f"Fixed in trial {trial_id}"
+        comment_bodies = [c.get("body") for c in comments]
+>       assert any(expected_comment in body for body in comment_bodies), f"Expected comment '{expected_comment}' not found on issue {issue_number}."
+E       AssertionError: Expected comment 'Fixed in trial github_label_commenter_python__R8htS4h' not found on issue 1.
+E       assert False
+E        +  where False = any(<generator object test_github_issue_comment.<locals>.<genexpr> at 0x7ff0ca873c60>)
+
+tests/test_final_state.py:33: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_github_issue_comment - AssertionError:...
+============================== 1 failed in 1.34s ===============================

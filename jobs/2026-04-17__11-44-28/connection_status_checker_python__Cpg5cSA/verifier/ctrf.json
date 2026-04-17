@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776401627.1036077,
+            "stop": 1776401627.112906
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_github_status_exists",
+                "status": "passed",
+                "duration": 0.00020435399892448913,
+                "start": 1776401627.1071641,
+                "stop": 1776401627.1074657,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_github_is_connected",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000315945999318501,
+                "start": 1776401627.1075563,
+                "stop": 1776401627.1128032,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_github_is_connected():\n        with open(\"/home/user/github_status.json\", \"r\") as f:\n            status = json.load(f)\n    \n        # Check for status 'CONNECTED' in the connection object\n        # The user should have saved the correct connection object\n>       assert \"CONNECTED\" in str(status).upper()\nE       assert 'CONNECTED' in \"{'TOOLKIT': 'GITHUB', 'STATUS': 'ACTIVE', 'HAS_ACTIVE_CONNECTION': TRUE, 'INSTRUCTION': 'CONNECTION FOR GITHUB IS ACT...TOR_AUTHENTICATION': FALSE, 'PLAN': {'NAME': 'FREE', 'SPACE': 976562499, 'COLLABORATORS': 0, 'PRIVATE_REPOS': 10000}}}\"\nE        +  where \"{'TOOLKIT': 'GITHUB', 'STATUS': 'ACTIVE', 'HAS_ACTIVE_CONNECTION': TRUE, 'INSTRUCTION': 'CONNECTION FOR GITHUB IS ACT...TOR_AUTHENTICATION': FALSE, 'PLAN': {'NAME': 'FREE', 'SPACE': 976562499, 'COLLABORATORS': 0, 'PRIVATE_REPOS': 10000}}}\" = <built-in method upper of str object at 0x28182680>()\nE        +    where <built-in method upper of str object at 0x28182680> = \"{'toolkit': 'github', 'status': 'active', 'has_active_connection': True, 'instruction': 'Connection for github is act...tor_authentication': False, 'plan': {'name': 'free', 'space': 976562499, 'collaborators': 0, 'private_repos': 10000}}}\".upper\nE        +      where \"{'toolkit': 'github', 'status': 'active', 'has_active_connection': True, 'instruction': 'Connection for github is act...tor_authentication': False, 'plan': {'name': 'free', 'space': 976562499, 'collaborators': 0, 'private_repos': 10000}}}\" = str({'auth_config_id': 'ac_sM4nCQS_5401', 'current_user_info': {'avatar_url': 'https://avatars.githubusercontent.com/u/275...nection': True, 'instruction': 'Connection for github is active. You can use it, no need to wait for connection.', ...})\n\ntests/test_final_state.py:14: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

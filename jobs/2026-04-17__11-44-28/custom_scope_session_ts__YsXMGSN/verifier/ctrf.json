@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776401324.3853297,
+            "stop": 1776401324.395607
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_session_config_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00029250299849081784,
+                "start": 1776401324.3892782,
+                "stop": 1776401324.39464,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_session_config_exists():\n>       assert os.path.isfile(\"/home/user/session_config.json\"), \"Session config file not found.\"\nE       AssertionError: Session config file not found.\nE       assert False\nE        +  where False = <function isfile at 0x7f4afe8e8220>('/home/user/session_config.json')\nE        +    where <function isfile at 0x7f4afe8e8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:6: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_session_scopes",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00018844700207409915,
+                "start": 1776401324.3947403,
+                "stop": 1776401324.3955245,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_session_scopes():\n>       with open(\"/home/user/session_config.json\", \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/session_config.json'\n\ntests/test_final_state.py:9: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

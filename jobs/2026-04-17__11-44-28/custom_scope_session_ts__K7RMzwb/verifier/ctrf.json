@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776401110.5906405,
+            "stop": 1776401110.6002028
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_session_config_exists",
+                "status": "passed",
+                "duration": 0.00019794299805653282,
+                "start": 1776401110.5946016,
+                "stop": 1776401110.5949016,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_session_scopes",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002608560007502092,
+                "start": 1776401110.5949962,
+                "stop": 1776401110.6001256,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_session_scopes():\n        with open(\"/home/user/session_config.json\", \"r\") as f:\n            config = json.load(f)\n    \n        # The structure might vary, but we look for the scopes\n        # Assuming the user saved the session config or the auth config part\n        gh_config = config.get(\"authConfigs\", {}).get(\"github\", {}) or config.get(\"github\", {})\n        scopes = gh_config.get(\"scopes\", [])\n    \n>       assert \"repo\" in scopes\nE       AssertionError: assert 'repo' in []\n\ntests/test_final_state.py:17: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

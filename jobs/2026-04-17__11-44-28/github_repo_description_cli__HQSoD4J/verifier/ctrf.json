@@ -1,0 +1,29 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776398846.9071846,
+            "stop": 1776398847.3399324
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_github_repo_description",
+                "status": "passed",
+                "duration": 0.4281660139995438,
+                "start": 1776398846.910928,
+                "stop": 1776398847.3394973,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

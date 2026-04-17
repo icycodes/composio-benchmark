@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776398089.3219476,
+            "stop": 1776398089.6474981
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_slack_channel_topic",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.3126674470004218,
+                "start": 1776398089.3262339,
+                "stop": 1776398089.6473777,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_slack_channel_topic():\n        trial_id = get_trial_id()\n        channel_name = f\"topic-test-{trial_id}\"\n        slack_token = os.environ[\"SLACK_TOKEN\"]\n    \n        # 1. Verify channel exists and check topic\n        result = subprocess.run([\n            \"curl\", \"-sS\", \"-H\", f\"Authorization: Bearer {slack_token}\",\n            \"https://slack.com/api/conversations.list?types=public_channel\"\n        ], capture_output=True, text=True)\n        assert result.returncode == 0\n        data = json.loads(result.stdout)\n        assert data.get(\"ok\"), f\"Slack API error: {data}\"\n    \n        channels = data.get(\"channels\", [])\n        channel = next((c for c in channels if c[\"name\"] == channel_name), None)\n>       assert channel is not None, f\"Slack channel {channel_name} not found.\"\nE       AssertionError: Slack channel topic-test-slack_channel_topic_python__DQELbkY not found.\nE       assert None is not None\n\ntests/test_final_state.py:26: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

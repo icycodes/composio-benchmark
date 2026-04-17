@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776399512.0626333,
+            "stop": 1776399512.4943595
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_github_file_content",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.015903128999525507,
+                "start": 1776399512.0674095,
+                "stop": 1776399512.0888903,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_github_file_content():\n        trial_id = get_trial_id()\n        repo_name = f\"zealt-user01/multi-test-{trial_id}\"\n    \n        result = subprocess.run([\n            \"gh\", \"file\", \"view\", \"harbor.txt\", \"--repo\", repo_name\n        ], capture_output=True, text=True)\n>       assert result.returncode == 0\nE       AssertionError: assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['gh', 'file', 'view', 'harbor.txt', '--repo', 'zealt-user01/multi-test-multi_execute_github_sla...\\n  project\\n  release\\n  repo\\n  ruleset\\n  run\\n  search\\n  secret\\n  ssh-key\\n  status\\n  variable\\n  workflow\\n\\n').returncode\n\ntests/test_final_state.py:17: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_slack_message",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.4035962979996839,
+                "start": 1776399512.089019,
+                "stop": 1776399512.4942608,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_slack_message():\n        trial_id = get_trial_id()\n        slack_token = os.environ[\"SLACK_TOKEN\"]\n    \n        # Get general channel ID\n        result = subprocess.run([\n            \"curl\", \"-sS\", \"-H\", f\"Authorization: Bearer {slack_token}\",\n            \"https://slack.com/api/conversations.list?types=public_channel\"\n        ], capture_output=True, text=True)\n        assert result.returncode == 0\n        data = json.loads(result.stdout)\n        channels = data.get(\"channels\", [])\n        general_channel = next((c for c in channels if c[\"name\"] == \"general\"), None)\n>       assert general_channel is not None\nE       assert None is not None\n\ntests/test_final_state.py:34: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

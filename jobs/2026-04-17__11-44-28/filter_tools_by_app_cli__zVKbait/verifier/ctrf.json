@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776400666.176026,
+            "stop": 1776400666.1933637
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_github_tools_log",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00032864700006030034,
+                "start": 1776400666.1869142,
+                "stop": 1776400666.1922603,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_github_tools_log():\n        assert os.path.isfile(GITHUB_LOG), \"GitHub tools log not found.\"\n        with open(GITHUB_LOG, \"r\") as f:\n            content = f.read().lower()\n>       assert \"github\" in content, \"GitHub tools log doesn't seem to contain GitHub tools.\"\nE       AssertionError: GitHub tools log doesn't seem to contain GitHub tools.\nE       assert 'github' in ''\n\ntests/test_final_state.py:11: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_slack_tools_log",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00023120499827200547,
+                "start": 1776400666.1923637,
+                "stop": 1776400666.1932845,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_slack_tools_log():\n        assert os.path.isfile(SLACK_LOG), \"Slack tools log not found.\"\n        with open(SLACK_LOG, \"r\") as f:\n            content = f.read().lower()\n>       assert \"slack\" in content, \"Slack tools log doesn't seem to contain Slack tools.\"\nE       AssertionError: Slack tools log doesn't seem to contain Slack tools.\nE       assert 'slack' in ''\n\ntests/test_final_state.py:18: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

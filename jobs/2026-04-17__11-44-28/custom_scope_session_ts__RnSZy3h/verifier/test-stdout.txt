@@ -1,0 +1,32 @@
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 13ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_session_scopes ______________________________
+
+    def test_session_scopes():
+        with open("/home/user/session_config.json", "r") as f:
+            config = json.load(f)
+    
+        # The structure might vary, but we look for the scopes
+        # Assuming the user saved the session config or the auth config part
+        gh_config = config.get("authConfigs", {}).get("github", {}) or config.get("github", {})
+        scopes = gh_config.get("scopes", [])
+    
+>       assert "repo" in scopes
+E       AssertionError: assert 'repo' in []
+
+tests/test_final_state.py:17: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_session_config_exists
+FAILED tests/test_final_state.py::test_session_scopes - AssertionError: asser...
+========================= 1 failed, 1 passed in 0.01s ==========================
